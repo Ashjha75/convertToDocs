@@ -1,0 +1,485 @@
+[
+  {
+    "Test Case ID": "BILLER-001",
+    "Test Case": "Verify that a Biller user can log in successfully.",
+    "Test Procedures/Steps": [
+      "1. Open a web browser and navigate to the application's login page.",
+      "2. Enter a valid Biller User email address into the 'Email Address' field.",
+      "3. Enter the corresponding valid password into the 'Password' field.",
+      "4. Click the 'Sign In' button."
+    ],
+    "Expected Outcome": "The user is successfully authenticated and redirected to the 'Biller Dashboard' screen. The Biller's business name (e.g., 'Kfc biller') should be visible at the top, and the welcome message should greet the user by name (e.g., 'Welcome, seyawok781')."
+  },
+  {
+    "Test Case ID": "BILLER-002",
+    "Test Case": "Verify that the Biller Dashboard displays the correct sidebar navigation for the 'My Business' section.",
+    "Test Procedures/Steps": [
+      "1. Successfully log in as a Biller user.",
+      "2. Observe the sidebar navigation menu on the left side of the screen."
+    ],
+    "Expected Outcome": "The sidebar should display a 'MY BUSINESS' section containing the following menu items: 'Dashboard', 'My Customers', 'My Bills', 'Payment History', and 'Notifications'."
+  },
+  {
+    "Test Case ID": "BILLER-003",
+    "Test Case": "Verify that the Biller Dashboard displays all primary KPI cards with correct data.",
+    "Test Procedures/Steps": [
+      "1. Log in as a Biller user.",
+      "2. Observe the four KPI (Key Performance Indicator) cards at the top of the dashboard."
+    ],
+    "Expected Outcome": "Four KPI cards should be visible:\n- 'Total Outstanding': Displays the total amount of money owed from all unpaid bills.\n- 'Total Overdue': Displays the total amount of money from bills that are past their due date.\n- 'Active Customers': Displays the total count of the biller's customers.\n- 'Payments This Month': Displays the total amount of money received in payments during the current month."
+  },
+  {
+    "Test Case ID": "BILLER-004",
+    "Test Case": "Verify that the 'Recent Activity' feed displays a chronological list of events.",
+    "Test Procedures/Steps": [
+      "1. Log in as a Biller user.",
+      "2. Observe the 'Recent Activity' feed on the main part of the dashboard."
+    ],
+    "Expected Outcome": "The feed should display a list of the most recent events related to the biller's account, such as 'New customer added', 'Bill #... created', and 'Payment of $... received'. Each item should have a corresponding timestamp, with the newest events at the top."
+  },
+  {
+    "Test Case ID": "BILLER-005",
+    "Test Case": "Verify that the 'Quick Actions' widget contains the correct navigation buttons.",
+    "Test Procedures/Steps": [
+      "1. Log in as a Biller user.",
+      "2. Observe the 'Quick Actions' widget on the right side of the dashboard."
+    ],
+    "Expected Outcome": "The widget should contain three distinct buttons:\n- '+ Add New Customer'\n- 'Create a New Bill'\n- 'Import Customers'"
+  },
+  {
+    "Test Case ID": "BILLER-006",
+    "Test Case": "Verify that the 'Add New Customer' button in Quick Actions navigates correctly.",
+    "Test Procedures/Steps": [
+      "1. Log in as a Biller user.",
+      "2. In the 'Quick Actions' widget, click the '+ Add New Customer' button."
+    ],
+    "Expected Outcome": "The user should be navigated to the 'My Customers' page, and the 'Add New Customer' modal (dialog box) should automatically open."
+  },
+  {
+    "Test Case ID": "BILLER-007",
+    "Test Case": "Verify that the 'Create a New Bill' button in Quick Actions navigates correctly.",
+    "Test Procedures/Steps": [
+      "1. Log in as a Biller user.",
+      "2. In the 'Quick Actions' widget, click the 'Create a New Bill' button."
+    ],
+    "Expected Outcome": "The user should be navigated to the 'My Bills' page, and the 'Create New Bill' modal (dialog box) should automatically open."
+  },
+  {
+    "Test Case ID": "BILLER-008",
+    "Test Case": "Verify that the 'Import Customers' button in Quick Actions navigates to the import page.",
+    "Test Procedures/Steps": [
+      "1. Log in as a Biller user.",
+      "2. In the 'Quick Actions' widget, click the 'Import Customers' button."
+    ],
+    "Expected Outcome": "The user should be successfully navigated to the 'Import Customers from a File' page."
+  },
+  {
+    "Test Case ID": "BILLER-009",
+    "Test Case": "Verify user can see the 'My Customers' page.",
+    "Test Procedures/Steps": [
+      "1. After logging in, look at the menu on the left side.",
+      "2. Click on 'My Customers'."
+    ],
+    "Expected Outcome": "The main screen changes to the 'My Customers' page. You should see a table with a list of your customers."
+  },
+  {
+    "Test Case ID": "BILLER-010",
+    "Test Case": "Verify user can search for a specific customer.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'My Customers' page.",
+      "2. Find the search box that says 'Search by Name, Account #, or Email'.",
+      "3. Type the name of a customer you know is in the list."
+    ],
+    "Expected Outcome": "The table should automatically update to show only the customer you searched for."
+  },
+  {
+    "Test Case ID": "BILLER-011",
+    "Test Case": "Verify the 'View' button goes to the customer's details page.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'My Customers' page.",
+      "2. In the table, find any customer.",
+      "3. In the 'Actions' column for that customer, click the 'View' icon (the eye symbol)."
+    ],
+    "Expected Outcome": "You are taken to a new page that shows all the details for that one customer, with their name in the title."
+  },
+  {
+    "Test Case ID": "BILLER-012",
+    "Test Case": "Verify user can open the 'Add New Customer' form.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'My Customers' page.",
+      "2. Click the '+ Add Customer' button at the top right."
+    ],
+    "Expected Outcome": "A small window pops up with the title 'Add New Customer'."
+  },
+  {
+    "Test Case ID": "BILLER-013",
+    "Test Case": "Verify user can add a new customer.",
+    "Test Procedures/Steps": [
+      "1. Open the 'Add New Customer' window.",
+      "2. Fill in the 'Full Name' and 'Account Number'.",
+      "3. Click the 'Save Customer' button."
+    ],
+    "Expected Outcome": "The pop-up window closes. The new customer you just added now appears in the main customer list."
+  },
+  {
+    "Test Case ID": "BILLER-014",
+    "Test Case": "Verify user can open the 'Edit Customer' form.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'My Customers' page.",
+      "2. In the table, find any customer.",
+      "3. In the 'Actions' column for that customer, click the 'Edit' icon (the pencil symbol)."
+    ],
+    "Expected Outcome": "A small window pops up with the title 'Edit Customer Details', and the customer's information is already filled in."
+  },
+  {
+    "Test Case ID": "BILLER-015",
+    "Test Case": "Verify user can edit a customer's information.",
+    "Test Procedures/Steps": [
+      "1. Open the 'Edit Customer Details' window for a customer.",
+      "2. Change the 'Phone Number' to a new number.",
+      "3. Click the 'Save Changes' button."
+    ],
+    "Expected Outcome": "The pop-up window closes. In the main customer list, the customer's phone number is now updated to the new one you entered."
+  },
+  {
+    "Test Case ID": "BILLER-016",
+    "Test Case": "Verify user can delete a customer.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'My Customers' page.",
+      "2. In the table, find a customer you want to delete.",
+      "3. In the 'Actions' column for that customer, click the 'Delete' icon (the trash can symbol).",
+      "4. A confirmation message will pop up. Click 'Confirm'."
+    ],
+    "Expected Outcome": "A success message appears, and the customer is permanently removed from the customer list."
+  },
+  {
+    "Test Case ID": "BILLER-017",
+    "Test Case": "Verify user can go to the 'Import Customers' page.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'My Customers' page.",
+      "2. Click the 'Import' button at the top right."
+    ],
+    "Expected Outcome": "You are taken to a new page with the title 'Import Customers from a File'."
+  },
+  {
+    "Test Case ID": "BILLER-018",
+    "Test Case": "Verify user can download the CSV template for importing.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'Import Customers from a File' page.",
+      "2. Click the 'Download .CSV Template' button."
+    ],
+    "Expected Outcome": "Your browser should download a file named 'customer_template.csv'."
+  },
+  {
+    "Test Case ID": "BILLER-019",
+    "Test Case": "Verify the Customer's 'Bills' tab is shown by default.",
+    "Test Procedures/Steps": [
+      "1. Go to the detailed profile page for any customer.",
+      "2. Look at the tabs below the customer's name."
+    ],
+    "Expected Outcome": "The 'Bills' tab is active, and a table showing the 'Bill History' for that customer is visible."
+  },
+  {
+    "Test Case ID": "BILLER-020",
+    "Test Case": "Verify user can switch to the 'Payments' tab.",
+    "Test Procedures/Steps": [
+      "1. Go to the detailed profile page for any customer.",
+      "2. Click on the 'Payments' tab."
+    ],
+    "Expected Outcome": "The screen updates to show the 'Transaction History' table, listing all payments made by that customer."
+  },
+  {
+    "Test Case ID": "BILLER-021",
+    "Test Case": "Verify user can view the fee breakdown for a payment.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'Payments' tab on a customer's profile page.",
+      "2. In the 'Transaction History' table, find a payment.",
+      "3. In the 'Details' column for that payment, click the 'View' icon (the eye symbol)."
+    ],
+    "Expected Outcome": "A pop-up window with the title 'Transaction Breakdown' appears, showing the details of the fees for that specific payment."
+  },
+  {
+    "Test Case ID": "BILLER-022",
+    "Test Case": "Verify user can see the 'My Bills' page.",
+    "Test Procedures/Steps": [
+      "1. After logging in, look at the menu on the left side.",
+      "2. Click on 'My Bills'."
+    ],
+    "Expected Outcome": "The main screen changes to the 'My Bills' page. You should see a table with a list of your bills and a section for 'Advanced Filters'."
+  },
+  {
+    "Test Case ID": "BILLER-023",
+    "Test Case": "Verify user can open and see the details of a bill in the list.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'My Bills' page.",
+      "2. In the table, find a bill.",
+      "3. Click the small down-arrow icon on the left side of the bill's row."
+    ],
+    "Expected Outcome": "An area should expand below the bill row, showing the 'Bill Details' with a breakdown of its line items (Description, Quantity, Unit Price, Total)."
+  },
+  {
+    "Test Case ID": "BILLER-024",
+    "Test Case": "Verify user can open the 'Create New Bill' form.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'My Bills' page.",
+      "2. Click the '+ Create Bill' button at the top right."
+    ],
+    "Expected Outcome": "A pop-up window with the title 'Create New Bill' appears. It should have fields for 'Customer', 'Invoice Number', 'Due Date', and a section for 'Line Items'."
+  },
+  {
+    "Test Case ID": "BILLER-025",
+    "Test Case": "Verify user can add a new bill with multiple line items.",
+    "Test Procedures/Steps": [
+      "1. Open the 'Create New Bill' window.",
+      "2. Select a customer from the 'Customer' dropdown.",
+      "3. Enter a unique 'Invoice Number' and a future 'Due Date'.",
+      "4. Fill in the 'Description', 'Quantity', and 'Unit Price' for the first line item.",
+      "5. Click the '+ Add Line' button to add a second line item.",
+      "6. Fill in the details for the second line item.",
+      "7. Click the 'Save Bill' button."
+    ],
+    "Expected Outcome": "The pop-up window closes. A success message appears, and the new bill is now visible in the 'My Bills' table."
+  },
+  {
+    "Test Case ID": "BILLER-026",
+    "Test Case": "Verify user can open the 'Edit Bill' form for an 'UNPAID' bill.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'My Bills' page.",
+      "2. Find a bill with the status 'UNPAID'.",
+      "3. In the 'Actions' column for that bill, click the 'Edit' icon (the pencil symbol)."
+    ],
+    "Expected Outcome": "A pop-up window with the title 'Edit Bill #[Invoice Number]' appears, with all the bill's information pre-filled."
+  },
+  {
+    "Test Case ID": "BILLER-027",
+    "Test Case": "Verify user can edit the details of an 'UNPAID' bill.",
+    "Test Procedures/Steps": [
+      "1. Open the 'Edit Bill' window for an 'UNPAID' bill.",
+      "2. Change the 'Due Date' to a different date.",
+      "3. Change the 'Unit Price' for a line item.",
+      "4. Click the 'Save Changes' button."
+    ],
+    "Expected Outcome": "The pop-up window closes. In the 'My Bills' list, the bill's due date and amount are now updated to the new values you entered."
+  },
+  {
+    "Test Case ID": "BILLER-028",
+    "Test Case": "Verify user can cancel an 'UNPAID' bill.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'My Bills' page.",
+      "2. Find a bill with the status 'UNPAID'.",
+      "3. In the 'Actions' column for that bill, click the 'Cancel' icon (the red X symbol).",
+      "4. A confirmation message will pop up. Click 'Confirm'."
+    ],
+    "Expected Outcome": "A success message appears, and the status of the bill in the table changes to 'CANCELLED'."
+  },
+  {
+    "Test Case ID": "BILLER-029",
+    "Test Case": "Verify user can go to the 'Import Bills' page.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'My Bills' page.",
+      "2. Click the 'Import Bills' button at the top right."
+    ],
+    "Expected Outcome": "You are taken to a new page with the title 'Import Bills from a File'."
+  },
+  {
+    "Test Case ID": "BILLER-030",
+    "Test Case": "Verify user can download the CSV template for importing bills.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'Import Bills from a File' page.",
+      "2. Click the 'Download Line Item .CSV Template' button."
+    ],
+    "Expected Outcome": "Your browser should download a file named 'bill_line_item_template.csv'."
+  },
+  {
+    "Test Case ID": "BILLER-031",
+    "Test Case": "Verify the 'View' button navigates to the detailed Invoice page.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'My Bills' page.",
+      "2. In the table, find any bill.",
+      "3. In the 'Actions' column for that bill, click the 'View' icon (the eye symbol)."
+    ],
+    "Expected Outcome": "You are taken to a new page that shows all the details for that one invoice, including 'Line Items' and 'Payment History'."
+  },
+  {
+    "Test Case ID": "BILLER-032",
+    "Test Case": "Verify the detailed Invoice page shows the correct 'Payment History'.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the detailed page for a bill that has been partially or fully paid.",
+      "2. Look at the 'Payment History' section at the bottom of the page."
+    ],
+    "Expected Outcome": "A table should list all payments that have been made towards this specific bill, showing the 'Date Paid', 'Transaction ID', 'Source', and 'Amount Applied'."
+  },
+  {
+    "Test Case ID": "BILLER-033",
+    "Test Case": "Verify user can see the 'Master Payment History' page.",
+    "Test Procedures/Steps": [
+      "1. After logging in, look at the menu on the left side.",
+      "2. Click on 'Payment History'."
+    ],
+    "Expected Outcome": "The main screen changes to the 'Master Payment History' page. You should see a 'Filters' section and a table listing all payments received, with columns like 'Date Paid', 'Transaction ID', 'Customer', etc."
+  },
+  {
+    "Test Case ID": "BILLER-034",
+    "Test Case": "Verify the user can filter the payment history by a specific customer.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'Master Payment History' page.",
+      "2. In the 'Filters' section, click the 'Customer' dropdown.",
+      "3. Select a specific customer from the list.",
+      "4. Click the 'Filter' button."
+    ],
+    "Expected Outcome": "The payment history table should update to show only the payments made by the selected customer."
+  },
+  {
+    "Test Case ID": "BILLER-035",
+    "Test Case": "Verify the user can filter the payment history by a specific date range.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'Master Payment History' page.",
+      "2. In the 'Filters' section, select a 'Date From' and a 'Date To' using the date pickers.",
+      "3. Click the 'Filter' button."
+    ],
+    "Expected Outcome": "The payment history table should update to show only the payments that were made within the selected date range."
+  },
+  {
+    "Test Case ID": "BILLER-036",
+    "Test Case": "Verify the 'Clear' button resets all filters.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'Master Payment History' page and apply any filter (e.g., select a customer).",
+      "2. Click the 'Clear' button."
+    ],
+    "Expected Outcome": "All filters should be reset to their default values (e.g., 'All Customers', 'All', and empty dates). The table should update to show all payments again."
+  },
+  {
+    "Test Case ID": "BILLER-037",
+    "Test Case": "Verify the user can view the 'Transaction Breakdown' for a payment from the master list.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'Master Payment History' page.",
+      "2. In the table, find a payment you want to inspect.",
+      "3. In the 'Details' column for that payment, click the 'View' icon (the eye symbol)."
+    ],
+    "Expected Outcome": "A pop-up window (modal) with the title 'Transaction Breakdown' appears. It should display a detailed breakdown of the payment, including 'Gross Amount Collected', 'Amount Applied to Bill', 'Bill Status', and the 'Platform Fee & GCT Breakdown'."
+  },
+  {
+    "Test Case ID": "BILLER-038",
+    "Test Case": "Verify user can see the 'Communication Settings' page.",
+    "Test Procedures/Steps": [
+      "1. After logging in, look at the menu on the left side.",
+      "2. Click on 'Notifications'."
+    ],
+    "Expected Outcome": "The main screen changes to the 'Communication Settings' page. You should see a section for 'Email Templates'."
+  },
+  {
+    "Test Case ID": "BILLER-039",
+    "Test Case": "Verify the 'Create Template' button opens the creation form.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'Communication Settings' page.",
+      "2. Click the '+ Create Template' button at the top right."
+    ],
+    "Expected Outcome": "A pop-up window with the title 'Create New Email Template' appears. It should have fields for 'Template Name', 'Email Subject', and 'Email Body'."
+  },
+  {
+    "Test Case ID": "BILLER-040",
+    "Test Case": "Verify the user can create a new email template.",
+    "Test Procedures/Steps": [
+      "1. Open the 'Create New Email Template' window.",
+      "2. Enter a unique name in the 'Template Name' field (e.g., 'First Payment Reminder').",
+      "3. Enter a subject in the 'Email Subject' field (e.g., 'A friendly reminder about your bill').",
+      "4. Enter content in the 'Email Body' field. You can use placeholders like {customer_name}.",
+      "5. Click the 'Save Template' button."
+    ],
+    "Expected Outcome": "The pop-up window closes. A success message appears, and the new template is now visible in the 'Email Templates' list on the main page."
+  },
+  {
+    "Test Case ID": "BILLER-041",
+    "Test Case": "Verify the user can open the 'Edit Email Template' form.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'Communication Settings' page.",
+      "2. In the 'Email Templates' list, find a template you want to edit.",
+      "3. Click the 'Edit' icon (the pencil symbol) next to that template."
+    ],
+    "Expected Outcome": "A pop-up window with the title 'Edit Email Template' appears, with all the template's information (Name, Subject, Body) already filled in."
+  },
+  {
+    "Test Case ID": "BILLER-042",
+    "Test Case": "Verify the user can edit an existing email template.",
+    "Test Procedures/Steps": [
+      "1. Open the 'Edit Email Template' window for a template.",
+      "2. Change the text in the 'Email Subject' field.",
+      "3. Click the 'Save Template' button."
+    ],
+    "Expected Outcome": "The pop-up window closes. On the 'Communication Settings' page, the template's subject is now updated to the new text you entered."
+  },
+  {
+    "Test Case ID": "BILLER-043",
+    "Test Case": "Verify the Biller user can navigate to the 'My Account' page.",
+    "Test Procedures/Steps": [
+      "1. Successfully log in as a Biller user.",
+      "2. In the top-right corner of the screen, click on the user avatar (the circle with the user's initial).",
+      "3. In the dropdown menu that appears, click on 'My Account'."
+    ],
+    "Expected Outcome": "The user is successfully navigated to the 'My Account Settings' page. Sections for 'Profile Details', 'Change Password', 'Two-Factor Authentication', and 'Active Sessions' should be visible."
+  },
+  {
+    "Test Case ID": "BILLER-044",
+    "Test Case": "Verify the 'Profile Details' section displays the correct user information.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'My Account' page.",
+      "2. Observe the 'Profile Details' card."
+    ],
+    "Expected Outcome": "The card should display the correct 'Full Name' and 'Email Address' for the currently logged-in Biller user."
+  },
+  {
+    "Test Case ID": "BILLER-045",
+    "Test Case": "Verify the Biller user can successfully change their password.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'My Account' page.",
+      "2. In the 'Change Password' card, enter the user's current valid password into the 'Current Password' field.",
+      "3. Enter a new, valid password into the 'New Password' field.",
+      "4. Re-enter the same new password into the 'Confirm New Password' field.",
+      "5. Click the 'Update Password' button (it should become clickable once all fields are valid)."
+    ],
+    "Expected Outcome": "A success message should appear, confirming the password has been changed. The fields in the 'Change Password' form should be cleared."
+  },
+  {
+    "Test Case ID": "BILLER-046",
+    "Test Case": "Verify the Biller user can enable Two-Factor Authentication (2FA).",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'My Account' page.",
+      "2. In the 'Two-Factor Authentication (2FA)' section, click the 'Enable Two-Factor Authentication' button.",
+      "3. A QR code should appear. Scan it with an authenticator app (like Google Authenticator).",
+      "4. Enter the 6-digit code from the app into the 'Verification Code' field.",
+      "5. Click the 'Verify & Enable' button."
+    ],
+    "Expected Outcome": "A success message should appear. The page should reload, and the 2FA section should now show that 2FA is 'ACTIVE'."
+  },
+  {
+    "Test Case ID": "BILLER-047",
+    "Test Case": "Verify the Biller user can see their active login sessions.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'My Account' page.",
+      "2. Scroll down to the 'Active Sessions' card."
+    ],
+    "Expected Outcome": "A list of active login sessions should be displayed. The 'CURRENT SESSION' should be clearly marked at the top. Other sessions should have a 'Revoke' button next to them."
+  },
+  {
+    "Test Case ID": "BILLER-048",
+    "Test Case": "Verify the Biller user can log out of all other sessions.",
+    "Test Procedures/Steps": [
+      "1. Log in to the application from two different browsers to create at least two sessions.",
+      "2. In one browser, navigate to the 'My Account' page.",
+      "3. Click the 'Logout Everywhere Else' button.",
+      "4. A confirmation message will pop up. Click 'Confirm'."
+    ],
+    "Expected Outcome": "A success message appears. The list of active sessions updates to show only the current session. The user in the other browser should be logged out."
+  },
+  {
+    "Test Case ID": "BILLER-049",
+    "Test Case": "Verify the Biller user can use the 'Forgot Password' feature.",
+    "Test Procedures/Steps": [
+      "1. Log out of the application.",
+      "2. On the login page, click the 'Forgot password?' link.",
+      "3. On the 'Forgot Your Password?' page, enter the Biller user's valid email address.",
+      "4. Click the 'Send Reset Link' button."
+    ],
+    "Expected Outcome": "A success message should appear on the screen. An email containing a unique password reset link should be received in the Biller user's inbox."
+  }
+]
