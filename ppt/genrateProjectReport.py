@@ -356,42 +356,25 @@ def create_table_slide(prs, slide_data):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     
     # Title
-    title_box = slide.shapes.add_textbox(Inches(0.5), Inches(0.3), Inches(9.0), Inches(0.5))
-    p = title_box.text_frame.paragraphs[0]
-    p.text = slide_data.get("title", "Modules & Deep Dive On Features")
-    p.font.name = "Arial"
-    p.font.size = Pt(36)
-    p.font.bold = True
-    p.font.color.rgb = RGBColor(0, 0, 0)
+    title_box = slide.shapes.add_textbox(Inches(0.65), Inches(0.25), Inches(8.7), Inches(0.7))
+    style_paragraph(
+        title_box.text_frame.paragraphs[0],
+        text=slide_data.get("title", "Modules & Deep Dive On Features"),
+        size=34,
+        bold=True,
+    )
     
     # Description box
     desc_text = slide_data.get("description", "")
     if desc_text:
-        from pptx.enum.shapes import MSO_SHAPE
-        desc_shape = slide.shapes.add_shape(
-            MSO_SHAPE.ROUNDED_RECTANGLE,
-            Inches(0.5), Inches(0.9),
-            Inches(9.0), Inches(0.4)
+        add_pill_text(
+            slide,
+            desc_text,
+            Inches(0.65),
+            Inches(0.95),
+            Inches(8.7),
+            Inches(0.65),
         )
-        desc_shape.fill.solid()
-        desc_shape.fill.fore_color.rgb = RGBColor(232, 233, 243)
-        desc_shape.line.fill.background()
-        
-        text_frame = desc_shape.text_frame
-        text_frame.clear()
-        text_frame.word_wrap = True
-        text_frame.margin_left = Inches(0.2)
-        text_frame.margin_right = Inches(0.2)
-        text_frame.margin_top = Inches(0.08)
-        text_frame.margin_bottom = Inches(0.08)
-        text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
-        
-        p = text_frame.paragraphs[0]
-        p.text = desc_text
-        p.font.name = "Arial"
-        p.font.size = Pt(10)
-        p.font.color.rgb = RGBColor(0, 0, 0)
-        p.alignment = PP_ALIGN.CENTER
     
     # Create table
     columns = slide_data.get("columns", [])
@@ -404,9 +387,9 @@ def create_table_slide(prs, slide_data):
     num_cols = len(columns)
     
     left = Inches(0.5)
-    top = Inches(1.5)
+    top = Inches(1.8)
     width = Inches(9.0)
-    height = Inches(3.7)
+    height = Inches(3.55)
     
     table_shape = slide.shapes.add_table(num_rows, num_cols, left, top, width, height)
     table = table_shape.table
@@ -420,27 +403,22 @@ def create_table_slide(prs, slide_data):
     for col_idx, header_text in enumerate(columns):
         cell = table.cell(0, col_idx)
         cell.fill.solid()
-        cell.fill.fore_color.rgb = RGBColor(243, 244, 246)
+        cell.fill.fore_color.rgb = PALETTE["card"]
         
         text_frame = cell.text_frame
         text_frame.clear()
         text_frame.margin_left = Inches(0.1)
         text_frame.margin_top = Inches(0.08)
-        
-        p = text_frame.paragraphs[0]
-        p.text = header_text
-        p.font.name = "Arial"
-        p.font.size = Pt(11)
-        p.font.bold = True
-        p.font.color.rgb = RGBColor(0, 0, 0)
+        text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
+        style_paragraph(text_frame.paragraphs[0], text=header_text, size=11, bold=True)
     
     # Data rows
     for row_idx, row in enumerate(rows_data, start=1):
         # Alternating colors
         if row_idx % 2 == 1:
-            row_fill = RGBColor(209, 213, 227)  # Light blue
+            row_fill = PALETTE["table_odd"]
         else:
-            row_fill = RGBColor(255, 255, 255)  # White
+            row_fill = PALETTE["table_even"]
         
         for col_idx in range(num_cols):
             cell = table.cell(row_idx, col_idx)
@@ -453,15 +431,18 @@ def create_table_slide(prs, slide_data):
             text_frame.margin_top = Inches(0.1)
             text_frame.margin_right = Inches(0.1)
             text_frame.word_wrap = True
+            text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
             
             value = row[col_idx] if isinstance(row, list) else row.get(columns[col_idx], "")
             
-            p = text_frame.paragraphs[0]
-            p.text = str(value)
-            p.font.name = "Arial"
-            p.font.size = Pt(9)
-            p.font.color.rgb = RGBColor(0, 0, 0)
-            p.line_spacing = 1.2
+            style_paragraph(
+                text_frame.paragraphs[0],
+                text=str(value),
+                size=11 if col_idx != 1 else 10,
+                color=PALETTE["ink"] if col_idx != 1 else PALETTE["muted"],
+                line_spacing=1.25,
+            )
+        table.rows[row_idx].height = Inches(0.7)
     
     # Add borders
     add_table_borders(table)
