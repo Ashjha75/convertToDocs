@@ -11,12 +11,62 @@ from pptx import Presentation
 from pptx.util import Inches, Pt
 from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
+from pptx.enum.shapes import MSO_SHAPE
 from pptx.oxml import parse_xml
 import os
 
 # Slide dimensions
 SLIDE_W = Inches(10)
 SLIDE_H = Inches(5.625)
+
+FONT_FAMILY = "Arial"
+
+PALETTE = {
+    "ink": RGBColor(21, 24, 31),
+    "muted": RGBColor(90, 98, 116),
+    "card": RGBColor(242, 244, 252),
+    "accent": RGBColor(122, 135, 255),
+    "table_even": RGBColor(255, 255, 255),
+    "table_odd": RGBColor(222, 228, 243),
+    "chip": RGBColor(232, 233, 243),
+}
+
+
+def style_paragraph(paragraph, *, text="", size=12, bold=False, color=None,
+                    align=None, line_spacing=1.2):
+    paragraph.text = text
+    paragraph.font.name = FONT_FAMILY
+    paragraph.font.size = Pt(size)
+    paragraph.font.bold = bold
+    paragraph.font.color.rgb = color or PALETTE["ink"]
+    paragraph.line_spacing = line_spacing
+    if align:
+        paragraph.alignment = align
+
+
+def add_pill_text(slide, text, left, top, width, height):
+    pill = slide.shapes.add_shape(
+        MSO_SHAPE.ROUNDED_RECTANGLE,
+        left,
+        top,
+        width,
+        height,
+    )
+    pill.fill.solid()
+    pill.fill.fore_color.rgb = PALETTE["chip"]
+    pill.line.fill.background()
+
+    frame = pill.text_frame
+    frame.clear()
+    frame.word_wrap = True
+    frame.margin_left = Inches(0.2)
+    frame.margin_right = Inches(0.2)
+    frame.margin_top = Inches(0.1)
+    frame.margin_bottom = Inches(0.1)
+    frame.vertical_anchor = MSO_ANCHOR.MIDDLE
+    style_paragraph(frame.paragraphs[0], text=text, size=11, color=PALETTE["ink"], align=PP_ALIGN.CENTER)
+    return pill
+
 
 def hex_to_rgb(hex_str):
     """Convert hex to RGB"""
@@ -55,78 +105,56 @@ def create_title_slide(prs, slide_data):
         except:
             print(f"Could not load logo: {right_logo}")
     
-    # Main title - big and bold
+    # Main title - bold with breathing room
     title_text = slide_data.get("title", "Project Report - Biller Management Portal")
-    title_box = slide.shapes.add_textbox(Inches(0.5), Inches(2.0), Inches(9.0), Inches(1.0))
-    text_frame = title_box.text_frame
-    text_frame.word_wrap = True
+    title_box = slide.shapes.add_textbox(Inches(0.65), Inches(1.4), Inches(8.7), Inches(1.7))
+    frame = title_box.text_frame
+    frame.word_wrap = True
+    style_paragraph(
+        frame.paragraphs[0],
+        text=title_text,
+        size=44,
+        bold=True,
+        color=PALETTE["ink"],
+        line_spacing=1.15,
+    )
     
-    p = text_frame.paragraphs[0]
-    p.text = title_text
-    p.font.name = "Arial"
-    p.font.size = Pt(40)
-    p.font.bold = True
-    p.font.color.rgb = RGBColor(0, 0, 0)
-    p.line_spacing = 1.1
-    
-    # Subtitle - smaller and gray
+    # Subtitle chip - keeps copy contained
     subtitle_text = slide_data.get("subtitle", "")
     if subtitle_text:
-        subtitle_box = slide.shapes.add_textbox(Inches(0.5), Inches(3.2), Inches(9.0), Inches(0.7))
-        text_frame = subtitle_box.text_frame
-        text_frame.word_wrap = True
-        
-        p = text_frame.paragraphs[0]
-        p.text = subtitle_text
-        p.font.name = "Arial"
-        p.font.size = Pt(11)
-        p.font.bold = False
-        p.font.color.rgb = RGBColor(100, 100, 100)
-        p.line_spacing = 1.3
+        add_pill_text(
+            slide,
+            subtitle_text,
+            Inches(0.65),
+            Inches(3.0),
+            Inches(8.7),
+            Inches(0.9),
+        )
 
 def create_timeline_slide(prs, slide_data):
     """Timeline slide with table"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     
     # Title
-    title_box = slide.shapes.add_textbox(Inches(0.5), Inches(0.3), Inches(9.0), Inches(0.5))
-    p = title_box.text_frame.paragraphs[0]
-    p.text = slide_data.get("title", "Project Timeline & Current Status")
-    p.font.name = "Arial"
-    p.font.size = Pt(36)
-    p.font.bold = True
-    p.font.color.rgb = RGBColor(0, 0, 0)
+    title_box = slide.shapes.add_textbox(Inches(0.65), Inches(0.25), Inches(8.7), Inches(0.7))
+    style_paragraph(
+        title_box.text_frame.paragraphs[0],
+        text=slide_data.get("title", "Project Timeline & Current Status"),
+        size=34,
+        bold=True,
+    )
     
-    # Description box - light purple/blue background
+    # Description box - pill style for clarity
     desc_text = slide_data.get("description", "")
     if desc_text:
-        # Add rounded rectangle shape
-        from pptx.enum.shapes import MSO_SHAPE
-        desc_shape = slide.shapes.add_shape(
-            MSO_SHAPE.ROUNDED_RECTANGLE,
-            Inches(0.5), Inches(0.9),
-            Inches(9.0), Inches(0.5)
+        add_pill_text(
+            slide,
+            desc_text,
+            Inches(0.65),
+            Inches(0.95),
+            Inches(8.7),
+            Inches(0.75),
         )
-        desc_shape.fill.solid()
-        desc_shape.fill.fore_color.rgb = RGBColor(232, 233, 243)  # Light purple-blue
-        desc_shape.line.fill.background()  # No border
-        
-        # Add text to shape
-        text_frame = desc_shape.text_frame
-        text_frame.clear()
-        text_frame.word_wrap = True
-        text_frame.margin_left = Inches(0.2)
-        text_frame.margin_right = Inches(0.2)
-        text_frame.margin_top = Inches(0.1)
-        text_frame.margin_bottom = Inches(0.1)
-        text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
-        
-        p = text_frame.paragraphs[0]
-        p.text = desc_text
-        p.font.name = "Arial"
-        p.font.size = Pt(10)
-        p.font.color.rgb = RGBColor(0, 0, 0)
-        p.alignment = PP_ALIGN.CENTER
     
     # Create table
     rows_data = slide_data.get("rows", [])
@@ -139,9 +167,9 @@ def create_timeline_slide(prs, slide_data):
     
     # Create table at position
     left = Inches(0.5)
-    top = Inches(1.6)
+    top = Inches(1.8)
     width = Inches(9.0)
-    height = Inches(3.5)
+    height = Inches(3.35)
     
     shapes = slide.shapes
     table_shape = shapes.add_table(num_rows, num_cols, left, top, width, height)
@@ -160,20 +188,15 @@ def create_timeline_slide(prs, slide_data):
         
         # Header background - light gray
         cell.fill.solid()
-        cell.fill.fore_color.rgb = RGBColor(243, 244, 246)
+        cell.fill.fore_color.rgb = PALETTE["card"]
         
         # Header text
         text_frame = cell.text_frame
         text_frame.clear()
         text_frame.margin_left = Inches(0.1)
         text_frame.margin_top = Inches(0.08)
-        
-        p = text_frame.paragraphs[0]
-        p.text = header_text
-        p.font.name = "Arial"
-        p.font.size = Pt(11)
-        p.font.bold = True
-        p.font.color.rgb = RGBColor(0, 0, 0)
+        text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
+        style_paragraph(text_frame.paragraphs[0], text=header_text, size=11, bold=True)
     
     # Fill data rows
     for row_idx, row_data in enumerate(rows_data, start=1):
@@ -184,15 +207,17 @@ def create_timeline_slide(prs, slide_data):
         
         # Alternating row colors - LIGHT BLUE for odd, WHITE for even
         if row_idx % 2 == 1:  # Odd rows
-            row_fill = RGBColor(209, 213, 227)  # Light blue
+            row_fill = PALETTE["table_odd"]
         else:  # Even rows
-            row_fill = RGBColor(255, 255, 255)  # White
+            row_fill = PALETTE["table_even"]
         
         # Apply background to all cells in row
         for col_idx in range(num_cols):
             cell = table.cell(row_idx, col_idx)
             cell.fill.solid()
             cell.fill.fore_color.rgb = row_fill
+            cell.text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
+        table.rows[row_idx].height = Inches(0.65)
         
         # Phase column
         cell = table.cell(row_idx, 0)
@@ -200,11 +225,7 @@ def create_timeline_slide(prs, slide_data):
         text_frame.clear()
         text_frame.margin_left = Inches(0.1)
         text_frame.margin_top = Inches(0.08)
-        p = text_frame.paragraphs[0]
-        p.text = phase
-        p.font.name = "Arial"
-        p.font.size = Pt(10)
-        p.font.color.rgb = RGBColor(0, 0, 0)
+        style_paragraph(text_frame.paragraphs[0], text=phase, size=11, color=PALETTE["ink"])
         
         # Timeline column
         cell = table.cell(row_idx, 1)
@@ -212,11 +233,7 @@ def create_timeline_slide(prs, slide_data):
         text_frame.clear()
         text_frame.margin_left = Inches(0.1)
         text_frame.margin_top = Inches(0.08)
-        p = text_frame.paragraphs[0]
-        p.text = timeline
-        p.font.name = "Arial"
-        p.font.size = Pt(10)
-        p.font.color.rgb = RGBColor(0, 0, 0)
+        style_paragraph(text_frame.paragraphs[0], text=timeline, size=11)
         
         # Status column - with color coding
         cell = table.cell(row_idx, 2)
@@ -245,9 +262,7 @@ def create_timeline_slide(prs, slide_data):
             p.text = status
             status_color = RGBColor(0, 0, 0)
         
-        p.font.name = "Arial"
-        p.font.size = Pt(10)
-        p.font.color.rgb = status_color
+        style_paragraph(p, text=p.text, size=11, color=status_color)
         
         # Notes column
         cell = table.cell(row_idx, 3)
@@ -256,13 +271,7 @@ def create_timeline_slide(prs, slide_data):
         text_frame.margin_left = Inches(0.1)
         text_frame.margin_top = Inches(0.08)
         text_frame.word_wrap = True
-        
-        p = text_frame.paragraphs[0]
-        p.text = notes
-        p.font.name = "Arial"
-        p.font.size = Pt(9)
-        p.font.color.rgb = RGBColor(80, 80, 80)
-        p.line_spacing = 1.2
+        style_paragraph(text_frame.paragraphs[0], text=notes, size=10, color=PALETTE["muted"], line_spacing=1.3)
     
     # Add borders to table
     add_table_borders(table)
@@ -272,42 +281,25 @@ def create_three_column_slide(prs, slide_data):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     
     # Title
-    title_box = slide.shapes.add_textbox(Inches(0.5), Inches(0.3), Inches(9.0), Inches(0.5))
-    p = title_box.text_frame.paragraphs[0]
-    p.text = slide_data.get("title", "Our Solution: A Unified Three Pillar Platform")
-    p.font.name = "Arial"
-    p.font.size = Pt(36)
-    p.font.bold = True
-    p.font.color.rgb = RGBColor(0, 0, 0)
+    title_box = slide.shapes.add_textbox(Inches(0.65), Inches(0.25), Inches(8.7), Inches(0.7))
+    style_paragraph(
+        title_box.text_frame.paragraphs[0],
+        text=slide_data.get("title", "Our Solution: A Unified Three Pillar Platform"),
+        size=34,
+        bold=True,
+    )
     
     # Description box
     desc_text = slide_data.get("description", "")
     if desc_text:
-        from pptx.enum.shapes import MSO_SHAPE
-        desc_shape = slide.shapes.add_shape(
-            MSO_SHAPE.ROUNDED_RECTANGLE,
-            Inches(0.5), Inches(0.9),
-            Inches(9.0), Inches(0.5)
+        add_pill_text(
+            slide,
+            desc_text,
+            Inches(0.65),
+            Inches(0.95),
+            Inches(8.7),
+            Inches(0.75),
         )
-        desc_shape.fill.solid()
-        desc_shape.fill.fore_color.rgb = RGBColor(232, 233, 243)
-        desc_shape.line.fill.background()
-        
-        text_frame = desc_shape.text_frame
-        text_frame.clear()
-        text_frame.word_wrap = True
-        text_frame.margin_left = Inches(0.2)
-        text_frame.margin_right = Inches(0.2)
-        text_frame.margin_top = Inches(0.1)
-        text_frame.margin_bottom = Inches(0.1)
-        text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
-        
-        p = text_frame.paragraphs[0]
-        p.text = desc_text
-        p.font.name = "Arial"
-        p.font.size = Pt(10)
-        p.font.color.rgb = RGBColor(0, 0, 0)
-        p.alignment = PP_ALIGN.CENTER
     
     # Three columns
     columns = slide_data.get("columns", [])
@@ -317,43 +309,47 @@ def create_three_column_slide(prs, slide_data):
     col_width = Inches(2.8)
     col_gap = Inches(0.3)
     start_x = Inches(0.5)
-    start_y = Inches(1.6)
+    start_y = Inches(1.8)
+    card_height = Inches(3.4)
     
     for i, col_data in enumerate(columns):
         x_pos = start_x + i * (col_width + col_gap)
+        card = slide.shapes.add_shape(
+            MSO_SHAPE.ROUNDED_RECTANGLE,
+            x_pos,
+            start_y,
+            col_width,
+            card_height,
+        )
+        card.fill.solid()
+        card.fill.fore_color.rgb = PALETTE["card"]
+        card.line.color.rgb = PALETTE["card"]
+        card.shadow.inherit = False
         
-        # Column heading - bold
-        heading_box = slide.shapes.add_textbox(x_pos, start_y, col_width, Inches(0.4))
-        text_frame = heading_box.text_frame
-        text_frame.word_wrap = True
+        heading_box = slide.shapes.add_textbox(x_pos + Inches(0.2), start_y + Inches(0.15), col_width - Inches(0.4), Inches(0.6))
+        heading_box.text_frame.word_wrap = True
+        style_paragraph(
+            heading_box.text_frame.paragraphs[0],
+            text=col_data.get("heading", ""),
+            size=14,
+            bold=True,
+        )
         
-        p = text_frame.paragraphs[0]
-        p.text = col_data.get("heading", "")
-        p.font.name = "Arial"
-        p.font.size = Pt(13)
-        p.font.bold = True
-        p.font.color.rgb = RGBColor(0, 0, 0)
-        p.line_spacing = 1.1
-        
-        # Bullet points
         bullets = col_data.get("bullets", [])
-        bullets_box = slide.shapes.add_textbox(x_pos, start_y + Inches(0.5), col_width, Inches(3.3))
+        bullets_box = slide.shapes.add_textbox(
+            x_pos + Inches(0.2),
+            start_y + Inches(0.9),
+            col_width - Inches(0.4),
+            card_height - Inches(1.05),
+        )
         text_frame = bullets_box.text_frame
         text_frame.word_wrap = True
         text_frame.clear()
         
         for idx, bullet_text in enumerate(bullets):
-            if idx == 0:
-                p = text_frame.paragraphs[0]
-            else:
-                p = text_frame.add_paragraph()
-            
-            p.text = bullet_text
-            p.font.name = "Arial"
-            p.font.size = Pt(9)
-            p.font.color.rgb = RGBColor(0, 0, 0)
-            p.space_after = Pt(12)
-            p.line_spacing = 1.2
+            paragraph = text_frame.paragraphs[0] if idx == 0 else text_frame.add_paragraph()
+            style_paragraph(paragraph, text=bullet_text, size=10, color=PALETTE["muted"], line_spacing=1.35)
+            paragraph.space_after = Pt(6)
 
 def create_table_slide(prs, slide_data):
     """Features table slide"""
