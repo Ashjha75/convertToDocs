@@ -10,7 +10,7 @@ from pathlib import Path
 from pptx import Presentation
 from pptx.util import Inches, Pt
 from pptx.dml.color import RGBColor
-from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
+from pptx.enum.text import PP_ALIGN, MSO_ANCHOR, MSO_AUTO_SIZE
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.oxml import parse_xml
 import os
@@ -167,9 +167,9 @@ def create_timeline_slide(prs, slide_data):
     
     # Create table at position
     left = Inches(0.5)
-    top = Inches(1.8)
+    top = Inches(1.75)
     width = Inches(9.0)
-    height = Inches(3.35)
+    height = Inches(3.05)
     
     shapes = slide.shapes
     table_shape = shapes.add_table(num_rows, num_cols, left, top, width, height)
@@ -196,7 +196,7 @@ def create_timeline_slide(prs, slide_data):
         text_frame.margin_left = Inches(0.1)
         text_frame.margin_top = Inches(0.08)
         text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
-        style_paragraph(text_frame.paragraphs[0], text=header_text, size=11, bold=True)
+        style_paragraph(text_frame.paragraphs[0], text=header_text, size=10.5, bold=True)
     
     # Fill data rows
     for row_idx, row_data in enumerate(rows_data, start=1):
@@ -217,7 +217,7 @@ def create_timeline_slide(prs, slide_data):
             cell.fill.solid()
             cell.fill.fore_color.rgb = row_fill
             cell.text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
-        table.rows[row_idx].height = Inches(0.65)
+        table.rows[row_idx].height = Inches(0.55)
         
         # Phase column
         cell = table.cell(row_idx, 0)
@@ -225,7 +225,7 @@ def create_timeline_slide(prs, slide_data):
         text_frame.clear()
         text_frame.margin_left = Inches(0.1)
         text_frame.margin_top = Inches(0.08)
-        style_paragraph(text_frame.paragraphs[0], text=phase, size=11, color=PALETTE["ink"])
+        style_paragraph(text_frame.paragraphs[0], text=phase, size=10.5, color=PALETTE["ink"], line_spacing=1.15)
         
         # Timeline column
         cell = table.cell(row_idx, 1)
@@ -233,7 +233,7 @@ def create_timeline_slide(prs, slide_data):
         text_frame.clear()
         text_frame.margin_left = Inches(0.1)
         text_frame.margin_top = Inches(0.08)
-        style_paragraph(text_frame.paragraphs[0], text=timeline, size=11)
+        style_paragraph(text_frame.paragraphs[0], text=timeline, size=10.5, line_spacing=1.15)
         
         # Status column - with color coding
         cell = table.cell(row_idx, 2)
@@ -262,7 +262,7 @@ def create_timeline_slide(prs, slide_data):
             p.text = status
             status_color = RGBColor(0, 0, 0)
         
-        style_paragraph(p, text=p.text, size=11, color=status_color)
+        style_paragraph(p, text=p.text, size=10.5, color=status_color)
         
         # Notes column
         cell = table.cell(row_idx, 3)
@@ -271,7 +271,7 @@ def create_timeline_slide(prs, slide_data):
         text_frame.margin_left = Inches(0.1)
         text_frame.margin_top = Inches(0.08)
         text_frame.word_wrap = True
-        style_paragraph(text_frame.paragraphs[0], text=notes, size=10, color=PALETTE["muted"], line_spacing=1.3)
+        style_paragraph(text_frame.paragraphs[0], text=notes, size=9.5, color=PALETTE["muted"], line_spacing=1.25)
     
     # Add borders to table
     add_table_borders(table)
@@ -309,8 +309,8 @@ def create_three_column_slide(prs, slide_data):
     col_width = Inches(2.8)
     col_gap = Inches(0.3)
     start_x = Inches(0.5)
-    start_y = Inches(1.8)
-    card_height = Inches(3.4)
+    start_y = Inches(1.6)
+    card_height = Inches(3.1)
     
     for i, col_data in enumerate(columns):
         x_pos = start_x + i * (col_width + col_gap)
@@ -326,21 +326,21 @@ def create_three_column_slide(prs, slide_data):
         card.line.color.rgb = PALETTE["card"]
         card.shadow.inherit = False
         
-        heading_box = slide.shapes.add_textbox(x_pos + Inches(0.2), start_y + Inches(0.15), col_width - Inches(0.4), Inches(0.6))
+        heading_box = slide.shapes.add_textbox(x_pos + Inches(0.22), start_y + Inches(0.12), col_width - Inches(0.44), Inches(0.55))
         heading_box.text_frame.word_wrap = True
         style_paragraph(
             heading_box.text_frame.paragraphs[0],
             text=col_data.get("heading", ""),
-            size=14,
+            size=13,
             bold=True,
         )
         
         bullets = col_data.get("bullets", [])
         bullets_box = slide.shapes.add_textbox(
-            x_pos + Inches(0.2),
-            start_y + Inches(0.9),
-            col_width - Inches(0.4),
-            card_height - Inches(1.05),
+            x_pos + Inches(0.22),
+            start_y + Inches(0.8),
+            col_width - Inches(0.44),
+            card_height - Inches(0.95),
         )
         text_frame = bullets_box.text_frame
         text_frame.word_wrap = True
@@ -348,8 +348,8 @@ def create_three_column_slide(prs, slide_data):
         
         for idx, bullet_text in enumerate(bullets):
             paragraph = text_frame.paragraphs[0] if idx == 0 else text_frame.add_paragraph()
-            style_paragraph(paragraph, text=bullet_text, size=10, color=PALETTE["muted"], line_spacing=1.35)
-            paragraph.space_after = Pt(6)
+            style_paragraph(paragraph, text=bullet_text, size=9.2, color=PALETTE["muted"], line_spacing=1.25)
+            paragraph.space_after = Pt(4)
 
 def create_table_slide(prs, slide_data):
     """Features table slide"""
@@ -387,9 +387,9 @@ def create_table_slide(prs, slide_data):
     num_cols = len(columns)
     
     left = Inches(0.5)
-    top = Inches(1.8)
+    top = Inches(1.75)
     width = Inches(9.0)
-    height = Inches(3.55)
+    height = Inches(3.25)
     
     table_shape = slide.shapes.add_table(num_rows, num_cols, left, top, width, height)
     table = table_shape.table
@@ -410,7 +410,7 @@ def create_table_slide(prs, slide_data):
         text_frame.margin_left = Inches(0.1)
         text_frame.margin_top = Inches(0.08)
         text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
-        style_paragraph(text_frame.paragraphs[0], text=header_text, size=11, bold=True)
+        style_paragraph(text_frame.paragraphs[0], text=header_text, size=10.5, bold=True)
     
     # Data rows
     for row_idx, row in enumerate(rows_data, start=1):
@@ -427,9 +427,9 @@ def create_table_slide(prs, slide_data):
             
             text_frame = cell.text_frame
             text_frame.clear()
-            text_frame.margin_left = Inches(0.1)
-            text_frame.margin_top = Inches(0.1)
-            text_frame.margin_right = Inches(0.1)
+            text_frame.margin_left = Inches(0.08)
+            text_frame.margin_top = Inches(0.08)
+            text_frame.margin_right = Inches(0.08)
             text_frame.word_wrap = True
             text_frame.vertical_anchor = MSO_ANCHOR.MIDDLE
             
@@ -438,11 +438,11 @@ def create_table_slide(prs, slide_data):
             style_paragraph(
                 text_frame.paragraphs[0],
                 text=str(value),
-                size=11 if col_idx != 1 else 10,
+                size=10 if col_idx != 1 else 9.2,
                 color=PALETTE["ink"] if col_idx != 1 else PALETTE["muted"],
-                line_spacing=1.25,
+                line_spacing=1.2,
             )
-        table.rows[row_idx].height = Inches(0.7)
+        table.rows[row_idx].height = Inches(0.6)
     
     # Add borders
     add_table_borders(table)
