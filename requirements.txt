@@ -6,3 +6,8 @@ Pillow>=10.0.0
 cairocffi>=1.6.0
 cffi>=1.16.0
 python-pptx>=0.6.21
+#
+# To install core PPTX dependencies:
+#   pip install python-pptx Pillow
+#
+# For best results, ensure the target machine (where you open the PPTX) has Arial installed for exact rendering.
