@@ -1,0 +1,246 @@
+{
+  "presentation": {
+    "title": "Biller Management - Full Reference Deck",
+    "author": "Product & Engineering",
+    "date": "2025-11-18T00:00:00Z",
+    "style": "Biller_Default_From_Screenshots",
+    "slide_size": "16:9",
+    "default_locale": "en-US"
+  },
+  "slides": [
+    {
+      "id": "s-title",
+      "type": "title",
+      "title": "Biller Management — Project Overview",
+      "subtitle": "Standardized Onboarding • Admin & Biller Portals • Partner API",
+      "left_logo": "assets/logos/supreme-ventures.png",
+      "right_logo": "assets/logos/newfields.png",
+      "notes": "Use this cover slide for executive introductions. Keep logos at 22% and 15% max widths."
+    },
+    {
+      "id": "s-section-1",
+      "type": "section_header",
+      "title": "Executive Summary",
+      "info_bar": "Completed: Requirements & UI Design • In progress: Onboarding Development",
+      "notes": "One-sentence status and highlight key stakeholders."
+    },
+    {
+      "id": "s-three-col-1",
+      "type": "three_column",
+      "columns": [
+        {
+          "icon": "assets/icons/admin.png",
+          "heading": "Administrator Portal",
+          "bullets": [
+            "Role & permission management",
+            "Biller approvals & auditing",
+            "Platform-wide KPI dashboards"
+          ]
+        },
+        {
+          "icon": "assets/icons/biller.png",
+          "heading": "Biller Portal",
+          "bullets": [
+            "Customer onboarding & CSV import",
+            "Bill creation, edit & cancellation",
+            "Payment history and reconciliation"
+          ]
+        },
+        {
+          "icon": "assets/icons/api.png",
+          "heading": "Partner API",
+          "bullets": [
+            "API Key management",
+            "Versioned endpoints (v1)",
+            "Synchronous and webhook notifications"
+          ]
+        }
+      ],
+      "notes": "Three-column feature summary — icons are PNG fallback of SVG."
+    },
+    {
+      "id": "s-two-col-1",
+      "type": "two_column",
+      "left": {
+        "type": "text",
+        "title": "Quick Summary",
+        "paragraphs": [
+          "This release focuses on onboarding standardization and the administrative controls required to manage billers at scale.",
+          "Highlights include role-based access control, audit trails, and API client management for partners."
+        ]
+      },
+      "right": {
+        "type": "image",
+        "src": "assets/screenshots/admin-dashboard.png",
+        "caption": "Admin Dashboard — KPI snapshot"
+      },
+      "notes": "Use right column image at 45% width; crop if necessary."
+    },
+    {
+      "id": "s-table-1",
+      "type": "table",
+      "title": "Proposed Project Timeline",
+      "columns": ["Phase", "Timeline", "Status", "Owner", "Notes"],
+      "rows": [
+        ["Requirements & UI Design", "2025-09-29 → 2025-10-12", "Completed", "UX Team", "All core UI/UX designs completed"],
+        ["Onboarding Development", "2025-10-06 → 2025-11-16", "In Progress", "Backend Team", "Multi-step onboarding wizard implemented"],
+        ["mPOS & Desktop", "2025-10-13 → 2025-11-30", "In Progress", "Platform Team", "mPOS integration ongoing"],
+        ["Security & Hardening", "2025-11-01 → 2025-11-20", "Planned", "SecOps", "Pen tests scheduled"],
+        ["Stakeholder UAT", "2025-11-24 → 2025-12-08", "Planned", "QA Team", "UAT environments provisioned"]
+      ],
+      "striped": true,
+      "max_rows_per_slide": 10,
+      "notes": "Table uses header bg and row stripes; split if rows exceed max_rows_per_slide."
+    },
+    {
+      "id": "s-timeline-1",
+      "type": "timeline",
+      "title": "High-Level Timeline & Status",
+      "rows": [
+        {
+          "phase": "Requirements & UI Design",
+          "timeline": "29 Sep - 12 Oct 2025",
+          "status": "completed",
+          "notes": "Design sign-off completed; prototype validated by stakeholders"
+        },
+        {
+          "phase": "Onboarding Development",
+          "timeline": "6 Oct - 16 Nov 2025",
+          "status": "in_progress",
+          "notes": "Core onboarding flows are feature-complete; edge-cases pending"
+        },
+        {
+          "phase": "Integration & mPOS",
+          "timeline": "13 Oct - 30 Nov 2025",
+          "status": "in_progress",
+          "notes": "Partner API testing underway"
+        },
+        {
+          "phase": "UAT & Release",
+          "timeline": "24 Nov - 08 Dec 2025",
+          "status": "not_started",
+          "notes": "Prepare release checklist and rollback plan"
+        }
+      ],
+      "status_legend": {
+        "completed": "green",
+        "in_progress": "blue",
+        "partial": "yellow",
+        "not_started": "red"
+      },
+      "notes": "Use status_icons mapping from style.json; show legend bottom-left."
+    },
+    {
+      "id": "s-image-full-1",
+      "type": "image_full",
+      "src": "assets/architecture/system-architecture.png",
+      "caption": "System Architecture — high level",
+      "fit": "contain",
+      "notes": "Full-width image slide. Prefer SVG or 300 DPI PNG for print."
+    },
+    {
+      "id": "s-image-left-text",
+      "type": "image_left_text_right",
+      "image": {
+        "src": "assets/screenshots/biller-dashboard.png",
+        "width_pct": 45
+      },
+      "text": {
+        "title": "Biller Dashboard Highlights",
+        "bullets": [
+          "Total Outstanding & Overdues KPI",
+          "Active Customers and Monthly Payments",
+          "Quick Actions: Add Customer, Create Bill, Import"
+        ]
+      },
+      "notes": "Image left, text right layout — keep image at 45% width."
+    },
+    {
+      "id": "s-bullets-1",
+      "type": "bullets",
+      "title": "Top Risks & Mitigations",
+      "bullets": [
+        "Integration delays with external payment providers → mitigation: parallel testing environments",
+        "Edge cases in bulk import → mitigation: enhanced validation and preview",
+        "Scaling of audit logs → mitigation: implement log archiving & retention policy"
+      ],
+      "max_bullets_per_slide": 6,
+      "notes": "Split into 2 slides automatically if bullets exceed max."
+    },
+    {
+      "id": "s-three-col-2",
+      "type": "three_column",
+      "columns": [
+        {
+          "icon": "assets/icons/security.png",
+          "heading": "Security & Compliance",
+          "bullets": [
+            "OWASP top-10 mitigations",
+            "Encryption at rest & in transit",
+            "Audit logs and traceability"
+          ]
+        },
+        {
+          "icon": "assets/icons/perf.png",
+          "heading": "Performance",
+          "bullets": [
+            "95th percentile latency targets",
+            "E2E load testing before release",
+            "Database indexing and query tuning"
+          ]
+        },
+        {
+          "icon": "assets/icons/support.png",
+          "heading": "Support & SLA",
+          "bullets": [
+            "24/7 incident triage",
+            "RTO & RPO defined",
+            "Support runbooks and on-call rotation"
+          ]
+        }
+      ],
+      "notes": "Use same three-column style as earlier; icons sized per style."
+    },
+    {
+      "id": "s-table-2",
+      "type": "table",
+      "title": "Feature Status (summary)",
+      "columns": ["Feature", "Owner", "Status", "ETA"],
+      "rows": [
+        ["Admin: Role Management", "Alice (Backend)", "Completed", "2025-10-18"],
+        ["Biller: Import Customers", "Ravi (Frontend)", "Completed", "2025-10-26"],
+        ["API: Key Management", "Sofia (API Team)", "In Progress", "2025-11-10"],
+        ["Reporting: TTV Cards", "Maya (Analytics)", "In Progress", "2025-11-12"],
+        ["Audit Log: Export", "Noah (Backend)", "Planned", "2025-11-25"]
+      ],
+      "striped": true,
+      "notes": "Short table for status at-a-glance. Use header bold and light bg."
+    },
+    {
+      "id": "s-bullets-2",
+      "type": "bullets",
+      "title": "Deployment Checklist",
+      "bullets": [
+        "CI/CD pipeline validated on staging",
+        "Database migration plan documented",
+        "Feature flags prepared for gradual rollout",
+        "Post-deploy smoke tests and monitoring enabled"
+      ],
+      "notes": "Keep bullets concise — each item 1 line max if possible."
+    },
+    {
+      "id": "s-notes",
+      "type": "notes_slide",
+      "title": "Presenter Notes & Contacts",
+      "notes": "Project Manager: Jane Doe (jane.doe@example.com)\nTech Lead: Rahul Verma (rahul.verma@example.com)\nKey talking points: timeline, risks, stakeholder ask for sign-off.",
+      "notes_extra": "End with a Q&A and next steps slide."
+    },
+    {
+      "id": "s-end",
+      "type": "section_header",
+      "title": "Thank You",
+      "info_bar": "Questions?",
+      "notes": "End slide — show contact details in footer or speaker notes."
+    }
+  ]
+}
