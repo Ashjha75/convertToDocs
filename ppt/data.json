@@ -1,13 +1,11 @@
 {
   "presentation": {
-    "title": "Biller Management Portal",
-    "author": "Product & Engineering",
-    "date": "2025-11-18",
-    "version": "Version 1.1"
+    "title": "Biller Management Portal - Project Report",
+    "version": "1.1"
   },
   "slides": [
     {
-      "id": "s-title",
+      "id": "title",
       "type": "title",
       "title": "Project Report - Biller Management Portal",
       "subtitle": "Bill Payment Platform Enhancement to support Standardized Onboarding of Small and Medium Sized Billers\nVersion 1.1 | November 6, 2025",
@@ -15,7 +13,7 @@
       "right_logo": "assets/logos/newfields.png"
     },
     {
-      "id": "s-timeline",
+      "id": "timeline",
       "type": "timeline",
       "title": "Project Timeline & Current Status",
       "description": "The project was planned over a 10-week development cycle. As of November 6, 2025, the project is in Week 6, we are on track with major core development and implementation tasks are partially completed.",
@@ -65,13 +63,12 @@
       ]
     },
     {
-      "id": "s-solution",
+      "id": "solution",
       "type": "three_column",
       "title": "Our Solution: A Unified Three Pillar Platform",
       "description": "Our solution is a single, unified platform built on three distinct but interconnected pillars that work together to create a comprehensive biller management ecosystem.",
       "columns": [
         {
-          "icon": "assets/icons/admin.png",
           "heading": "Administrator Portal: Control & Oversight",
           "bullets": [
             "Full Biller Lifecycle Management: Onboarding wizard, comprehensive dashboard, and detailed profile pages with one-click Approve/Reject functionality.",
@@ -81,7 +78,6 @@
           ]
         },
         {
-          "icon": "assets/icons/biller.png",
           "heading": "Biller Portal: Empowerment & Efficiency",
           "bullets": [
             "Personalized Dashboard: KPI-driven dashboard with \"Recent Activity\" feed for enhanced user experience.",
@@ -91,7 +87,6 @@
           ]
         },
         {
-          "icon": "assets/icons/api.png",
           "heading": "Partner API Gateway: Integration & Growth",
           "bullets": [
             "Secure & Authenticated: Access protected by securely hashed, unique API keys for maximum security.",
@@ -102,7 +97,7 @@
       ]
     },
     {
-      "id": "s-features",
+      "id": "features",
       "type": "table",
       "title": "Modules & Deep Dive On Features",
       "description": "This section maps the deliverables from the original scope to the detailed features that are In Progress.",

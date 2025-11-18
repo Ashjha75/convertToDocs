@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Professional PowerPoint Generator
-Generates clean, well-styled presentations matching corporate standards
+Professional PowerPoint Generator - Exact Style Match
+Matches the reference screenshots precisely
 """
 
 import argparse
@@ -19,21 +19,29 @@ import os
 SLIDE_W = Inches(10)
 SLIDE_H = Inches(5.625)
 
-# Professional margins
-MARGIN_LEFT = Inches(0.5)
-MARGIN_RIGHT = Inches(0.5)
+# Exact margins from reference
+MARGIN_LEFT = Inches(0.4)
+MARGIN_RIGHT = Inches(0.4)
 MARGIN_TOP = Inches(0.5)
-MARGIN_BOTTOM = Inches(0.5)
+CONTENT_WIDTH = SLIDE_W - MARGIN_LEFT - MARGIN_RIGHT
 
 def hex_to_rgb(hex_color):
     """Convert hex color to RGB tuple"""
     h = (hex_color or "#000000").lstrip("#")
     return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
 
-def set_text_frame(text_frame, text, font_name="Calibri", font_size=11, 
-                   bold=False, color="#000000", align=PP_ALIGN.LEFT):
-    """Set text frame properties with proper formatting"""
-    text_frame.clear()
+def add_text_with_style(slide, text, left, top, width, height, 
+                        font_name="Arial", font_size=11, bold=False, 
+                        color="#000000", align=PP_ALIGN.LEFT):
+    """Add text box with exact styling"""
+    textbox = slide.shapes.add_textbox(left, top, width, height)
+    text_frame = textbox.text_frame
+    text_frame.word_wrap = True
+    text_frame.margin_left = Inches(0.1)
+    text_frame.margin_right = Inches(0.1)
+    text_frame.margin_top = Inches(0.05)
+    text_frame.margin_bottom = Inches(0.05)
+    
     p = text_frame.paragraphs[0]
     p.text = text
     p.font.name = font_name
@@ -42,248 +50,156 @@ def set_text_frame(text_frame, text, font_name="Calibri", font_size=11,
     r, g, b = hex_to_rgb(color)
     p.font.color.rgb = RGBColor(r, g, b)
     p.alignment = align
-    text_frame.word_wrap = True
-    text_frame.margin_left = Inches(0.05)
-    text_frame.margin_right = Inches(0.05)
+    p.line_spacing = 1.15
+    
+    return textbox
 
-def add_background_shape(slide, color="#F5F5F5"):
-    """Add a subtle background to slide"""
-    bg = slide.shapes.add_shape(
-        MSO_SHAPE.RECTANGLE,
-        0, 0,
-        SLIDE_W, SLIDE_H
+def add_rounded_box(slide, left, top, width, height, fill_color="#E8E9F3", 
+                    text="", font_size=11, text_color="#000000"):
+    """Add rounded rectangle box with text"""
+    shape = slide.shapes.add_shape(
+        MSO_SHAPE.ROUNDED_RECTANGLE,
+        left, top, width, height
     )
-    bg.fill.solid()
-    r, g, b = hex_to_rgb(color)
-    bg.fill.fore_color.rgb = RGBColor(r, g, b)
-    bg.line.fill.background()
-    # Send to back
-    slide.shapes._spTree.remove(bg._element)
-    slide.shapes._spTree.insert(2, bg._element)
+    shape.fill.solid()
+    r, g, b = hex_to_rgb(fill_color)
+    shape.fill.fore_color.rgb = RGBColor(r, g, b)
+    shape.line.fill.background()
+    
+    if text:
+        text_frame = shape.text_frame
+        text_frame.word_wrap = True
+        text_frame.margin_left = Inches(0.15)
+        text_frame.margin_right = Inches(0.15)
+        text_frame.margin_top = Inches(0.08)
+        text_frame.margin_bottom = Inches(0.08)
+        
+        p = text_frame.paragraphs[0]
+        p.text = text
+        p.font.name = "Arial"
+        p.font.size = Pt(font_size)
+        p.font.bold = False
+        r, g, b = hex_to_rgb(text_color)
+        p.font.color.rgb = RGBColor(r, g, b)
+        p.line_spacing = 1.15
+    
+    return shape
 
-def resize_image_if_needed(img_path, max_width_in=2.5):
-    """Resize image if it's too large"""
+def resize_image(img_path, max_width_in=2.0):
+    """Resize image if needed"""
     if not os.path.exists(img_path):
         return None
-    
     try:
         img = Image.open(img_path)
         w, h = img.size
         dpi = img.info.get("dpi", (96, 96))[0] or 96
         w_in = w / dpi
-        
         if w_in <= max_width_in:
             return img_path
-        
         scale = max_width_in / w_in
         new_w = int(w * scale)
         new_h = int(h * scale)
         out_path = str(Path(img_path).with_suffix(".resized.png"))
         img.resize((new_w, new_h), Image.LANCZOS).save(out_path)
         return out_path
-    except Exception as e:
-        print(f"Error processing image {img_path}: {e}")
+    except:
         return None
 
-def create_title_slide(prs, slide_data, style):
-    """Create professional title slide"""
+def create_title_slide(prs, slide_data):
+    """Create title slide matching reference"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
-    add_background_shape(slide, "#FFFFFF")
     
-    # Add logos
+    # White background
+    bg = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, SLIDE_W, SLIDE_H)
+    bg.fill.solid()
+    bg.fill.fore_color.rgb = RGBColor(255, 255, 255)
+    bg.line.fill.background()
+    slide.shapes._spTree.remove(bg._element)
+    slide.shapes._spTree.insert(2, bg._element)
+    
+    # Left logo (Supreme Ventures)
     left_logo = slide_data.get("left_logo")
-    right_logo = slide_data.get("right_logo")
-    
     if left_logo and os.path.exists(left_logo):
-        img = resize_image_if_needed(left_logo, 2.0)
+        img = resize_image(left_logo, 2.5)
         if img:
-            slide.shapes.add_picture(img, Inches(0.4), Inches(0.3), width=Inches(2.0))
+            slide.shapes.add_picture(img, Inches(0.4), Inches(0.4), width=Inches(2.5))
     
+    # Right logo (New Fields)
+    right_logo = slide_data.get("right_logo")
     if right_logo and os.path.exists(right_logo):
-        img = resize_image_if_needed(right_logo, 2.0)
+        img = resize_image(right_logo, 2.2)
         if img:
-            slide.shapes.add_picture(img, SLIDE_W - Inches(2.4), Inches(0.3), width=Inches(2.0))
+            slide.shapes.add_picture(img, SLIDE_W - Inches(2.6), Inches(0.3), width=Inches(2.2))
     
-    # Title - centered and bold
-    title_box = slide.shapes.add_textbox(
-        Inches(1), Inches(2.2),
-        SLIDE_W - Inches(2), Inches(1)
+    # Main title - black, bold, large
+    add_text_with_style(
+        slide,
+        slide_data.get("title", "Project Report"),
+        Inches(0.4), Inches(2.1),
+        SLIDE_W - Inches(0.8), Inches(0.8),
+        font_name="Arial", font_size=40, bold=True,
+        color="#000000", align=PP_ALIGN.LEFT
     )
-    set_text_frame(title_box.text_frame, 
-                   slide_data.get("title", "Project Report"),
-                   font_name="Arial", font_size=36, bold=True,
-                   color="#000000", align=PP_ALIGN.CENTER)
     
-    # Subtitle
+    # Subtitle - smaller, gray
     if slide_data.get("subtitle"):
-        subtitle_box = slide.shapes.add_textbox(
-            Inches(1), Inches(3.4),
-            SLIDE_W - Inches(2), Inches(0.8)
+        add_text_with_style(
+            slide,
+            slide_data.get("subtitle", ""),
+            Inches(0.4), Inches(3.0),
+            SLIDE_W - Inches(0.8), Inches(0.6),
+            font_name="Arial", font_size=12, bold=False,
+            color="#4A4A4A", align=PP_ALIGN.LEFT
         )
-        set_text_frame(subtitle_box.text_frame,
-                       slide_data.get("subtitle", ""),
-                       font_name="Arial", font_size=14, bold=False,
-                       color="#666666", align=PP_ALIGN.CENTER)
 
-def create_section_header(prs, slide_data, style):
-    """Create section header slide"""
+def create_timeline_slide(prs, slide_data):
+    """Create timeline slide EXACTLY matching reference images"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
-    add_background_shape(slide, "#FFFFFF")
     
-    # Title
-    title_box = slide.shapes.add_textbox(
-        MARGIN_LEFT, MARGIN_TOP,
-        SLIDE_W - MARGIN_LEFT - MARGIN_RIGHT, Inches(0.7)
+    # White background
+    bg = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, SLIDE_W, SLIDE_H)
+    bg.fill.solid()
+    bg.fill.fore_color.rgb = RGBColor(255, 255, 255)
+    bg.line.fill.background()
+    slide.shapes._spTree.remove(bg._element)
+    slide.shapes._spTree.insert(2, bg._element)
+    
+    # Title - exact match
+    add_text_with_style(
+        slide,
+        slide_data.get("title", "Project Timeline & Current Status"),
+        MARGIN_LEFT, Inches(0.35),
+        CONTENT_WIDTH, Inches(0.5),
+        font_name="Arial", font_size=36, bold=True,
+        color="#000000", align=PP_ALIGN.LEFT
     )
-    set_text_frame(title_box.text_frame,
-                   slide_data.get("title", ""),
-                   font_name="Arial", font_size=32, bold=True,
-                   color="#000000", align=PP_ALIGN.LEFT)
     
-    # Info bar with background
-    if slide_data.get("info_bar"):
-        bar_shape = slide.shapes.add_shape(
-            MSO_SHAPE.ROUNDED_RECTANGLE,
-            MARGIN_LEFT, Inches(1.1),
-            SLIDE_W - MARGIN_LEFT - MARGIN_RIGHT, Inches(0.5)
-        )
-        bar_shape.fill.solid()
-        bar_shape.fill.fore_color.rgb = RGBColor(237, 238, 249)
-        bar_shape.line.fill.background()
-        
-        text_frame = bar_shape.text_frame
-        set_text_frame(text_frame, slide_data.get("info_bar", ""),
-                       font_name="Calibri", font_size=11, bold=False,
-                       color="#000000", align=PP_ALIGN.LEFT)
-
-def create_three_column_slide(prs, slide_data, style):
-    """Create three column feature slide"""
-    slide = prs.slides.add_slide(prs.slide_layouts[6])
-    add_background_shape(slide, "#FFFFFF")
-    
-    # Title
-    title = slide_data.get("title", "")
-    if title:
-        title_box = slide.shapes.add_textbox(
-            MARGIN_LEFT, MARGIN_TOP,
-            SLIDE_W - MARGIN_LEFT - MARGIN_RIGHT, Inches(0.6)
-        )
-        set_text_frame(title_box.text_frame, title,
-                       font_name="Arial", font_size=28, bold=True,
-                       color="#000000", align=PP_ALIGN.LEFT)
-        content_top = Inches(1.3)
-    else:
-        content_top = MARGIN_TOP + Inches(0.2)
-    
-    # Description box if present
+    # Description box - light purple rounded box
     desc = slide_data.get("description", "")
     if desc:
-        desc_shape = slide.shapes.add_shape(
-            MSO_SHAPE.ROUNDED_RECTANGLE,
-            MARGIN_LEFT, content_top,
-            SLIDE_W - MARGIN_LEFT - MARGIN_RIGHT, Inches(0.5)
+        add_rounded_box(
+            slide,
+            MARGIN_LEFT, Inches(0.95),
+            CONTENT_WIDTH, Inches(0.45),
+            fill_color="#E8E9F3",
+            text=desc,
+            font_size=10,
+            text_color="#000000"
         )
-        desc_shape.fill.solid()
-        desc_shape.fill.fore_color.rgb = RGBColor(237, 238, 249)
-        desc_shape.line.fill.background()
-        set_text_frame(desc_shape.text_frame, desc,
-                       font_name="Calibri", font_size=11, bold=False,
-                       color="#000000", align=PP_ALIGN.LEFT)
-        content_top += Inches(0.7)
     
-    columns = slide_data.get("columns", [])
-    if not columns:
-        return
-    
-    col_width = (SLIDE_W - MARGIN_LEFT - MARGIN_RIGHT - Inches(0.4)) / len(columns)
-    
-    for i, col in enumerate(columns):
-        x_pos = MARGIN_LEFT + i * (col_width + Inches(0.2))
-        
-        # Icon
-        icon_path = col.get("icon")
-        icon_bottom = content_top
-        if icon_path and os.path.exists(icon_path):
-            img = resize_image_if_needed(icon_path, 0.6)
-            if img:
-                slide.shapes.add_picture(img, x_pos, content_top, width=Inches(0.5))
-                icon_bottom = content_top + Inches(0.6)
-        
-        # Heading
-        heading_box = slide.shapes.add_textbox(
-            x_pos, icon_bottom + Inches(0.1),
-            col_width, Inches(0.4)
-        )
-        set_text_frame(heading_box.text_frame,
-                       col.get("heading", ""),
-                       font_name="Arial", font_size=14, bold=True,
-                       color="#000000", align=PP_ALIGN.LEFT)
-        
-        # Bullets
-        bullets_top = icon_bottom + Inches(0.6)
-        bullets_box = slide.shapes.add_textbox(
-            x_pos, bullets_top,
-            col_width, Inches(2.5)
-        )
-        text_frame = bullets_box.text_frame
-        text_frame.word_wrap = True
-        
-        for idx, bullet in enumerate(col.get("bullets", [])):
-            if idx == 0:
-                p = text_frame.paragraphs[0]
-            else:
-                p = text_frame.add_paragraph()
-            p.text = bullet
-            p.level = 0
-            p.font.name = "Calibri"
-            p.font.size = Pt(10)
-            p.font.color.rgb = RGBColor(0, 0, 0)
-            p.space_after = Pt(8)
-
-def create_timeline_slide(prs, slide_data, style):
-    """Create timeline table slide"""
-    slide = prs.slides.add_slide(prs.slide_layouts[6])
-    add_background_shape(slide, "#FFFFFF")
-    
-    # Title
-    title = slide_data.get("title", "Timeline")
-    title_box = slide.shapes.add_textbox(
-        MARGIN_LEFT, MARGIN_TOP,
-        SLIDE_W - MARGIN_LEFT - MARGIN_RIGHT, Inches(0.6)
-    )
-    set_text_frame(title_box.text_frame, title,
-                   font_name="Arial", font_size=28, bold=True,
-                   color="#000000", align=PP_ALIGN.LEFT)
-    
-    # Description if present
-    desc_top = Inches(1.1)
-    desc = slide_data.get("description", "")
-    if desc:
-        desc_shape = slide.shapes.add_shape(
-            MSO_SHAPE.ROUNDED_RECTANGLE,
-            MARGIN_LEFT, desc_top,
-            SLIDE_W - MARGIN_LEFT - MARGIN_RIGHT, Inches(0.5)
-        )
-        desc_shape.fill.solid()
-        desc_shape.fill.fore_color.rgb = RGBColor(237, 238, 249)
-        desc_shape.line.fill.background()
-        set_text_frame(desc_shape.text_frame, desc,
-                       font_name="Calibri", font_size=10, bold=False,
-                       color="#000000", align=PP_ALIGN.LEFT)
-        table_top = desc_top + Inches(0.7)
-    else:
-        table_top = desc_top + Inches(0.1)
-    
+    # Table
     rows = slide_data.get("rows", [])
     if not rows:
         return
     
-    # Create table
-    num_rows = len(rows) + 1  # +1 for header
-    num_cols = 4  # Phase, Timeline, Status, Notes
+    table_top = Inches(1.55)
+    num_rows = len(rows) + 1
+    num_cols = 4
     
-    table_width = SLIDE_W - MARGIN_LEFT - MARGIN_RIGHT
-    table_height = Inches(0.35 * min(num_rows, 8))
+    # Calculate table dimensions
+    table_width = CONTENT_WIDTH
+    row_height = Inches(0.38)
+    table_height = row_height * num_rows
     
     table = slide.shapes.add_table(
         num_rows, num_cols,
@@ -291,26 +207,31 @@ def create_timeline_slide(prs, slide_data, style):
         table_width, table_height
     ).table
     
-    # Set column widths
-    table.columns[0].width = Inches(2.0)  # Phase
-    table.columns[1].width = Inches(2.2)  # Timeline
-    table.columns[2].width = Inches(1.8)  # Status
-    table.columns[3].width = Inches(3.0)  # Notes
+    # Set exact column widths from reference
+    table.columns[0].width = Inches(2.0)   # Phase
+    table.columns[1].width = Inches(2.2)   # Timeline
+    table.columns[2].width = Inches(1.8)   # Status
+    table.columns[3].width = Inches(3.2)   # Notes
     
-    # Header row
+    # Header row - light gray background
     headers = ["Phase", "Timeline", "Status", "Notes"]
     for col_idx, header in enumerate(headers):
         cell = table.cell(0, col_idx)
         cell.fill.solid()
-        cell.fill.fore_color.rgb = RGBColor(243, 244, 246)
+        cell.fill.fore_color.rgb = RGBColor(243, 244, 246)  # #F3F4F6
+        
         text_frame = cell.text_frame
         text_frame.clear()
+        text_frame.margin_left = Inches(0.08)
+        text_frame.margin_top = Inches(0.05)
+        
         p = text_frame.paragraphs[0]
         p.text = header
-        p.font.name = "Calibri"
+        p.font.name = "Arial"
         p.font.size = Pt(11)
         p.font.bold = True
         p.font.color.rgb = RGBColor(0, 0, 0)
+        p.alignment = PP_ALIGN.LEFT
     
     # Data rows
     for row_idx, row_data in enumerate(rows, start=1):
@@ -319,90 +240,217 @@ def create_timeline_slide(prs, slide_data, style):
         status = row_data.get("status", "")
         notes = row_data.get("notes", "")
         
-        # Phase
-        cell = table.cell(row_idx, 0)
-        set_text_frame(cell.text_frame, phase, font_name="Calibri", 
-                       font_size=10, bold=False, color="#000000")
+        # Determine status color and icon
+        status_color = "#000000"
+        status_icon = ""
         
-        # Timeline
-        cell = table.cell(row_idx, 1)
-        set_text_frame(cell.text_frame, timeline, font_name="Calibri",
-                       font_size=10, bold=False, color="#000000")
-        
-        # Status with icon
-        cell = table.cell(row_idx, 2)
-        status_text = status.title()
-        if "complete" in status.lower():
-            status_text = "✓ " + status_text
-            color = "#16A34A"
+        if "completed" in status.lower() and "partially" not in status.lower():
+            status_color = "#16A34A"  # Green
+            status_icon = "✓ "
+        elif "partially" in status.lower() or "review" in status.lower():
+            status_color = "#16A34A"  # Green
+            status_icon = "✓ "
         elif "progress" in status.lower():
-            status_text = "◐ " + status_text
-            color = "#3B82F6"
-        elif "not" in status.lower():
-            status_text = "✗ " + status_text
-            color = "#EF4444"
-        else:
-            color = "#000000"
-        set_text_frame(cell.text_frame, status_text, font_name="Calibri",
-                       font_size=10, bold=False, color=color)
+            status_color = "#3B82F6"  # Blue
+            status_icon = "◐ "
+        elif "not started" in status.lower():
+            status_color = "#EF4444"  # Red
+            status_icon = "✗ "
         
-        # Notes
+        # Apply row striping - alternating light blue
+        for col_idx in range(num_cols):
+            cell = table.cell(row_idx, col_idx)
+            if row_idx % 2 == 1:  # Odd rows get light blue
+                cell.fill.solid()
+                cell.fill.fore_color.rgb = RGBColor(209, 213, 227)  # #D1D5E3
+            else:  # Even rows stay white
+                cell.fill.solid()
+                cell.fill.fore_color.rgb = RGBColor(255, 255, 255)
+        
+        # Phase column
+        cell = table.cell(row_idx, 0)
+        text_frame = cell.text_frame
+        text_frame.clear()
+        text_frame.margin_left = Inches(0.08)
+        text_frame.margin_top = Inches(0.05)
+        p = text_frame.paragraphs[0]
+        p.text = phase
+        p.font.name = "Arial"
+        p.font.size = Pt(10)
+        p.font.bold = False
+        p.font.color.rgb = RGBColor(0, 0, 0)
+        
+        # Timeline column
+        cell = table.cell(row_idx, 1)
+        text_frame = cell.text_frame
+        text_frame.clear()
+        text_frame.margin_left = Inches(0.08)
+        text_frame.margin_top = Inches(0.05)
+        p = text_frame.paragraphs[0]
+        p.text = timeline
+        p.font.name = "Arial"
+        p.font.size = Pt(10)
+        p.font.bold = False
+        p.font.color.rgb = RGBColor(0, 0, 0)
+        
+        # Status column with color
+        cell = table.cell(row_idx, 2)
+        text_frame = cell.text_frame
+        text_frame.clear()
+        text_frame.margin_left = Inches(0.08)
+        text_frame.margin_top = Inches(0.05)
+        p = text_frame.paragraphs[0]
+        p.text = status_icon + status
+        p.font.name = "Arial"
+        p.font.size = Pt(10)
+        p.font.bold = False
+        r, g, b = hex_to_rgb(status_color)
+        p.font.color.rgb = RGBColor(r, g, b)
+        
+        # Notes column
         cell = table.cell(row_idx, 3)
-        set_text_frame(cell.text_frame, notes, font_name="Calibri",
-                       font_size=9, bold=False, color="#666666")
-        
-        # Stripe rows
-        if row_idx % 2 == 0:
-            for col_idx in range(num_cols):
-                table.cell(row_idx, col_idx).fill.solid()
-                table.cell(row_idx, col_idx).fill.fore_color.rgb = RGBColor(250, 250, 251)
+        text_frame = cell.text_frame
+        text_frame.clear()
+        text_frame.margin_left = Inches(0.08)
+        text_frame.margin_top = Inches(0.05)
+        p = text_frame.paragraphs[0]
+        p.text = notes
+        p.font.name = "Arial"
+        p.font.size = Pt(9)
+        p.font.bold = False
+        p.font.color.rgb = RGBColor(74, 74, 74)  # #4A4A4A
 
-def create_table_slide(prs, slide_data, style):
-    """Create generic table slide"""
+def create_three_column_slide(prs, slide_data):
+    """Create three column slide matching reference"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
-    add_background_shape(slide, "#FFFFFF")
+    
+    # White background
+    bg = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, SLIDE_W, SLIDE_H)
+    bg.fill.solid()
+    bg.fill.fore_color.rgb = RGBColor(255, 255, 255)
+    bg.line.fill.background()
+    slide.shapes._spTree.remove(bg._element)
+    slide.shapes._spTree.insert(2, bg._element)
     
     # Title
-    title = slide_data.get("title", "")
-    if title:
-        title_box = slide.shapes.add_textbox(
-            MARGIN_LEFT, MARGIN_TOP,
-            SLIDE_W - MARGIN_LEFT - MARGIN_RIGHT, Inches(0.6)
-        )
-        set_text_frame(title_box.text_frame, title,
-                       font_name="Arial", font_size=28, bold=True,
-                       color="#000000", align=PP_ALIGN.LEFT)
-        table_top = Inches(1.2)
-    else:
-        table_top = MARGIN_TOP + Inches(0.2)
+    add_text_with_style(
+        slide,
+        slide_data.get("title", ""),
+        MARGIN_LEFT, Inches(0.35),
+        CONTENT_WIDTH, Inches(0.5),
+        font_name="Arial", font_size=36, bold=True,
+        color="#000000", align=PP_ALIGN.LEFT
+    )
     
-    # Description
+    # Description box
     desc = slide_data.get("description", "")
     if desc:
-        desc_shape = slide.shapes.add_shape(
-            MSO_SHAPE.ROUNDED_RECTANGLE,
-            MARGIN_LEFT, table_top,
-            SLIDE_W - MARGIN_LEFT - MARGIN_RIGHT, Inches(0.5)
+        add_rounded_box(
+            slide,
+            MARGIN_LEFT, Inches(0.95),
+            CONTENT_WIDTH, Inches(0.45),
+            fill_color="#E8E9F3",
+            text=desc,
+            font_size=10,
+            text_color="#000000"
         )
-        desc_shape.fill.solid()
-        desc_shape.fill.fore_color.rgb = RGBColor(237, 238, 249)
-        desc_shape.line.fill.background()
-        set_text_frame(desc_shape.text_frame, desc,
-                       font_name="Calibri", font_size=10, bold=False,
-                       color="#000000", align=PP_ALIGN.LEFT)
-        table_top += Inches(0.7)
     
+    # Three columns
+    columns = slide_data.get("columns", [])
+    if not columns:
+        return
+    
+    col_width = (CONTENT_WIDTH - Inches(0.4)) / 3
+    content_top = Inches(1.55)
+    
+    for i, col in enumerate(columns):
+        x_pos = MARGIN_LEFT + i * (col_width + Inches(0.2))
+        
+        # Column heading - bold
+        add_text_with_style(
+            slide,
+            col.get("heading", ""),
+            x_pos, content_top,
+            col_width, Inches(0.4),
+            font_name="Arial", font_size=13, bold=True,
+            color="#000000", align=PP_ALIGN.LEFT
+        )
+        
+        # Bullet points
+        bullets_top = content_top + Inches(0.48)
+        textbox = slide.shapes.add_textbox(
+            x_pos, bullets_top,
+            col_width, Inches(3.2)
+        )
+        text_frame = textbox.text_frame
+        text_frame.word_wrap = True
+        text_frame.margin_left = 0
+        text_frame.margin_right = Inches(0.05)
+        
+        bullets = col.get("bullets", [])
+        for idx, bullet in enumerate(bullets):
+            if idx == 0:
+                p = text_frame.paragraphs[0]
+            else:
+                p = text_frame.add_paragraph()
+            
+            p.text = bullet
+            p.font.name = "Arial"
+            p.font.size = Pt(9)
+            p.font.bold = False
+            p.font.color.rgb = RGBColor(0, 0, 0)
+            p.space_after = Pt(10)
+            p.line_spacing = 1.2
+
+def create_table_slide(prs, slide_data):
+    """Create feature table slide matching reference"""
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    
+    # White background
+    bg = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, SLIDE_W, SLIDE_H)
+    bg.fill.solid()
+    bg.fill.fore_color.rgb = RGBColor(255, 255, 255)
+    bg.line.fill.background()
+    slide.shapes._spTree.remove(bg._element)
+    slide.shapes._spTree.insert(2, bg._element)
+    
+    # Title
+    add_text_with_style(
+        slide,
+        slide_data.get("title", ""),
+        MARGIN_LEFT, Inches(0.35),
+        CONTENT_WIDTH, Inches(0.5),
+        font_name="Arial", font_size=36, bold=True,
+        color="#000000", align=PP_ALIGN.LEFT
+    )
+    
+    # Description box
+    desc = slide_data.get("description", "")
+    if desc:
+        add_rounded_box(
+            slide,
+            MARGIN_LEFT, Inches(0.95),
+            CONTENT_WIDTH, Inches(0.38),
+            fill_color="#E8E9F3",
+            text=desc,
+            font_size=10,
+            text_color="#000000"
+        )
+    
+    # Table
     columns = slide_data.get("columns", [])
     rows = slide_data.get("rows", [])
     
     if not columns or not rows:
         return
     
+    table_top = Inches(1.45)
     num_rows = len(rows) + 1
     num_cols = len(columns)
     
-    table_width = SLIDE_W - MARGIN_LEFT - MARGIN_RIGHT
-    table_height = Inches(0.35 * min(num_rows, 10))
+    table_width = CONTENT_WIDTH
+    row_height = Inches(0.52)
+    table_height = row_height * num_rows
     
     table = slide.shapes.add_table(
         num_rows, num_cols,
@@ -410,133 +458,94 @@ def create_table_slide(prs, slide_data, style):
         table_width, table_height
     ).table
     
-    # Set equal column widths
-    col_width = table_width / num_cols
-    for i in range(num_cols):
-        table.columns[i].width = int(col_width)
+    # Set column widths
+    table.columns[0].width = Inches(1.8)  # Proposed Scope
+    table.columns[1].width = Inches(5.5)  # Delivered Features
+    table.columns[2].width = Inches(1.9)  # Status
     
-    # Header
+    # Header row
     for col_idx, header in enumerate(columns):
         cell = table.cell(0, col_idx)
         cell.fill.solid()
         cell.fill.fore_color.rgb = RGBColor(243, 244, 246)
+        
         text_frame = cell.text_frame
         text_frame.clear()
+        text_frame.margin_left = Inches(0.08)
+        text_frame.margin_top = Inches(0.05)
+        
         p = text_frame.paragraphs[0]
-        p.text = str(header)
-        p.font.name = "Calibri"
+        p.text = header
+        p.font.name = "Arial"
         p.font.size = Pt(11)
         p.font.bold = True
         p.font.color.rgb = RGBColor(0, 0, 0)
     
     # Data rows
     for row_idx, row in enumerate(rows, start=1):
+        # Striping
         for col_idx in range(num_cols):
             cell = table.cell(row_idx, col_idx)
-            try:
-                value = row[col_idx] if isinstance(row, (list, tuple)) else row.get(columns[col_idx], "")
-            except:
-                value = ""
-            set_text_frame(cell.text_frame, str(value),
-                           font_name="Calibri", font_size=10,
-                           bold=False, color="#000000")
-            
-            if row_idx % 2 == 0:
+            if row_idx % 2 == 1:
                 cell.fill.solid()
-                cell.fill.fore_color.rgb = RGBColor(250, 250, 251)
-
-def create_bullets_slide(prs, slide_data, style):
-    """Create bullet points slide"""
-    slide = prs.slides.add_slide(prs.slide_layouts[6])
-    add_background_shape(slide, "#FFFFFF")
-    
-    # Title
-    title = slide_data.get("title", "")
-    if title:
-        title_box = slide.shapes.add_textbox(
-            MARGIN_LEFT, MARGIN_TOP,
-            SLIDE_W - MARGIN_LEFT - MARGIN_RIGHT, Inches(0.6)
-        )
-        set_text_frame(title_box.text_frame, title,
-                       font_name="Arial", font_size=28, bold=True,
-                       color="#000000", align=PP_ALIGN.LEFT)
-        content_top = Inches(1.2)
-    else:
-        content_top = MARGIN_TOP + Inches(0.2)
-    
-    # Bullets
-    bullets_box = slide.shapes.add_textbox(
-        MARGIN_LEFT + Inches(0.2), content_top,
-        SLIDE_W - MARGIN_LEFT - MARGIN_RIGHT - Inches(0.4), Inches(3.5)
-    )
-    text_frame = bullets_box.text_frame
-    text_frame.word_wrap = True
-    
-    for idx, bullet in enumerate(slide_data.get("bullets", [])):
-        if idx == 0:
+                cell.fill.fore_color.rgb = RGBColor(209, 213, 227)
+            else:
+                cell.fill.solid()
+                cell.fill.fore_color.rgb = RGBColor(255, 255, 255)
+        
+        for col_idx in range(num_cols):
+            cell = table.cell(row_idx, col_idx)
+            text_frame = cell.text_frame
+            text_frame.clear()
+            text_frame.margin_left = Inches(0.08)
+            text_frame.margin_top = Inches(0.08)
+            text_frame.margin_right = Inches(0.08)
+            
+            value = row[col_idx] if isinstance(row, (list, tuple)) else row.get(columns[col_idx], "")
+            
             p = text_frame.paragraphs[0]
-        else:
-            p = text_frame.add_paragraph()
-        p.text = bullet
-        p.level = 0
-        p.font.name = "Calibri"
-        p.font.size = Pt(11)
-        p.font.color.rgb = RGBColor(0, 0, 0)
-        p.space_after = Pt(12)
+            p.text = str(value)
+            p.font.name = "Arial"
+            p.font.size = Pt(9)
+            p.font.bold = False
+            p.font.color.rgb = RGBColor(0, 0, 0)
+            p.line_spacing = 1.15
 
 def generate_presentation(data_path, style_path, output_path):
     """Main generation function"""
-    # Load data
     with open(data_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     
-    # Load style
-    style = {}
-    if os.path.exists(style_path):
-        with open(style_path, 'r', encoding='utf-8') as f:
-            style = json.load(f)
-    
-    # Create presentation
     prs = Presentation()
     prs.slide_width = SLIDE_W
     prs.slide_height = SLIDE_H
     
-    # Process slides
     for slide_data in data.get("slides", []):
         slide_type = slide_data.get("type", "bullets")
         
         if slide_type == "title":
-            create_title_slide(prs, slide_data, style)
-        elif slide_type == "section_header":
-            create_section_header(prs, slide_data, style)
-        elif slide_type == "three_column":
-            create_three_column_slide(prs, slide_data, style)
+            create_title_slide(prs, slide_data)
         elif slide_type == "timeline":
-            create_timeline_slide(prs, slide_data, style)
+            create_timeline_slide(prs, slide_data)
+        elif slide_type == "three_column":
+            create_three_column_slide(prs, slide_data)
         elif slide_type == "table":
-            create_table_slide(prs, slide_data, style)
-        elif slide_type == "bullets":
-            create_bullets_slide(prs, slide_data, style)
-        elif slide_type in ("notes", "notes_slide"):
-            create_bullets_slide(prs, slide_data, style)
-        else:
-            create_bullets_slide(prs, slide_data, style)
+            create_table_slide(prs, slide_data)
     
-    # Save
     prs.save(output_path)
-    print(f"✓ Presentation saved: {output_path}")
-    print(f"  Total slides: {len(prs.slides)}")
+    print(f"✓ Presentation created: {output_path}")
+    print(f"  Slides: {len(prs.slides)}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Generate professional PowerPoint presentations")
-    parser.add_argument("--data", type=str, default="data.json", help="Path to data JSON file")
-    parser.add_argument("--style", type=str, default="style.json", help="Path to style JSON file")
-    parser.add_argument("--out", type=str, default="Professional_Report.pptx", help="Output file name")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--data", default="data.json")
+    parser.add_argument("--style", default="style.json")
+    parser.add_argument("--out", default="Biller_Project_Report.pptx")
     
     args = parser.parse_args()
     
     if not os.path.exists(args.data):
-        print(f"Error: Data file not found: {args.data}")
+        print(f"Error: {args.data} not found")
         exit(1)
     
     generate_presentation(args.data, args.style, args.out)
