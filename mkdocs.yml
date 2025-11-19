@@ -1,0 +1,16 @@
+site_name: "Project Docs"
+site_url: "https://ashjha75.github.io/MyDocs/springboot/base/auth-system/"
+theme:
+  name: material
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+plugins:
+  - search
+  - pdf-export:
+      verbose: true
+      # optional: cover: cover.html, toc_level: 2
+nav:
+  - Home: index.md
+  - Guide: guide.md
