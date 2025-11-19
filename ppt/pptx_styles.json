@@ -1,0 +1,33 @@
+{
+  "theme_files": [
+    "ppt/theme/theme1.xml"
+  ],
+  "theme_colors": {
+    "ppt/theme/theme1.xml": {
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#1F497D",
+      "lt2": "#EEECE1",
+      "accent1": "#4F81BD",
+      "accent2": "#C0504D",
+      "accent3": "#9BBB59",
+      "accent4": "#8064A2",
+      "accent5": "#4BACC6",
+      "accent6": "#F79646",
+      "hlink": "#0000FF",
+      "folHlink": "#800080"
+    }
+  },
+  "table_related_colors_found_in_slides": [
+    "#000000",
+    "#15181F",
+    "#16A34A",
+    "#3B82F6",
+    "#505050",
+    "#D1D5E3",
+    "#E8E9F3",
+    "#EF4444",
+    "#F3F4F6",
+    "#FFFFFF"
+  ]
+}
