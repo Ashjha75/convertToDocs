@@ -1,0 +1,743 @@
+[
+  {
+    "Test Case ID": "ADMIN-001",
+    "Test Case": "Verify that the Admin user can log in and view the Administrator Dashboard.",
+    "Test Procedures/Steps": [
+      "1. Open a web browser and navigate to the application's login page.",
+      "2. Enter valid Administrator credentials (email and password).",
+      "3. Click the 'Sign In' button."
+    ],
+    "Expected Outcome": "The user is successfully authenticated and the 'Administrator Dashboard' screen is displayed. The main heading should read 'Administrator Dashboard'."
+  },
+  {
+    "Test Case ID": "ADMIN-002",
+    "Test Case": "Verify that the 'Pending Biller Approvals' widget displays correct information.",
+    "Test Procedures/Steps": [
+      "1. Log in as an Admin user.",
+      "2. Observe the 'Pending Biller Approvals' widget in the top-left of the dashboard."
+    ],
+    "Expected Outcome": "The widget should display a list of recently onboarded billers that have a 'PENDING APPROVAL' status. Each entry should show the Biller's name and the date they were onboarded."
+  },
+  {
+    "Test Case ID": "ADMIN-003",
+    "Test Case": "Verify that clicking on a pending biller in the widget navigates to their profile page.",
+    "Test Procedures/Steps": [
+      "1. Log in as an Admin user.",
+      "2. In the 'Pending Biller Approvals' widget, click on the name of one of the listed billers."
+    ],
+    "Expected Outcome": "The user should be successfully navigated to the detailed profile page for the selected biller."
+  },
+  {
+    "Test Case ID": "ADMIN-004",
+    "Test Case": "Verify that the 'Total Billers' KPI card displays an accurate count.",
+    "Test Procedures/Steps": [
+      "1. Log in as an Admin user.",
+      "2. Observe the 'Total Billers' KPI card.",
+      "3. (Verification Step) Navigate to the 'Biller Management' page from the sidebar and count the total number of billers in the system."
+    ],
+    "Expected Outcome": "The number displayed on the 'Total Billers' KPI card should match the total number of billers found on the Biller Management page."
+  },
+  {
+    "Test Case ID": "ADMIN-005",
+    "Test Case": "Verify that the 'Pending Billers' KPI card displays an accurate count.",
+    "Test Procedures/Steps": [
+      "1. Log in as an Admin user.",
+      "2. Observe the 'Pending Billers' KPI card.",
+      "3. (Verification Step) Navigate to the 'Biller Management' page, filter the list by 'PENDING APPROVAL' status, and count the results."
+    ],
+    "Expected Outcome": "The number displayed on the 'Pending Billers' KPI card should match the count of billers with a 'PENDING APPROVAL' status."
+  },
+  {
+    "Test Case ID": "ADMIN-006",
+    "Test Case": "Verify that the 'Total TTV' KPI card displays the total transaction volume.",
+    "Test Procedures/Steps": [
+      "1. Log in as an Admin user.",
+      "2. Observe the 'Total TTV' (Total Transaction Volume) KPI card."
+    ],
+    "Expected Outcome": "The card should display a currency value representing the sum of all payments ever processed through the entire platform."
+  },
+  {
+    "Test Case ID": "ADMIN-007",
+    "Test Case": "Verify that the 'TTV (Last 30 Days)' KPI card displays the recent transaction volume.",
+    "Test Procedures/Steps": [
+      "1. Log in as an Admin user.",
+      "2. Observe the 'TTV (Last 30 Days)' KPI card."
+    ],
+    "Expected Outcome": "The card should display a currency value representing the sum of all payments processed within the last 30 days."
+  },
+  {
+    "Test Case ID": "ADMIN-008",
+    "Test Case": "Verify that the 'Top 5 Billers by Volume' widget displays a ranked list.",
+    "Test Procedures/Steps": [
+      "1. Log in as an Admin user.",
+      "2. Observe the 'Top 5 Billers by Volume' widget."
+    ],
+    "Expected Outcome": "The widget should display a list of up to 5 billers, ranked in descending order based on their total payment volume. Each entry should show the biller's name and their total volume."
+  },
+  {
+    "Test Case ID": "ADMIN-009",
+    "Test Case": "Verify that the 'Transaction Volume (Last 30 Days)' chart is displayed.",
+    "Test Procedures/Steps": [
+      "1. Log in as an Admin user.",
+      "2. Observe the 'Transaction Volume (Last 30 Days)' chart."
+    ],
+    "Expected Outcome": "A line or area chart should be visible. The X-axis should represent the last 30 days, and the Y-axis should represent the total payment volume for each day. The chart should visually represent the data from recent transactions."
+  },
+  {
+    "Test Case ID": "ADMIN-011",
+    "Test Case": "Verify the Admin user can navigate to the User Management page from the sidebar.",
+    "Test Procedures/Steps": [
+      "1. Successfully log in as an Admin user.",
+      "2. Locate the sidebar navigation menu on the left side of the screen.",
+      "3. Click on the 'User Management' menu item."
+    ],
+    "Expected Outcome": "The user is successfully navigated to the User Management page. The main heading should be 'User Management', and a table displaying a list of users should be visible."
+  },
+  {
+    "Test Case ID": "ADMIN-012",
+    "Test Case": "Verify that the 'Add New User' button is visible and opens the user invitation modal.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the User Management page.",
+      "2. Locate and click the '+ Add New User' button in the top-right corner."
+    ],
+    "Expected Outcome": "A modal window (dialog box) should appear with the title 'Invite New User'."
+  },
+  {
+    "Test Case ID": "ADMIN-013",
+    "Test Case": "Verify the Admin can successfully invite a new Biller User.",
+    "Test Procedures/Steps": [
+      "1. Open the 'Invite New User' modal.",
+      "2. Enter a valid and unique full name in the 'Full Name' field (e.g., 'Test Biller User').",
+      "3. Enter a valid and unique email address in the 'Email Address' field.",
+      "4. Click the 'Assign to Biller' dropdown and select an existing biller from the list.",
+      "5. Click the 'Assign Roles' dropdown and select the 'Biller User' role.",
+      "6. Click the 'Send Invitation' button."
+    ],
+    "Expected Outcome": "A success message should appear. The modal should close, and the user table should refresh to show the new user with a status of 'Invited'."
+  },
+  {
+    "Test Case ID": "ADMIN-014",
+    "Test Case": "Verify that an invitation email is sent to the new user's email address.",
+    "Test Procedures/Steps": [
+      "1. Successfully complete the steps in test case ADMIN-013.",
+      "2. Access the inbox of the email address used for the new user.",
+      "3. Look for an email with a subject like 'Your Invitation to the SVL Biller Portal'."
+    ],
+    "Expected Outcome": "An email should be present containing a unique link for the user to accept the invitation and set their password."
+  },
+  {
+    "Test Case ID": "ADMIN-015",
+    "Test Case": "Verify the Admin can filter the user list by a specific Biller.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the User Management page.",
+      "2. Locate the 'Filter by Biller' dropdown on the right side.",
+      "3. Select a specific biller name from the dropdown list."
+    ],
+    "Expected Outcome": "The user table should update and display only the users who are assigned to the selected biller."
+  },
+  {
+    "Test Case ID": "ADMIN-016",
+    "Test Case": "Verify the Admin can search for a user by their name or email.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the User Management page.",
+      "2. Type the name or email of an existing user into the 'Search by Name or Email' field.",
+      "3. Observe the user table."
+    ],
+    "Expected Outcome": "The user table should automatically filter as the admin types, showing only the users that match the search term."
+  },
+  {
+    "Test Case ID": "ADMIN-017",
+    "Test Case": "Verify the Admin can open the 'Edit User' modal for an existing user.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the User Management page.",
+      "2. Find a user in the table.",
+      "3. In the 'Actions' column for that user, click the 'Edit' icon (pencil icon)."
+    ],
+    "Expected Outcome": "A modal window should appear with the title 'Edit User: [User's Name]', with the user's current Biller and Roles pre-selected."
+  },
+  {
+    "Test Case ID": "ADMIN-018",
+    "Test Case": "Verify the Admin can change a user's assigned Biller and Role.",
+    "Test Procedures/Steps": [
+      "1. Open the 'Edit User' modal for an existing user.",
+      "2. Change the selected Biller in the 'Assign to Biller' dropdown.",
+      "3. Change the selected role in the 'Assign Roles' dropdown.",
+      "4. Click the 'Save Changes' button."
+    ],
+    "Expected Outcome": "A success message should appear. The modal should close, and the user table should refresh to show the user's updated 'Assigned Biller' and 'Roles'."
+  },
+  {
+    "Test Case ID": "ADMIN-019",
+    "Test Case": "Verify the Admin can deactivate an 'Active' user.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the User Management page.",
+      "2. Find a user with an 'Active' status.",
+      "3. In the 'Actions' column, click the status toggle icon (which should appear as a filled-in switch)."
+    ],
+    "Expected Outcome": "The user's status in the table should immediately change from 'Active' to 'Invited' (or 'Inactive'), and the toggle icon should change to an unfilled switch."
+  },
+  {
+    "Test Case ID": "ADMIN-020",
+    "Test Case": "Verify the Admin can activate an 'Invited' user.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the User Management page.",
+      "2. Find a user with an 'Invited' status.",
+      "3. In the 'Actions' column, click the status toggle icon (which should appear as an unfilled switch)."
+    ],
+    "Expected Outcome": "The user's status in the table should immediately change from 'Invited' to 'Active', and the toggle icon should change to a filled-in switch."
+  },
+  {
+    "Test Case ID": "ADMIN-021",
+    "Test Case": "Verify the Admin can resend an invitation to a user with an 'Invited' status.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the User Management page.",
+      "2. Find a user with an 'Invited' status.",
+      "3. In the 'Actions' column, click the 'Resend Invitation' icon (envelope icon)."
+    ],
+    "Expected Outcome": "A success message should appear, confirming that a new invitation has been sent. The 'Resend Invitation' icon should only be visible for users who are not yet active."
+  },
+  {
+    "Test Case ID": "ADMIN-022",
+    "Test Case": "Verify the Admin user can navigate to the Biller Management page.",
+    "Test Procedures/Steps": [
+      "1. Successfully log in as an Admin user.",
+      "2. Locate the sidebar navigation menu on the left side of the screen.",
+      "3. Click on the 'Biller Management' menu item."
+    ],
+    "Expected Outcome": "The user is successfully navigated to the Biller Management page. The main heading should be 'Biller Management', and a table displaying a list of existing billers should be visible."
+  },
+  {
+    "Test Case ID": "ADMIN-023",
+    "Test Case": "Verify the Admin can start the 'Onboard New Biller' wizard.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the Biller Management page.",
+      "2. Locate and click the 'Onboard New Biller' button in the top-right corner."
+    ],
+    "Expected Outcome": "The user is navigated to the 'Onboard New Biller' screen, and the first step, 'Business Details', should be active and visible."
+  },
+  {
+    "Test Case ID": "ADMIN-024",
+    "Test Case": "Verify the Admin can successfully fill out and proceed from the 'Business Details' step.",
+    "Test Procedures/Steps": [
+      "1. On the 'Business Details' step, select a value from the 'Type of Business' dropdown.",
+      "2. Select a value from the 'Legal Structure' dropdown.",
+      "3. Enter a valid, unique name in the 'Business Name' field.",
+      "4. Upload a valid logo file (90x90px PNG/JPG, max 5MB).",
+      "5. Enter a valid, unique 9-digit number in the 'Tax Registration Number (TRN)' field.",
+      "6. Enter a valid 10-digit phone number starting with '876' in the 'Telephone Number' field.",
+      "7. Enter a valid email in the 'Email Address' field.",
+      "8. Enter a valid address in the 'Street Address', 'City / Town', and 'Parish' fields.",
+      "9. Click the 'Continue' button."
+    ],
+    "Expected Outcome": "The form should validate successfully, a 'Logo uploaded' confirmation should appear, and the user should be advanced to the 'Primary Contact' step."
+  },
+  {
+    "Test Case ID": "ADMIN-025",
+    "Test Case": "Verify the Admin can successfully fill out and proceed from the 'Primary Contact' step.",
+    "Test Procedures/Steps": [
+      "1. On the 'Primary Contact' step, enter a valid name in the 'Contact Person's Full Name' field.",
+      "2. Enter a valid job title in the 'Title/Position' field.",
+      "3. Enter a valid email in the 'Contact Email' field.",
+      "4. Enter a valid 10-digit phone number starting with '876' in the 'Contact Phone' field.",
+      "5. Click the 'Continue' button."
+    ],
+    "Expected Outcome": "The form should validate successfully, and the user should be advanced to the 'Directors & Shareholders' step."
+  },
+  {
+    "Test Case ID": "ADMIN-026",
+    "Test Case": "Verify the Admin can successfully add director/shareholder details.",
+    "Test Procedures/Steps": [
+      "1. On the 'Directors & Shareholders' step, fill in all required fields for Director 1 (Full Name, Address, TRN, Phone, Shareholding Percentage).",
+      "2. If needed, click '+ Add Another Director' to add more individuals and fill their details.",
+      "3. Click the 'Continue' button."
+    ],
+    "Expected Outcome": "The form should validate successfully, and the user should be advanced to the 'Banking Information' step."
+  },
+  {
+    "Test Case ID": "ADMIN-027",
+    "Test Case": "Verify the Admin can successfully fill out and proceed from the 'Banking Information' step.",
+    "Test Procedures/Steps": [
+      "1. On the 'Banking Information' step, select a bank from the 'Bank Name' dropdown.",
+      "2. Enter a valid name in the 'Account Name' field.",
+      "3. Enter a valid number in the 'Bank Account Number' field.",
+      "4. Select an option from the 'Account Type' dropdown.",
+      "5. Enter the bank's branch and address.",
+      "6. Click the 'Continue' button."
+    ],
+    "Expected Outcome": "The form should validate successfully, and the user should be advanced to the 'Upload Documents' step."
+  },
+  {
+    "Test Case ID": "ADMIN-028",
+    "Test Case": "Verify the Admin can successfully upload all required KYC documents.",
+    "Test Procedures/Steps": [
+      "1. On the 'Upload Documents' step, observe the list of required documents.",
+      "2. For each required document, click the corresponding 'Upload' button and select a valid file (PDF, PNG, JPG).",
+      "3. (Optional) Add any additional supporting documents in the 'Other Supporting Documents' section.",
+      "4. Wait for all uploads to complete successfully.",
+      "5. Click the 'Continue' button."
+    ],
+    "Expected Outcome": "All files should upload successfully, and the user should be advanced to the final 'Review & Submit' step."
+  },
+  {
+    "Test Case ID": "ADMIN-029",
+    "Test Case": "Verify the 'Review & Submit' page displays all previously entered data correctly.",
+    "Test Procedures/Steps": [
+      "1. On the 'Review & Submit' step, carefully review all sections: Business Details, Primary Contact, Directors, Banking Information, and Uploaded Documents.",
+      "2. Click the 'Edit' button for any section to navigate back and make a correction if needed."
+    ],
+    "Expected Outcome": "All data entered in the previous steps should be accurately displayed for final review. The 'Edit' buttons should navigate back to the correct step."
+  },
+  {
+    "Test Case ID": "ADMIN-030",
+    "Test Case": "Verify the Admin can successfully submit the new biller for approval.",
+    "Test Procedures/Steps": [
+      "1. On the 'Review & Submit' step, after verifying all data, click the 'Submit for Approval' button."
+    ],
+    "Expected Outcome": "A success message 'Biller onboarded successfully! Status is Pending Approval.' should appear. The user should be automatically redirected to the newly created Biller's Profile page. The biller's status should be clearly marked as 'PENDING APPROVAL'."
+  },
+  {
+    "Test Case ID": "ADMIN-031",
+    "Test Case": "Verify the Admin can Approve a 'PENDING APPROVAL' biller.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the profile page of a biller with 'PENDING APPROVAL' status.",
+      "2. Locate and click the green 'Approve' button in the top-right corner.",
+      "3. In the confirmation dialog that appears, click 'Confirm'."
+    ],
+    "Expected Outcome": "A success message should appear. The biller's status on the page should change from 'PENDING APPROVAL' to 'ACTIVE'. The 'Approve' and 'Reject' buttons should be replaced with a 'Disable Biller' button."
+  },
+  {
+    "Test Case ID": "ADMIN-032",
+    "Test Case": "Verify the Admin can Reject a 'PENDING APPROVAL' biller.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the profile page of a different biller with 'PENDING APPROVAL' status.",
+      "2. Locate and click the 'Reject' button in the top-right corner.",
+      "3. In the confirmation dialog that appears, click 'Confirm'."
+    ],
+    "Expected Outcome": "A success message should appear. The biller's status on the page should change from 'PENDING APPROVAL' to 'INACTIVE' or 'REJECTED'. The 'Approve' and 'Reject' buttons should disappear."
+  },
+  {
+    "Test Case ID": "ADMIN-033",
+    "Test Case": "Verify that a newly onboarded biller is visible in the Biller Management list.",
+    "Test Procedures/Steps": [
+      "1. After submitting a new biller for approval, navigate back to the 'Biller Management' page.",
+      "2. Observe the table of billers. The newly created biller should be at or near the top of the list."
+    ],
+    "Expected Outcome": "The new biller should be listed in the table with the correct Business Name, TRN, Onboarding Date, and a 'PENDING APPROVAL' status."
+  },
+  {
+    "Test Case ID": "ADMIN-034",
+    "Test Case": "Verify the Admin can navigate to the detailed profile view of the new biller.",
+    "Test Procedures/Steps": [
+      "1. On the Biller Management page, locate the row for the new biller.",
+      "2. In the 'Actions' column for that row, click the 'View' icon (eye icon)."
+    ],
+    "Expected Outcome": "The user is successfully navigated to the Biller Profile page for that specific biller. The biller's name and 'PENDING APPROVAL' status should be displayed prominently at the top."
+  },
+  {
+    "Test Case ID": "ADMIN-035",
+    "Test Case": "Verify that the 'Profile Details' tab correctly displays all the information from the onboarding wizard.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the Biller Profile page.",
+      "2. Ensure the 'Profile Details' tab is selected.",
+      "3. Review the information in the 'Business Details', 'Primary Contact', 'Directors / Shareholders', and 'Banking Information' cards."
+    ],
+    "Expected Outcome": "All information entered during the multi-step onboarding process should be accurately displayed in the corresponding sections."
+  },
+  {
+    "Test Case ID": "ADMIN-036",
+    "Test Case": "Verify the Admin can navigate to the 'Documents' tab and see the list of uploaded documents.",
+    "Test Procedures/Steps": [
+      "1. On the Biller Profile page, click on the 'Documents' tab."
+    ],
+    "Expected Outcome": "The user should see a table titled 'Uploaded Documents'. Each document uploaded during onboarding should be listed with a 'PENDING' status, along with the uploader's name and the date/time of the upload."
+  },
+  {
+    "Test Case ID": "ADMIN-037",
+    "Test Case": "Verify the Admin can individually 'Approve' a pending document.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Documents' tab.",
+      "2. For a document with a 'PENDING' status, locate its row and click the green 'Approve' button.",
+      "3. Confirm the action if a confirmation dialog appears."
+    ],
+    "Expected Outcome": "The status of that specific document should change from 'PENDING' to 'APPROVED'. A success message should be displayed."
+  },
+  {
+    "Test Case ID": "ADMIN-038",
+    "Test Case": "Verify the Admin can individually 'Reject' a pending document.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Documents' tab.",
+      "2. For a different document with a 'PENDING' status, locate its row and click the red 'Reject' button.",
+      "3. Confirm the action if a confirmation dialog appears."
+    ],
+    "Expected Outcome": "The status of that specific document should change from 'PENDING' to 'REJECTED'. A success message should be displayed."
+  },
+  {
+    "Test Case ID": "ADMIN-039",
+    "Test Case": "Verify the Admin can view an uploaded document.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Documents' tab.",
+      "2. For any document in the list, click the 'View' button in the 'Actions' column."
+    ],
+    "Expected Outcome": "A modal window (dialog box) should appear, displaying a preview of the selected document (if it's a PDF or image) or providing a secure download link."
+  },
+  {
+    "Test Case ID": "ADMIN-040",
+    "Test Case": "Verify the Admin can add a new document from the Biller Profile page.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Documents' tab.",
+      "2. Click the '+ Add Document' button.",
+      "3. In the modal that appears, select a 'Document Type' from the dropdown.",
+      "4. Click 'Choose File' and select a valid file from your computer.",
+      "5. Click the 'Upload' button."
+    ],
+    "Expected Outcome": "A success message should appear. The modal should close, and the newly uploaded document should appear in the 'Uploaded Documents' table with a 'PENDING' status."
+  },
+  {
+    "Test Case ID": "ADMIN-041",
+    "Test Case": "Verify the 'Fee Structure' tab displays the fee information correctly.",
+    "Test Procedures/Steps": [
+      "1. On the Biller Profile page, click on the 'Fee Structure' tab."
+    ],
+    "Expected Outcome": "The page should display the fee management interface, showing the currently configured fees for the biller (or default values if not yet set)."
+  },
+  {
+    "Test Case ID": "ADMIN-042",
+    "Test Case": "Verify the 'Activity Log' tab correctly displays the history of the biller.",
+    "Test Procedures/Steps": [
+      "1. On the Biller Profile page, click on the 'Activity Log' tab."
+    ],
+    "Expected Outcome": "A table should be displayed showing a chronological log of events related to this biller. At a minimum, it should show the 'BILLER CREATED' event with the correct timestamp and the user who performed the action."
+  },
+  {
+    "Test Case ID": "ADMIN-043",
+    "Test Case": "Verify that after approving a biller, the activity is recorded in the 'Activity Log'.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the profile of a 'PENDING APPROVAL' biller.",
+      "2. Click the 'Approve' button and confirm.",
+      "3. After the page updates, click on the 'Activity Log' tab."
+    ],
+    "Expected Outcome": "The activity log should now contain a new entry at the top with the event 'BILLER STATUS CHANGED', and the details should indicate the status was changed to 'ACTIVE'."
+  },
+  {
+    "Test Case ID": "ADMIN-044",
+    "Test Case": "Verify the Admin can disable an 'ACTIVE' biller.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the profile of a biller with 'ACTIVE' status.",
+      "2. Locate and click the 'Disable Biller' button in the top-right corner.",
+      "3. In the confirmation dialog that appears, click 'Confirm'."
+    ],
+    "Expected Outcome": "A success message should appear. The biller's status on the page should change from 'ACTIVE' to 'INACTIVE' or 'SUSPENDED'. The 'Disable Biller' button might disappear or change to an 'Enable Biller' button."
+  },
+  {
+    "Test Case ID": "ADMIN-045",
+    "Test Case": "Verify the Admin can navigate to the Role Management page.",
+    "Test Procedures/Steps": [
+      "1. Successfully log in as an Admin user.",
+      "2. Locate the sidebar navigation menu on the left.",
+      "3. Click on the 'Role Management' menu item."
+    ],
+    "Expected Outcome": "The user is successfully navigated to the 'Role Management' page, which displays a table listing existing roles like 'Super Administrator' and 'Biller User'."
+  },
+  {
+    "Test Case ID": "ADMIN-046",
+    "Test Case": "Verify the Admin can open the 'Create New Role' page.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Role Management' page.",
+      "2. Click the '+ Add New Role' button in the top-right corner."
+    ],
+    "Expected Outcome": "The user is navigated to the 'Create New Role' page, which displays fields for 'Role Name', 'Description', and a list of available permissions grouped by module."
+  },
+  {
+    "Test Case ID": "ADMIN-047",
+    "Test Case": "Verify the Admin can create a new role with specific permissions.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Create New Role' page.",
+      "2. Enter a unique name for the role in the 'Role Name' field (e.g., 'Auditor').",
+      "3. Enter a description for the role in the 'Description' field.",
+      "4. In the 'Assign Permissions' section, check the boxes for a few specific permissions (e.g., 'View Users' and 'View Billers').",
+      "5. Click the 'Save Role' button."
+    ],
+    "Expected Outcome": "A success message is displayed, and the user is redirected back to the 'Role Management' page. The newly created 'Auditor' role should now be visible in the table."
+  },
+  {
+    "Test Case ID": "ADMIN-048",
+    "Test Case": "Verify the Admin can navigate to the 'Edit Role' page for an existing role.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Role Management' page.",
+      "2. Locate a role in the table (e.g., the newly created 'Auditor' role).",
+      "3. In the 'Actions' column for that role, click the 'Edit' icon (pencil icon)."
+    ],
+    "Expected Outcome": "The user is navigated to the 'Edit Role' page. The role's name, description, and assigned permissions should be pre-populated in the form."
+  },
+  {
+    "Test Case ID": "ADMIN-049",
+    "Test Case": "Verify the Admin can update the permissions for an existing role.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Edit Role' page for a specific role.",
+      "2. Add or remove a permission by checking or unchecking a box in the 'Assign Permissions' section.",
+      "3. Click the 'Save Role' button."
+    ],
+    "Expected Outcome": "A success message is displayed, and the user is redirected back to the 'Role Management' page. The changes to the role's permissions should be saved."
+  },
+  {
+    "Test Case ID": "ADMIN-050",
+    "Test Case": "Verify the Admin can navigate to the Application Module Management page.",
+    "Test Procedures/Steps": [
+      "1. Successfully log in as an Admin user.",
+      "2. Locate the sidebar navigation menu on the left.",
+      "3. Click on the 'Modules' menu item."
+    ],
+    "Expected Outcome": "The user is successfully navigated to the 'Application Module Management' page, displaying a table of existing modules with their description and sort order."
+  },
+  {
+    "Test Case ID": "ADMIN-051",
+    "Test Case": "Verify the Admin can create a new Module.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Application Module Management' page.",
+      "2. Click the '+ Add New Module' button.",
+      "3. In the modal that appears, enter a unique 'Module Name', a 'Description', and a 'Sort Order'.",
+      "4. Click the 'Save' button."
+    ],
+    "Expected Outcome": "A success message is displayed. The modal closes, and the new module appears in the table on the 'Application Module Management' page."
+  },
+  {
+    "Test Case ID": "ADMIN-052",
+    "Test Case": "Verify the Admin can edit an existing Module.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Application Module Management' page.",
+      "2. In the 'Actions' column for an existing module, click the 'Edit' icon (pencil icon).",
+      "3. In the modal that appears, change the 'Description' or 'Sort Order'.",
+      "4. Click the 'Save' button."
+    ],
+    "Expected Outcome": "A success message is displayed. The modal closes, and the updated information for the module is reflected in the table."
+  },
+  {
+    "Test Case ID": "ADMIN-053",
+    "Test Case": "Verify the Admin can delete an existing Module.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Application Module Management' page.",
+      "2. In the 'Actions' column for a module, click the 'Delete' icon (trash can icon).",
+      "3. In the confirmation dialog that appears, click 'Confirm'."
+    ],
+    "Expected Outcome": "A success message is displayed, and the module is removed from the table."
+  },
+  {
+    "Test Case ID": "ADMIN-054",
+    "Test Case": "Verify the Admin can navigate to and view the System Permission Management page.",
+    "Test Procedures/Steps": [
+      "1. Successfully log in as an Admin user.",
+      "2. Locate the sidebar navigation menu on the left.",
+      "3. Click on the 'Permissions' menu item."
+    ],
+    "Expected Outcome": "The user is successfully navigated to the 'System Permission Management' page. A read-only list of all system permissions should be displayed, showing the 'Display Name', 'Permission Key', 'Module', and 'Description' for each."
+  },
+  {
+    "Test Case ID": "ADMIN-055",
+    "Test Case": "Verify the Admin can navigate to the Partner API Client Management page.",
+    "Test Procedures/Steps": [
+      "1. Successfully log in as an Admin user.",
+      "2. Locate the sidebar navigation menu on the left.",
+      "3. Click on the 'API Clients' menu item."
+    ],
+    "Expected Outcome": "The user is successfully navigated to the 'Partner API Client Management' page, displaying a table of existing API clients with their status and creation date."
+  },
+  {
+    "Test Case ID": "ADMIN-056",
+    "Test Case": "Verify the Admin can register a new API Client.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Partner API Client Management' page.",
+      "2. Click the '+ Register New API Client' button.",
+      "3. In the modal that appears, enter a unique name in the 'Client Name' field (e.g., 'New Partner System').",
+      "4. Click the 'Generate Key' button."
+    ],
+    "Expected Outcome": "The modal should advance to a second step, displaying a newly generated API key. A warning message should be present, instructing the user to save the key as it will not be shown again."
+  },
+  {
+    "Test Case ID": "ADMIN-057",
+    "Test Case": "Verify the Admin can activate and deactivate an API Client.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Partner API Client Management' page.",
+      "2. Locate an API client in the table.",
+      "3. In the 'Actions' column, click the status toggle switch.",
+      "4. Observe the status of the client."
+    ],
+    "Expected Outcome": "The client's status should change (e.g., from 'Active' to 'Inactive', or vice-versa). The toggle switch should visually reflect the new state."
+  },
+  {
+    "Test Case ID": "ADMIN-058",
+    "Test Case": "Verify the Admin can navigate to the System Audit Log page.",
+    "Test Procedures/Steps": [
+      "1. Successfully log in as an Admin user.",
+      "2. Locate the sidebar navigation menu on the left.",
+      "3. Click on the 'Audit Log' menu item."
+    ],
+    "Expected Outcome": "The user is successfully navigated to the 'System Audit Log' page. Filter controls for 'User', 'Start Date', and 'End Date' should be visible."
+  },
+  {
+    "Test Case ID": "ADMIN-059",
+    "Test Case": "Verify the Admin can filter the audit log by a specific user and date range.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'System Audit Log' page.",
+      "2. In the 'Filter by User' dropdown, select a specific user.",
+      "3. In the 'Start Date' field, select a past date.",
+      "4. In the 'End Date' field, select the current date.",
+      "5. Click the 'Generate Report' button."
+    ],
+    "Expected Outcome": "The table should populate with a list of log entries. Each entry in the 'User' column should match the selected user, and the 'Timestamp' for each entry should fall within the selected date range."
+  },
+  {
+    "Test Case ID": "ADMIN-060",
+    "Test Case": "Verify the Admin can navigate to the Settlement Reports page.",
+    "Test Procedures/Steps": [
+      "1. Successfully log in as an Admin user.",
+      "2. Locate the sidebar navigation menu on the left.",
+      "3. Click on the 'Settlement Reports' menu item."
+    ],
+    "Expected Outcome": "The user is successfully navigated to the 'Generate Reports' page. Filter controls for 'Select Biller', 'Start Date', and 'End Date' should be visible."
+  },
+  {
+    "Test Case ID": "ADMIN-061",
+    "Test Case": "Verify the Admin can successfully generate and download a CSV Settlement Report.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Generate Reports' page.",
+      "2. In the 'Select Biller' dropdown, choose a biller that has transactions.",
+      "3. Select a valid 'Start Date' and 'End Date' that covers the transaction period.",
+      "4. Click the 'Generate' button."
+    ],
+    "Expected Outcome": "A success message 'Report downloaded successfully' should appear. The web browser should automatically download a CSV file."
+  },
+  {
+    "Test Case ID": "ADMIN-062",
+    "Test Case": "Verify the downloaded Settlement Report CSV contains the correct data and columns.",
+    "Test Procedures/Steps": [
+      "1. Complete the steps in test case ADMIN-061 to download the report file.",
+      "2. Open the downloaded CSV file using a spreadsheet application (like Microsoft Excel or Google Sheets).",
+      "3. Inspect the contents of the file."
+    ],
+    "Expected Outcome": "The spreadsheet should contain rows of transaction data. It must include the following columns with correct data: 'transaction_id', 'payment_date', 'gross_amount', 'invoice_number', 'customer_name', and 'customer_account_number'."
+  },
+  {
+    "Test Case ID": "ADMIN-063",
+    "Test Case": "Verify the Admin user can navigate to the 'Partner Activity' page.",
+    "Test Procedures/Steps": [
+      "1. Successfully log in as an Admin user.",
+      "2. Locate the sidebar navigation menu on the left.",
+      "3. Click on the 'Partner Activity' menu item."
+    ],
+    "Expected Outcome": "The user is successfully navigated to the page. The main header should read 'Partner Transaction Report'."
+  },
+  {
+    "Test Case ID": "ADMIN-064",
+    "Test Case": "Verify the Admin can generate a Partner Activity report for a specific API Client and date range.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Partner Activity' page.",
+      "2. Select a client (e.g., 'NewApiForTest') from the 'API Client' dropdown.",
+      "3. Select a valid 'Start Date' and 'End Date'.",
+      "4. Click the 'Generate Report' button."
+    ],
+    "Expected Outcome": "The table should refresh to display transaction records matching the criteria. The table should include columns for 'Date Paid', 'Transaction ID', 'Biller', 'Customer', 'Amount', and 'Status' (showing 'Completed' or 'Voided')."
+  },
+  {
+    "Test Case ID": "ADMIN-065",
+    "Test Case": "Verify the Admin can navigate to the 'Incoming Onboarding Requests' page and view the list.",
+    "Test Procedures/Steps": [
+      "1. Successfully log in as an Admin user.",
+      "2. Click on the 'Incoming Requests' menu item (indicated by the envelope icon).",
+      "3. Verify the presence of the 'Search by Business Name' input, 'Status' dropdown, and 'Parish' dropdown."
+    ],
+    "Expected Outcome": "The user is successfully navigated to the page. The table should display columns for 'Date Submitted', 'Business Name', 'Contact Email', 'Parish', and 'Status'."
+  },
+  {
+    "Test Case ID": "ADMIN-066",
+    "Test Case": "Verify the Admin can navigate to the 'My Account' page.",
+    "Test Procedures/Steps": [
+      "1. Successfully log in as an Admin user.",
+      "2. In the top-right corner of the screen, click on the user avatar (the circle with the user's initial).",
+      "3. In the dropdown menu that appears, click on 'My Account'."
+    ],
+    "Expected Outcome": "The user is successfully navigated to the 'My Account Settings' page. Sections for 'Profile Details', 'Change Password', 'Two-Factor Authentication', and 'Active Sessions' should be visible."
+  },
+  {
+    "Test Case ID": "ADMIN-067",
+    "Test Case": "Verify the 'Profile Details' section on the 'My Account' page displays the correct user information.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'My Account' page.",
+      "2. Observe the 'Profile Details' card."
+    ],
+    "Expected Outcome": "The card should display the correct 'Full Name' and 'Email Address' for the currently logged-in Admin user."
+  },
+  {
+    "Test Case ID": "ADMIN-068",
+    "Test Case": "Verify the Admin can successfully change their password.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'My Account' page.",
+      "2. In the 'Change Password' card, enter the user's current valid password into the 'Current Password' field.",
+      "3. Enter a new, valid password into the 'New Password' field.",
+      "4. Re-enter the same new password into the 'Confirm New Password' field.",
+      "5. Click the 'Update Password' button."
+    ],
+    "Expected Outcome": "A success message should appear, confirming the password has been changed. The fields in the 'Change Password' form should be cleared."
+  },
+  {
+    "Test Case ID": "ADMIN-069",
+    "Test Case": "Verify that attempting to change a password with an incorrect 'Current Password' fails.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'My Account' page.",
+      "2. Enter an incorrect password into the 'Current Password' field.",
+      "3. Enter a new password in the 'New Password' and 'Confirm New Password' fields.",
+      "4. Click the 'Update Password' button."
+    ],
+    "Expected Outcome": "An error message should appear, indicating that the current password is incorrect. The password should not be changed."
+  },
+  {
+    "Test Case ID": "ADMIN-070",
+    "Test Case": "Verify the 'Active Sessions' section displays a list of the user's current login sessions.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'My Account' page.",
+      "2. Scroll down to the 'Active Sessions' card."
+    ],
+    "Expected Outcome": "A list of active login sessions should be displayed. The current session should be clearly marked, and other sessions should show details like browser/OS, IP address, and login time. A 'Revoke' button should be visible for all sessions except the current one."
+  },
+  {
+    "Test Case ID": "ADMIN-071",
+    "Test Case": "Verify the Admin can revoke a single active session.",
+    "Test Procedures/Steps": [
+      "1. Log in to the application from two different browsers (e.g., Chrome and Firefox) to create at least two active sessions.",
+      "2. In one browser, navigate to the 'My Account' page and view the 'Active Sessions' list.",
+      "3. Locate the session corresponding to the *other* browser.",
+      "4. Click the 'Revoke' button for that session."
+    ],
+    "Expected Outcome": "A success message should appear. The revoked session should be removed from the list. If the user tries to use the application in the other browser, they should be logged out and redirected to the login page."
+  },
+  {
+    "Test Case ID": "ADMIN-072",
+    "Test Case": "Verify the Admin can log out of all other sessions using the 'Logout Everywhere Else' button.",
+    "Test Procedures/Steps": [
+      "1. Log in to the application from multiple different browsers/devices.",
+      "2. In one browser, navigate to the 'My Account' page.",
+      "3. Click the 'Logout Everywhere Else' button.",
+      "4. In the confirmation dialog that appears, click 'Confirm'."
+    ],
+    "Expected Outcome": "A success message should appear. All sessions except the current one should be removed from the list. The user should be logged out on all other devices."
+  },
+  {
+    "Test Case ID": "ADMIN-073",
+    "Test Case": "Verify the Admin can navigate to the 'Forgot Password' page from the login screen.",
+    "Test Procedures/Steps": [
+      "1. Log out of the application.",
+      "2. On the login page, click the 'Forgot password?' link."
+    ],
+    "Expected Outcome": "The user should be navigated to the 'Forgot Your Password?' page."
+  },
+  {
+    "Test Case ID": "ADMIN-074",
+    "Test Case": "Verify the 'Forgot Password' flow sends a reset link to the user's email.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Forgot Your Password?' page.",
+      "2. Enter the Admin's valid email address into the 'Email Address' field.",
+      "3. Click the 'Send Reset Link' button.",
+      "4. Check the inbox for the email address that was entered."
+    ],
+    "Expected Outcome": "A success message should appear on the screen. An email containing a unique password reset link should be received in the user's inbox."
+  }
+]

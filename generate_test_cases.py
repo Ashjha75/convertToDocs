@@ -6,10 +6,10 @@ from docx.enum.section import WD_ORIENT
 import json, zipfile, os
 
 # ---------- CONFIG ----------
-INPUT_JSON = "billeraiword.json"  # path to your JSON file
-OUTPUT_DOCX = "Biller-Biller-Portal-Test_Cases.docx"
-OUTPUT_ZIP = "Biller-Biller-Portal-Test_Cases.zip"
-TITLE_TEXT = "Biller - Biller Portal Test Cases"
+INPUT_JSON = "aiword.json"  # path to your JSON file
+OUTPUT_DOCX = "Admin-Biller-Portal-Test_Cases.docx"
+OUTPUT_ZIP = "Admin-Biller-Portal-Test_Cases.zip"
+TITLE_TEXT = "Admin - Biller Portal Test Cases"
 FONT_NAME = "Calibri"
 FONT_SIZE_PT = 10
 PASS_FAIL_TEXT = "PASS\nFAIL\n\nCOMMENTS:"
