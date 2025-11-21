@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # generate_biller_doc.py
 from docx import Document
-from docx.shared import Pt, Inches
+from docx.shared import Pt, Inches, RGBColor
 from docx.enum.section import WD_ORIENT
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 import json, zipfile, os
 
 # ---------- CONFIG ----------
@@ -27,7 +28,7 @@ def load_json(path: str):
             raise err from wrap_err
 
 
-def set_run_font(run, bold: bool = False) -> None:
+def set_run_font(run, bold: bool = True) -> None:
     """Apply consistent font styling to a run."""
     run.font.name = FONT_NAME
     run.font.size = Pt(FONT_SIZE_PT)
@@ -62,7 +63,7 @@ def main() -> None:
     style = doc.styles["Normal"]
     style.font.name = FONT_NAME
     style.font.size = Pt(FONT_SIZE_PT)
-    style.font.bold = False
+    style.font.bold = True
 
     title = doc.add_heading(TITLE_TEXT, level=1)
     for run in title.runs:
@@ -80,17 +81,24 @@ def main() -> None:
     ]
     header_cells = table.rows[0].cells
     for idx, text in enumerate(header_labels):
-        header_cells[idx].text = text
-        for paragraph in header_cells[idx].paragraphs:
+        cell = header_cells[idx]
+        cell.text = text
+        for paragraph in cell.paragraphs:
             for run in paragraph.runs:
-                set_run_font(run)
+                run.font.name = FONT_NAME
+                run.font.size = Pt(12)
+                run.font.bold = True
+                run.font.color.rgb = RGBColor(59, 130, 246)
 
     row_id = 1
     for item in data:
         cells = table.add_row().cells
         cells[0].text = str(row_id)
+        cells[0].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+        set_cell_font(cells[0])
 
         cells[1].text = item.get("Test Case", "")
+        set_cell_font(cells[1])
 
         procedures = cells[2]
         procedures.text = ""
