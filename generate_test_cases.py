@@ -88,7 +88,7 @@ def main() -> None:
                 run.font.name = FONT_NAME
                 run.font.size = Pt(12)
                 run.font.bold = True
-                run.font.color.rgb = RGBColor(59, 130, 246)
+                run.font.color.rgb = RGBColor(153, 184, 235)
 
     row_id = 1
     for item in data:
