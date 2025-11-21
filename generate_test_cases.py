@@ -11,7 +11,7 @@ OUTPUT_DOCX = "Admin-Biller-Portal-Test_Cases.docx"
 OUTPUT_ZIP = "Admin-Biller-Portal-Test_Cases.zip"
 TITLE_TEXT = "Admin - Biller Portal Test Cases"
 FONT_NAME = "Calibri"
-FONT_SIZE_PT = 10
+FONT_SIZE_PT = 11
 PASS_FAIL_TEXT = "PASS\nFAIL\n\nCOMMENTS:"
 # ----------------------------
 
@@ -51,9 +51,9 @@ def main() -> None:
 
     section = doc.sections[-1]
     section.orientation = WD_ORIENT.LANDSCAPE
-    new_width, new_height = section.page_height, section.page_width
-    section.page_width = new_width
-    section.page_height = new_height
+    # Set to Legal size (21.59 cm x 35.56 cm)
+    section.page_width = Inches(14.0)  # 35.56 cm ≈ 14 inches
+    section.page_height = Inches(8.5)  # 21.59 cm ≈ 8.5 inches
     section.left_margin = Inches(0.5)
     section.right_margin = Inches(0.5)
     section.top_margin = Inches(0.5)
