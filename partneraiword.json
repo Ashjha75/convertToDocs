@@ -1,0 +1,183 @@
+[
+	{
+		"Test Case ID": "PARTNER-FLOW-001",
+		"Test Case": "Verify the user can access the Bill Payment application.",
+		"Test Procedures/Steps": [
+			"1. Log in to the main portal.",
+			"2. On the home screen, locate the 'Fintech' section.",
+			"3. Click on the 'Bill Payment' icon under the 'EVOLVE PAY' brand."
+		],
+		"Expected Outcome": "The user is successfully navigated to the 'Search Providers' screen, which displays a list of available biller companies (providers)."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-002",
+		"Test Case": "Verify the user can search for and select a specific biller.",
+		"Test Procedures/Steps": [
+			"1. On the 'Search Providers' screen, find the search bar.",
+			"2. Type the name of a known biller (e.g., 'Kfc biller').",
+			"3. The list should filter to show the matching biller.",
+			"4. Click on the desired biller from the list."
+		],
+		"Expected Outcome": "The user is navigated to a new screen. The 'Selected Provider' section at the top should now display the name and logo of the biller you just clicked."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-003",
+		"Test Case": "Verify the user can fetch customer details by entering an account number.",
+		"Test Procedures/Steps": [
+			"1. On the 'Selected Provider' screen, locate the 'Account Number' input field.",
+			"2. Enter a valid customer account number for that biller (e.g., '8860673347').",
+			"3. Click the 'Get Details' button."
+		],
+		"Expected Outcome": "The screen should update below the 'Get Details' button. New fields should appear, displaying the customer's 'Account Name', 'Due Amount', 'Service Fee', and 'G.C.T'."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-004",
+		"Test Case": "Verify that an error is shown if the user tries to proceed without filling payer details.",
+		"Test Procedures/Steps": [
+			"1. After successfully fetching customer details, do not fill in the 'PAYER First Name' or other payer fields.",
+			"2. Click the 'Proceed to Payment' button."
+		],
+		"Expected Outcome": "The payment should not proceed. A red error message, such as 'PAYER First Name is required', should appear below the empty field."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-005",
+		"Test Case": "Verify the user can fill in payer details and proceed to the confirmation step.",
+		"Test Procedures/Steps": [
+			"1. After successfully fetching customer details, enter a name in the 'PAYER First Name' field (e.g., 'Alex').",
+			"2. Enter a name in the 'PAYER Last Name' field (e.g., 'Clerk').",
+			"3. Enter a valid mobile number in the 'PAYER Mobile Number' field.",
+			"4. Enter the amount the customer wishes to pay in the 'Enter Amount To Pay (J$)' field (e.g., '1').",
+			"5. Click the 'Proceed to Payment' button."
+		],
+		"Expected Outcome": "A pop-up window (modal) with the title 'CONFIRM TRANSACTION' appears. It should show a summary of all the details for final review."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-006",
+		"Test Case": "Verify the 'CONFIRM TRANSACTION' modal displays the correct summary.",
+		"Test Procedures/Steps": [
+			"1. Arrive at the 'CONFIRM TRANSACTION' modal.",
+			"2. Review all the information displayed."
+		],
+		"Expected Outcome": "The modal should accurately display the 'Account Name', 'Account Number', 'Due Amount', 'Service Fee', 'G.C.T', 'Payer First Name', 'Payer Last Name', and 'Payer Mobile Number'."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-007",
+		"Test Case": "Verify the user can confirm the transaction and select a tender type.",
+		"Test Procedures/Steps": [
+			"1. On the 'CONFIRM TRANSACTION' modal, click the 'Confirm' button."
+		],
+		"Expected Outcome": "A new pop-up window appears with the title 'Select Tender Type'. It should show options like 'Cash', 'Debit Card', and 'Credit Card'."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-008",
+		"Test Case": "Verify the user can complete the payment process.",
+		"Test Procedures/Steps": [
+			"1. On the 'Select Tender Type' modal, select one of the payment options (e.g., 'Cash').",
+			"2. Click the 'Continue' button."
+		],
+		"Expected Outcome": "A final pop-up window appears with the title 'Bill Paid Successfully'. It should display a green checkmark and a detailed receipt of the completed transaction."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-009",
+		"Test Case": "Verify the 'Bill Paid Successfully' receipt contains all required details.",
+		"Test Procedures/Steps": [
+			"1. Arrive at the 'Bill Paid Successfully' screen.",
+			"2. Review all the information displayed on the receipt."
+		],
+		"Expected Outcome": "The receipt should correctly display all transaction details, including 'Account Number', 'Account Name', 'Transaction ID', 'Transaction Date Time', 'Amount', 'Total Amount', 'Receipt No', and all payer information."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-010",
+		"Test Case": "Verify the post-payment options are available.",
+		"Test Procedures/Steps": [
+			"1. On the 'Bill Paid Successfully' screen, observe the buttons at the bottom."
+		],
+		"Expected Outcome": "Three buttons should be visible: 'Close', 'Print Receipt', and 'Email Receipt'."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-011",
+		"Test Case": "Verify the user can access the Bill Payment History screen.",
+		"Test Procedures/Steps": [
+			"1. Log in to the main portal.",
+			"2. On the home screen, locate the 'Fintech' section.",
+			"3. Click on the 'Bill Payment History' icon under the 'EVOLVE PAY' brand."
+		],
+		"Expected Outcome": "The user is successfully navigated to the 'Bill Payment History' screen. A set of filters should be visible at the top, along with a 'Summary' section and a table displaying past transactions."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-012",
+		"Test Case": "Verify the user can generate a report by filtering transactions by date.",
+		"Test Procedures/Steps": [
+			"1. On the 'Bill Payment History' screen, find the 'Date From' and 'Date To' filter fields.",
+			"2. Select a valid start date and end date.",
+			"3. Click the 'Generate' button."
+		],
+		"Expected Outcome": "The 'Summary' cards and the transaction table below should update to show only the data from within the selected date range."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-013",
+		"Test Case": "Verify the user can filter transactions by a specific Biller Type.",
+		"Test Procedures/Steps": [
+			"1. On the 'Bill Payment History' screen, find the 'Biller Type' dropdown filter.",
+			"2. Select a specific biller from the list (e.g., 'Zara').",
+			"3. Click the 'Generate' button."
+		],
+		"Expected Outcome": "The 'Summary' cards and the transaction table should update to show only the transactions for the selected biller."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-014",
+		"Test Case": "Verify the 'Export' button downloads a report.",
+		"Test Procedures/Steps": [
+			"1. On the 'Bill Payment History' screen, apply any desired filters (or leave them as default).",
+			"2. Click the 'Export' button."
+		],
+		"Expected Outcome": "The web browser should automatically download a file (e.g., an Excel or CSV file) containing the transaction data that is currently displayed in the table."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-015",
+		"Test Case": "Verify the user can open the 'Void Transaction' pop-up window.",
+		"Test Procedures/Steps": [
+			"1. On the 'Bill Payment History' screen, find a transaction in the table that is eligible to be voided.",
+			"2. In the 'Actions' column for that row, click the 'Void' button."
+		],
+		"Expected Outcome": "A pop-up window (modal) should appear with the title 'Are you sure you want to void this transaction?'. The window should display a summary of the transaction details."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-016",
+		"Test Case": "Verify that an error is shown if the user tries to confirm a void without selecting a reason.",
+		"Test Procedures/Steps": [
+			"1. Open the 'Void Transaction' pop-up window.",
+			"2. Do *not* select a reason from the 'Void Reason' dropdown.",
+			"3. Click the 'Confirm' button."
+		],
+		"Expected Outcome": "The transaction should not be voided. A red error message, such as 'Void Reason is required', should appear below the dropdown field."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-017",
+		"Test Case": "Verify the user can successfully void a transaction.",
+		"Test Procedures/Steps": [
+			"1. Open the 'Void Transaction' pop-up window.",
+			"2. Select a valid reason from the 'Void Reason' dropdown menu.",
+			"3. Click the 'Confirm' button."
+		],
+		"Expected Outcome": "A success message should appear. The pop-up window should close, and the status of the transaction in the main table should be updated to 'Voided' or be removed from the list of active transactions."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-018",
+		"Test Case": "Verify the 'Reprint' button functions correctly.",
+		"Test Procedures/Steps": [
+			"1. On the 'Bill Payment History' screen, find any transaction in the table.",
+			"2. In the 'Actions' column for that row, click the 'Reprint' button."
+		],
+		"Expected Outcome": "A print dialog should open in the browser, showing a receipt for the selected transaction, ready to be printed."
+	},
+	{
+		"Test Case ID": "PARTNER-FLOW-019",
+		"Test Case": "Verify the 'Send Email' button functions correctly.",
+		"Test Procedures/Steps": [
+			"1. On the 'Bill Payment History' screen, find any transaction in the table.",
+			"2. In the 'Actions' column for that row, click the 'Send Email' button."
+		],
+		"Expected Outcome": "A pop-up window should appear, prompting the user to enter an email address to send the receipt to."
+	}
+]

@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
 # generate_biller_doc.py
+import json
+import os
+import zipfile
+
 from docx import Document
-from docx.shared import Pt, Inches, RGBColor
 from docx.enum.section import WD_ORIENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-import json, zipfile, os
+from docx.shared import Inches, Pt, RGBColor
 
 # ---------- CONFIG ----------
-INPUT_JSON = "aiword.json"  # path to your JSON file
-OUTPUT_DOCX = "Admin-Biller-Portal-Test_Cases.docx"
-OUTPUT_ZIP = "Admin-Biller-Portal-Test_Cases.zip"
-TITLE_TEXT = "Admin - Biller Portal Test Cases"
+INPUT_JSON = "partneraiword.json"  # path to your JSON file
+OUTPUT_DOCX = "Web-CMS-Biller-Portal-Test_Cases.docx"
+OUTPUT_ZIP = "Web-CMS-Biller-Portal-Test_Cases.zip"
+TITLE_TEXT = "Web-CMS - Biller Portal Test Cases"
 FONT_NAME = "Calibri"
 FONT_SIZE_PT = 11
 PASS_FAIL_TEXT = "PASS\nFAIL\n\nCOMMENTS:"
 # ----------------------------
+
 
 def load_json(path: str):
     with open(path, "r", encoding="utf-8") as f:
