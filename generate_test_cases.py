@@ -10,7 +10,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Inches, Pt, RGBColor
 
 # ---------- CONFIG ----------
-INPUT_JSON = "partnermobileword.json"  # path to your JSON file
+INPUT_JSON = "rms-deposit.json"  # path to your JSON file
 OUTPUT_DOCX = "Mpos-Biller-Portal-Test_Cases.docx"
 OUTPUT_ZIP = "Mpos-Biller-Portal-Test_Cases.zip"
 TITLE_TEXT = "Mpos-Biller Portal Test Cases"

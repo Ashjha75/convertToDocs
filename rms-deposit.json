@@ -1,0 +1,349 @@
+[
+    {
+        "Test Case ID": "BNS-001",
+        "Test Case": "Verify that a user can log in successfully.",
+        "Test Procedures/Steps": [
+            "1. Open a web browser and navigate to the application's sign-in page.",
+            "2. Enter a valid username into the 'Username' field.",
+            "3. Enter the corresponding valid password into the 'Password' field.",
+            "4. Click the 'LOG IN' button."
+        ],
+        "Expected Outcome": "The user is successfully authenticated and redirected to the application's main dashboard. A header navigation bar should be visible at the top, starting with 'Administration'."
+    },
+    {
+        "Test Case ID": "BNS-002",
+        "Test Case": "Verify user can navigate to the 'BNS Deposit Batches' page.",
+        "Test Procedures/Steps": [
+            "1. Successfully log in to the application.",
+            "2. Locate and click on the 'Deposit Management' dropdown menu in the main header.",
+            "3. From the dropdown list, click on the 'BNS Batches' option."
+        ],
+        "Expected Outcome": "The user is successfully navigated to the 'BNS Deposit Batches' page. The page title 'BNS Deposit Batches' should be clearly visible."
+    },
+    {
+        "Test Case ID": "BNS-003",
+        "Test Case": "Verify the 'BNS Deposit Batches' page displays key components and a list of batches.",
+        "Test Procedures/Steps": [
+            "1. Navigate to the 'BNS Deposit Batches' page.",
+            "2. Observe the content and layout of the page."
+        ],
+        "Expected Outcome": "The page should display a filter section with 'From Date' and 'To Date' fields, a 'Search' button, and an 'Export' button. Below the filters, a list of deposit batches should be visible, with each batch showing details like 'Bank of Nova Scotia', 'Imported On', 'Statement Date', various transaction counts and amounts, status, and a 'View Details' button."
+    },
+    {
+        "Test Case ID": "BNS-004",
+        "Test Case": "Verify that each batch in the 'BNS Deposit Batches' list displays a comprehensive summary.",
+        "Test Procedures/Steps": [
+            "1. Navigate to the 'BNS Deposit Batches' page.",
+            "2. Observe the information displayed for a single batch entry (e.g., S.No-1)."
+        ],
+        "Expected Outcome": "Each batch should be presented in a card format, displaying the following key details:\n- Bank Name (e.g., 'Bank of Nova Scotia')\n- Imported On Date\n- Statement Date\n- Last Updated At Timestamp\n- Identified Transaction(s) Count\n- Identified Transaction(s) Amount\n- Unidentified Transaction(s) Count\n- Unidentified Transaction(s) Amount\n- Total Transaction(s) Count\n- Total Transaction(s) Amount\n- Download Status, Import Status, and general Status (e.g., 'Success')"
+    },
+    {
+        "Test Case ID": "BNS-005",
+        "Test Case": "Verify the presence and purpose of the date filters and the 'Export' button.",
+        "Test Procedures/Steps": [
+            "1. Navigate to the 'BNS Deposit Batches' page.",
+            "2. Examine the filter section at the top of the page."
+        ],
+        "Expected Outcome": "A filter section should be clearly visible containing:\n- A 'From Date' and 'To Date' date picker to allow filtering by a date range.\n- A 'Search' button to apply the selected filters.\n- An 'Export' button, intended for exporting the filtered list of batches to a file format like CSV or Excel."
+    },
+    {
+        "Test Case ID": "BNS-006",
+        "Test Case": "Verify the 'View Details' button navigates to the transaction breakdown page for the selected batch.",
+        "Test Procedures/Steps": [
+            "1. On the 'BNS Deposit Batches' page, locate any batch in the list.",
+            "2. Click the 'View Details' button for that batch."
+        ],
+        "Expected Outcome": "The user should be navigated to a detailed page for that specific batch. This page should display a high-level summary of the batch in KPI cards at the top and provide options to view 'Unidentified' and 'Identified' transactions."
+    },
+    {
+        "Test Case ID": "BNS-007",
+        "Test Case": "Verify the 'Unidentified Transaction(s)' view displays correctly with its specific details and actions.",
+        "Test Procedures/Steps": [
+            "1. Navigate to the detailed view of any BNS Batch.",
+            "2. Ensure the 'Unidentified Transaction(s)' tab is selected by default.",
+            "3. Observe the page elements."
+        ],
+        "Expected Outcome": "The view should display:\n- An 'Export All TXNs(s)' button to download the transaction data.\n- A table of transactions with the following columns: 'S No.', 'Account No.', 'Currency', 'Date', 'Amount ($)', 'Transaction Type', 'Institution', and 'Description'."
+    },
+    {
+        "Test Case ID": "BNS-008",
+        "Test Case": "Verify the 'Identified Transaction(s)' view displays correctly with its specific details.",
+        "Test Procedures/Steps": [
+            "1. Navigate to the detailed view of any BNS Batch.",
+            "2. Click on the 'Identified Transaction(s)' button/tab to switch views.",
+            "3. Observe the transaction table."
+        ],
+        "Expected Outcome": "The table should update to show a list of identified transactions. The table must contain the following specific columns: 'S.No.', 'Location ID', 'Location Name', 'Account No.', 'Currency', 'Date', 'Amount ($)', 'Transaction Type', 'Institution', and 'Description'."
+    },
+    {
+        "Test Case ID": "DB-001",
+        "Test Case": "Verify user can navigate to the 'Deposit Batches' page.",
+        "Test Procedures/Steps": [
+            "1. Successfully log in to the application.",
+            "2. In the top navigation bar, click on 'Deposit Management'.",
+            "3. From the menu that appears, click on 'Deposit Batches'."
+        ],
+        "Expected Outcome": "The user is taken to the 'Deposit Batches' page. The title 'Deposit Batches' should be visible at the top."
+    },
+    {
+        "Test Case ID": "DB-002",
+        "Test Case": "Verify the search filters and export feature on the 'Deposit Batches' page.",
+        "Test Procedures/Steps": [
+            "1. Navigate to the 'Deposit Batches' page.",
+            "2. Look at the section above the list of batches."
+        ],
+        "Expected Outcome": "The page should show filter options for 'From Date', 'To Date', and 'Batch ID'. A 'Search' button to apply the filters and an 'Export' button to download the list should also be present."
+    },
+    {
+        "Test Case ID": "DB-003",
+        "Test Case": "Verify the information summary shown for each batch in the main list.",
+        "Test Procedures/Steps": [
+            "1. Navigate to the 'Deposit Batches' page.",
+            "2. Examine any single batch shown in the list."
+        ],
+        "Expected Outcome": "Each batch should display its key details clearly, including the Bank Name, Import Date, Last Updated time, current Status (like 'SUBMITTED' or 'CANCELLED'), and a summary of transaction counts and amounts."
+    },
+    {
+        "Test Case ID": "DB-004",
+        "Test Case": "Verify the 'Import Deposit' button opens the import window.",
+        "Test Procedures/Steps": [
+            "1. Navigate to the 'Deposit Batches' page.",
+            "2. Click the 'Import Deposit' button."
+        ],
+        "Expected Outcome": "A pop-up window should appear on the screen, allowing the user to import a new deposit file."
+    },
+    {
+        "Test Case ID": "DB-005",
+        "Test Case": "Verify the fields and validation within the import window.",
+        "Test Procedures/Steps": [
+            "1. Open the import window by clicking 'Import Deposit'.",
+            "2. Observe the fields inside the window."
+        ],
+        "Expected Outcome": "The window must contain a dropdown menu to 'Select Institution' and a 'Choose File' button for uploading a CSV or XLSX file. Both fields should be marked as required. 'Cancel' and 'Import' buttons should be at the bottom."
+    },
+    {
+        "Test Case ID": "DB-006",
+        "Test Case": "Verify the 'Process Batch' button opens the transaction management screen.",
+        "Test Procedures/Steps": [
+            "1. On the 'Deposit Batches' page, find a batch that has a 'SUBMITTED' status.",
+            "2. Click the 'Process Batch' button for this batch."
+        ],
+        "Expected Outcome": "The user is taken to a new screen where they can manage all the transactions for that specific batch. The screen should have tabs for 'Unidentified' and 'Identified' transactions."
+    },
+    {
+        "Test Case ID": "DB-007",
+        "Test Case": "Verify the layout and columns of the 'Unidentified Transactions' list.",
+        "Test Procedures/Steps": [
+            "1. Open a batch by clicking 'Process Batch'.",
+            "2. Make sure you are on the 'Unidentified Transaction(s)' tab."
+        ],
+        "Expected Outcome": "A table should be displayed listing all transactions that have not yet been assigned to a retailer. The table should have a checkbox for each row and columns for 'S.No.', 'Date', 'Amount ($)', 'Description', and action icons on the right."
+    },
+    {
+        "Test Case ID": "DB-008",
+        "Test Case": "Verify the action buttons for managing unidentified transactions.",
+        "Test Procedures/Steps": [
+            "1. On the 'Unidentified Transaction(s)' screen, look for the buttons above the transaction list."
+        ],
+        "Expected Outcome": "There should be three main action buttons: 'Export', 'Remove Selected TXNs' (to delete), and 'Link Selected TXNs' (to assign to a retailer)."
+    },
+    {
+        "Test Case ID": "DB-009",
+        "Test Case": "Verify the process of linking a transaction using the 'Link Selected TXNs' button.",
+        "Test Procedures/Steps": [
+            "1. On the 'Unidentified Transaction(s)' screen, check the box next to at least one transaction.",
+            "2. Click the 'Link Selected TXNs' button."
+        ],
+        "Expected Outcome": "A new pop-up window titled 'LINK TRANSACTION(S)' should appear, which is used for assigning the selected transaction(s) to a specific retailer."
+    },
+    {
+        "Test Case ID": "DB-010",
+        "Test Case": "Verify the 'Link Transaction(s)' pop-up window functions correctly.",
+        "Test Procedures/Steps": [
+            "1. Open the 'LINK TRANSACTION(S)' window.",
+            "2. Observe the available options."
+        ],
+        "Expected Outcome": "The pop-up window must have a dropdown menu to 'Choose Retailer', a field for 'Deposit Type', and a 'Link' button to confirm the assignment. The transactions you selected should be listed inside this window."
+    },
+    {
+        "Test Case ID": "DB-011",
+        "Test Case": "Verify that after linking, transactions are moved to the 'Identified Transactions' list.",
+        "Test Procedures/Steps": [
+            "1. Successfully link one or more transactions in the pop-up window.",
+            "2. The pop-up will close. Click on the 'Identified Transaction(s)' tab."
+        ],
+        "Expected Outcome": "The transactions you just linked should now appear in the table under the 'Identified Transaction(s)' tab and should no longer be in the 'Unidentified' list."
+    },
+    {
+        "Test Case ID": "DB-012",
+        "Test Case": "Verify the layout and columns of the 'Identified Transactions' list.",
+        "Test Procedures/Steps": [
+            "1. Go to the 'Identified Transaction(s)' tab after linking a transaction."
+        ],
+        "Expected Outcome": "The table should display the newly identified transactions. It should now include new details like 'Retailer ID' and 'Business Name', confirming the link was successful."
+    },
+    {
+        "Test Case ID": "DB-013",
+        "Test Case": "Verify the 'Apply Deposits' button correctly finalizes the changes.",
+        "Test Procedures/Steps": [
+            "1. Navigate to the 'Identified Transaction(s)' tab.",
+            "2. Click the 'Apply Deposits' button."
+        ],
+        "Expected Outcome": "Clicking the button should save all the linking changes made in this batch. The user should be returned to the main 'Deposit Batches' list, and the status of the batch should be updated."
+    },
+    {
+        "Test Case ID": "DB-014",
+        "Test Case": "Verify the 'View' button opens the batch summary screen.",
+        "Test Procedures/Steps": [
+            "1. On the 'Deposit Batches' page, find a batch that has a 'CANCELLED' status.",
+            "2. Click the 'View' button for this batch."
+        ],
+        "Expected Outcome": "The user is taken to a summary screen showing all the transactions for that batch. All information should be for viewing only."
+    },
+    {
+        "Test Case ID": "DB-015",
+        "Test Case": "Verify the batch summary screen displays transaction details without any options to edit.",
+        "Test Procedures/Steps": [
+            "1. Open a batch in 'View' mode.",
+            "2. Examine the list of transactions."
+        ],
+        "Expected Outcome": "The user can see all the details of the transactions, but there are no checkboxes, edit buttons, or link buttons. The only available action is a button to 'Export' the list."
+    },
+     {
+    "Test Case ID": "PM-001",
+    "Test Case": "Verify user can navigate to the 'Paymaster Batches' page.",
+    "Test Procedures/Steps": [
+      "1. Successfully log in to the application.",
+      "2. In the top navigation bar, click on 'Deposit Management'.",
+      "3. From the menu that appears, click on 'Paymaster Batches'."
+    ],
+    "Expected Outcome": "The user is successfully taken to the 'Paymaster Batches' page. The title 'Paymaster Batches' should be clearly visible at the top."
+  },
+  {
+    "Test Case ID": "PM-002",
+    "Test Case": "Verify the presence of search filters and action buttons.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Paymaster Batches' page.",
+      "2. Observe the section located just below the page title."
+    ],
+    "Expected Outcome": "The page should provide filter options for 'From Date' and 'To Date'. A 'Search' button to apply the date filter and an 'Export' button to download the list should be clearly visible."
+  },
+  {
+    "Test Case ID": "PM-003",
+    "Test Case": "Verify the 'Summary' section displays correct KPI cards.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Paymaster Batches' page.",
+      "2. Examine the 'Summary' section below the filters."
+    ],
+    "Expected Outcome": "Six summary cards (Key Performance Indicators) should be displayed, showing the overall totals for:\n- Total Txn(s) Count\n- Total Txn(s) Amount ($)\n- Total Unidentified Txn(s) Count\n- Total Unidentified Txn(s) Amount ($)\n- Total Identified Txn(s) Count\n- Total Identified Txn(s) Amount ($)"
+  },
+  {
+    "Test Case ID": "PM-004",
+    "Test Case": "Verify the information displayed within each individual batch card.",
+    "Test Procedures/Steps": [
+      "1. On the 'Paymaster Batches' page, observe any single batch in the list.",
+      "2. Read the details presented in its card."
+    ],
+    "Expected Outcome": "Each batch card must clearly display the Paymaster file name, File Date, Imported On date, and Last Updated timestamp. It should also show the specific transaction counts and amounts for that batch and its current 'Status' (e.g., 'COMPLETED'). A 'View Details' button must be present on the right side."
+  },
+  {
+    "Test Case ID": "PM-005",
+    "Test Case": "Verify the 'View Details' button navigates to the detailed transaction summary page.",
+    "Test Procedures/Steps": [
+      "1. On the 'Paymaster Batches' page, locate any batch in the list.",
+      "2. Click the 'View Details' button for that batch."
+    ],
+    "Expected Outcome": "The user is navigated to a new page showing a detailed breakdown of the selected batch. A 'Back to Paymaster Batches' link should be visible at the top."
+  },
+  {
+    "Test Case ID": "PM-006",
+    "Test Case": "Verify the detailed view page shows a correct summary and an 'Export' button.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the detailed view page for any batch.",
+      "2. Observe the elements at the top of the page."
+    ],
+    "Expected Outcome": "The top of the page should display a summary of the batch, including the total number and amount of transactions. An 'Export All TXN(s)' button should be available to download the data for this specific batch."
+  },
+  {
+    "Test Case ID": "PM-007",
+    "Test Case": "Verify the 'Unidentified Transaction(s)' tab in the detailed view.",
+    "Test Procedures/Steps": [
+      "1. On the detailed view page, ensure the 'Unidentified Transaction(s)' tab is selected.",
+      "2. Examine the table of transactions."
+    ],
+    "Expected Outcome": "The table should display a list of all unidentified transactions for this batch. The columns should include 'S.No.', 'Account No.', 'Currency', 'Date', 'Amount ($)', 'Transaction Type', 'Company Name', and 'Description'. The information should be for viewing only, with no options to edit or link."
+  },
+  {
+    "Test Case ID": "PM-008",
+    "Test Case": "Verify the 'Identified Transaction(s)' tab in the detailed view.",
+    "Test Procedures/Steps": [
+      "1. On the detailed view page, click on the 'Identified Transaction(s)' tab.",
+      "2. Observe the area below the tab."
+    ],
+    "Expected Outcome": "The view should switch to show the identified transactions. If there are no identified transactions for this batch, the area will be empty or show a message indicating so. If there were any, they would be listed in a read-only table."
+  },
+    {
+    "Test Case ID": "UT-001",
+    "Test Case": "Verify user can navigate to the 'Unidentified Transactions' page.",
+    "Test Procedures/Steps": [
+      "1. Successfully log in to the application.",
+      "2. In the top navigation bar, click on 'Deposit Management'.",
+      "3. From the menu that appears, click on 'Unidentified Transaction'."
+    ],
+    "Expected Outcome": "The user is successfully navigated to the 'Unidentified Transactions' page. The title 'Unidentified Transactions' should be clearly visible."
+  },
+  {
+    "Test Case ID": "UT-002",
+    "Test Case": "Verify the search filters and summary cards on the page.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Unidentified Transactions' page.",
+      "2. Observe the section at the top of the page."
+    ],
+    "Expected Outcome": "The page should provide filter options for 'Date From', 'Date To', and 'Institution', along with a 'Search' button. Below the filters, two summary cards should be visible: 'No. of Unidentified TXN(s)' and 'Amt. of Unidentified TXN(s)'."
+  },
+  {
+    "Test Case ID": "UT-003",
+    "Test Case": "Verify the main action buttons available for managing transactions.",
+    "Test Procedures/Steps": [
+      "1. On the 'Unidentified Transactions' page, look at the buttons above the transaction list."
+    ],
+    "Expected Outcome": "Four main action buttons should be present: 'Remove Selected TXN(s)', 'Link Selected TXN(s)', 'Import', and 'Export'. These buttons are for managing the transactions in bulk."
+  },
+  {
+    "Test Case ID": "UT-004",
+    "Test Case": "Verify the 'Import' button opens the file import window.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Unidentified Transactions' page.",
+      "2. Click the 'Import' button."
+    ],
+    "Expected Outcome": "A pop-up window should appear, allowing the user to import a file. The window should contain a 'Choose File' button (for CSV or XLSX files) and 'Cancel' and 'Import' buttons."
+  },
+  {
+    "Test Case ID": "UT-005",
+    "Test Case": "Verify the layout and columns of the main transaction table.",
+    "Test Procedures/Steps": [
+      "1. Navigate to the 'Unidentified Transactions' page.",
+      "2. Examine the structure of the transaction list."
+    ],
+    "Expected Outcome": "The page should display a table listing all unidentified transactions. Each row must have a checkbox on the left for selection. The table columns should include 'S.No.', 'Transaction ID', 'Transaction Date', 'Transaction Type', 'Institution', and 'Description'. A 'View' button should be present at the end of each row."
+  },
+  {
+    "Test Case ID": "UT-006",
+    "Test Case": "Verify the 'View' button opens a modal with detailed transaction information.",
+    "Test Procedures/Steps": [
+      "1. In the transaction table, find any transaction.",
+      "2. Click the 'View' button for that specific row."
+    ],
+    "Expected Outcome": "A pop-up window (modal) should appear on the screen, showing a complete, detailed breakdown of that single transaction."
+  },
+  {
+    "Test Case ID": "UT-007",
+    "Test Case": "Verify the content of the 'View Transaction' details modal.",
+    "Test Procedures/Steps": [
+      "1. Open the transaction details modal by clicking the 'View' button.",
+      "2. Observe all the fields displayed inside the modal."
+    ],
+    "Expected Outcome": "The modal should present a comprehensive list of all transaction details for viewing. This includes the following fields:\n- S.No.\n- Bank Type\n- Transaction ID\n- Transaction Type\n- Transaction Method\n- Acc No\n- Amount\n- Currency\n- Description\n- Transaction Reference 20\n- Account Identification 25\n- Statement Number 28c\n- Opening Balance 60f\n- Opening Balance 60m\n- Closing Balance 62f\n- Closing Balance 62m\n- Statement Line 61\n- Account Owner Information 86"
+  }
+]
