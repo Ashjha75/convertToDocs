@@ -1,0 +1,177 @@
+[
+  {
+    "Test Case ID": "BW-001",
+    "Test Case": "Verify that a user can log in and find the 'SVREL' menu.",
+    "Test Procedures/Steps": [
+      "1. Go to the application's sign-in page.",
+      "2. Enter a valid username and password and click 'LOG IN'.",
+      "3. Look at the main menu at the top of the screen after logging in."
+    ],
+    "Expected Outcome": "The user logs in successfully and can see the 'SVREL' option in the main menu, ready to be clicked."
+  },
+  {
+    "Test Case ID": "BW-002",
+    "Test Case": "Verify the user can open the 'Books and Weights' page.",
+    "Test Procedures/Steps": [
+      "1. After logging in, click on the 'SVREL' option in the main menu.",
+      "2. From the dropdown that appears, click 'Books and Weights'."
+    ],
+    "Expected Outcome": "The screen changes to the 'Books and Weights' page, with the title clearly shown at the top."
+  },
+  {
+    "Test Case ID": "BW-003",
+    "Test Case": "Verify the user can see the search filters and main buttons on the page.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'Books and Weights' page.",
+      "2. Look at the area above the main list."
+    ],
+    "Expected Outcome": "The user should see options to filter the list by dates, track, and status. There should be a 'Search' button to apply filters and an 'Export' button. A main '+ Add Book and Weight' button should also be clearly visible."
+  },
+  {
+    "Test Case ID": "BW-004",
+    "Test Case": "Verify that each entry in the list shows all the correct details.",
+    "Test Procedures/Steps": [
+      "1. On the 'Books and Weights' page, look at any single item in the list."
+    ],
+    "Expected Outcome": "Each item in the list should clearly show all its important information, such as the location, who created it, its status ('Submitted', 'Approved', etc.), and the costs for books and weights."
+  },
+  {
+    "Test Case ID": "BW-005",
+    "Test Case": "Verify the user can go to the page for adding a new entry.",
+    "Test Procedures/Steps": [
+      "1. On the 'Books and Weights' page, click the '+ Add Book and Weight' button."
+    ],
+    "Expected Outcome": "The user is taken to a new screen titled 'Add Book and Weight' where they can fill out a form to create a new record."
+  },
+  {
+    "Test Case ID": "BW-006",
+    "Test Case": "Verify the user can see all the required fields on the 'Add Book and Weight' page.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'Add Book and Weight' page.",
+      "2. Look at the form that is displayed."
+    ],
+    "Expected Outcome": "The user should see a form with all the necessary fields to create a new record, such as 'Location', 'Retailer ID', and 'Date'. The page should also show how the total costs are calculated based on the counts the user enters."
+  },
+  {
+    "Test Case ID": "BW-007",
+    "Test Case": "Verify a user can successfully add a new 'Book and Weight' record.",
+    "Test Procedures/Steps": [
+      "1. On the 'Add Book and Weight' page, fill out all required fields.",
+      "2. Enter numbers for the 'Books Count' and 'Weights Count'.",
+      "3. Click the 'Save' button."
+    ],
+    "Expected Outcome": "The system should confirm the new record was saved, and the user should be taken back to the main 'Books and Weights' list. The new record should appear in the list with a 'Submitted' status."
+  },
+  {
+    "Test Case ID": "BW-008",
+    "Test Case": "Verify the user can approve a 'Submitted' Book and Weight entry.",
+    "Test Procedures/Steps": [
+      "1. Find a record in the list with a 'Submitted' status.",
+      "2. Click the 'Approve' button for that record.",
+      "3. A small window will ask for confirmation. Click 'Confirm'."
+    ],
+    "Expected Outcome": "The system should confirm the approval, and the status of the record in the list should instantly change from 'Submitted' to 'Approved'."
+  },
+  {
+    "Test Case ID": "BW-009",
+    "Test Case": "Verify the user can reject a 'Submitted' Book and Weight entry.",
+    "Test Procedures/Steps": [
+      "1. Find a record in the list with a 'Submitted' status.",
+      "2. Click the 'Reject' button for that record.",
+      "3. A pop-up window will appear asking for a reason. Type a reason for the rejection.",
+      "4. Click the final 'Reject' button in the window."
+    ],
+    "Expected Outcome": "The system should confirm the rejection, and the status of the record in the list should change from 'Submitted' to 'Rejected'."
+  },
+  {
+    "Test Case ID": "BW-010",
+    "Test Case": "Verify the user can open the edit screen for a 'Submitted' record.",
+    "Test Procedures/Steps": [
+      "1. Find a record in the list with a 'Submitted' status.",
+      "2. Click the 'Edit' button for that record."
+    ],
+    "Expected Outcome": "The user should be taken to the 'Edit Book and Weight' screen. The form should already be filled in with that record's information, ready for the user to make changes."
+  },
+   {
+    "Test Case ID": "TA-001",
+    "Test Case": "Verify the user can open the 'Ticket Adjustment' page.",
+    "Test Procedures/Steps": [
+      "1. After logging in, click on the 'SVREL' option in the main menu.",
+      "2. From the dropdown that appears, click 'Ticket Adjustment'."
+    ],
+    "Expected Outcome": "The screen successfully changes to the 'Ticket Adjustment' page, with the title clearly shown at the top."
+  },
+  {
+    "Test Case ID": "TA-002",
+    "Test Case": "Verify the user can see the search filters and main buttons on the page.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'Ticket Adjustment' page.",
+      "2. Look at the area above the main list."
+    ],
+    "Expected Outcome": "The user should see options to filter the list by 'From Date', 'To Date', 'Track', and 'Status'. There should be a 'Search' button, an 'Export' button, and a main '+ Add Ticket Adjustment' button."
+  },
+  {
+    "Test Case ID": "TA-003",
+    "Test Case": "Verify that each entry in the list shows all the correct details.",
+    "Test Procedures/Steps": [
+      "1. On the 'Ticket Adjustment' page, look at any single item in the list."
+    ],
+    "Expected Outcome": "Each item in the list should clearly show all its important information, such as Creation Date, who it was Created By, Retailer ID, Location, Adjustment Amount, Date of Adjustment, and its current Status (e.g., 'Submitted')."
+  },
+  {
+    "Test Case ID": "TA-004",
+    "Test Case": "Verify the user can go to the page for adding a new ticket adjustment.",
+    "Test Procedures/Steps": [
+      "1. On the 'Ticket Adjustment' page, click the '+ Add Ticket Adjustment' button."
+    ],
+    "Expected Outcome": "The user is taken to a new screen titled 'Add Ticket Adjustment' where they can fill out a form to create a new adjustment record."
+  },
+  {
+    "Test Case ID": "TA-005",
+    "Test Case": "Verify the user can see all the required fields on the 'Add Ticket Adjustment' page.",
+    "Test Procedures/Steps": [
+      "1. Go to the 'Add Ticket Adjustment' page.",
+      "2. Look at the form that is displayed."
+    ],
+    "Expected Outcome": "The user should see a form with all the necessary fields, such as 'Location', 'Retailer ID', 'Parish', 'Track', 'Track Type', 'Date', 'Teller Name', 'Agent ID', 'Adjustment Amount ($)', 'Ticket Serial No.', and 'Date of Adjustment'."
+  },
+  {
+    "Test Case ID": "TA-006",
+    "Test Case": "Verify a user can successfully add a new ticket adjustment record.",
+    "Test Procedures/Steps": [
+      "1. On the 'Add Ticket Adjustment' page, fill out all required fields with valid information.",
+      "2. Click the 'Save' button."
+    ],
+    "Expected Outcome": "The system should confirm that the new record was saved, and the user should be taken back to the main 'Ticket Adjustment' list. The new record should appear in the list with a 'Submitted' status."
+  },
+  {
+    "Test Case ID": "TA-007",
+    "Test Case": "Verify the user can approve a 'Submitted' ticket adjustment.",
+    "Test Procedures/Steps": [
+      "1. Find a record in the list with a 'Submitted' status.",
+      "2. Click the 'Approve' button for that record.",
+      "3. A small window will ask for confirmation. Click 'Confirm'."
+    ],
+    "Expected Outcome": "The system should confirm the approval, and the status of the record in the list should instantly change from 'Submitted' to 'Approved'."
+  },
+  {
+    "Test Case ID": "TA-008",
+    "Test Case": "Verify the user can reject a 'Submitted' ticket adjustment.",
+    "Test Procedures/Steps": [
+      "1. Find a record in the list with a 'Submitted' status.",
+      "2. Click the 'Reject' button for that record.",
+      "3. A pop-up window will appear asking for a reason. Type a reason for the rejection in the text box.",
+      "4. Click the final 'Reject' button in the window."
+    ],
+    "Expected Outcome": "The system should confirm the rejection, and the status of the record in the list should change from 'Submitted' to 'Rejected'."
+  },
+  {
+    "Test Case ID": "TA-009",
+    "Test Case": "Verify the user can open the edit screen for a 'Submitted' ticket adjustment.",
+    "Test Procedures/Steps": [
+      "1. Find a record in the list with a 'Submitted' status.",
+      "2. Click the 'Edit' button for that record."
+    ],
+    "Expected Outcome": "The user should be taken to the 'Edit Ticket Adjustment' screen. The form should already be filled in with that record's information, ready for the user to make changes."
+  }
+]

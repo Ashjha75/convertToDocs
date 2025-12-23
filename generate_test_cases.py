@@ -10,10 +10,10 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Inches, Pt, RGBColor
 
 # ---------- CONFIG ----------
-INPUT_JSON = "rms-deposit.json"  # path to your JSON file
+INPUT_JSON = "rms-svrel.json"  # path to your JSON file
 OUTPUT_DOCX = "Mpos-Biller-Portal-Test_Cases.docx"
 OUTPUT_ZIP = "Mpos-Biller-Portal-Test_Cases.zip"
-TITLE_TEXT = "Mpos-Biller Portal Test Cases"
+TITLE_TEXT = "RMS SVREL Test Cases"
 FONT_NAME = "Calibri"
 FONT_SIZE_PT = 11
 PASS_FAIL_TEXT = "PASS\nFAIL\n\nCOMMENTS:"
