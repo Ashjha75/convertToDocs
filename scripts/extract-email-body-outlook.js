@@ -104,6 +104,19 @@ javascript:(async function () {
   /* ---------- extraction logic ---------- */
   function extractEmails() {
       console.log("Starting extraction...");
+
+      // Attempt to find subject
+      let subject = "email_thread";
+      // Based on user provided snippet: <div ... role="heading" aria-level="2"> ... <span ... title="Subject">Subject</span>
+      const subjectEl = document.querySelector('[role="heading"][aria-level="2"] span[title]');
+      if (subjectEl) {
+          subject = subjectEl.getAttribute('title') || subjectEl.innerText;
+      } else {
+          const heading = document.querySelector('[role="heading"][aria-level="2"]');
+          if (heading) subject = heading.innerText;
+      }
+      subject = subject ? subject.trim() : "email_thread";
+
       const messages = [...document.querySelectorAll('[aria-label="Email message"]')];
       let output = "";
       let count = 1;
@@ -151,7 +164,14 @@ javascript:(async function () {
         return;
       }
 
-      save(output, "email_thread.txt");
+      // Add subject to top of file
+      const finalOutput = `SUBJECT: ${subject}\n\n${output}`;
+
+      // Sanitize filename
+      const safeSubject = subject.replace(/[^a-z0-9\s-_]/gi, '').replace(/\s+/g, '_').substring(0, 100);
+      const filename = safeSubject ? `${safeSubject}.txt` : "email_thread.txt";
+
+      save(finalOutput, filename);
   }
 
   /* ---------- main execution ---------- */
