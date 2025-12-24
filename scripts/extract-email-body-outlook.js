@@ -3,6 +3,17 @@ javascript:(async function () {
   /* ---------- helpers ---------- */
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+  const simulateClick = (element) => {
+    ['mouseover', 'mousedown', 'click', 'mouseup'].forEach(eventType => {
+      element.dispatchEvent(new MouseEvent(eventType, {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        buttons: 1
+      }));
+    });
+  };
+
   const save = (data, file) => {
     const blob = new Blob([data], { type: "text/plain" });
     const a = document.createElement("a");
@@ -38,25 +49,30 @@ javascript:(async function () {
     const findLoadMoreButtons = () => {
         const candidates = [
             ...document.querySelectorAll('button'), 
-            ...document.querySelectorAll('[role="button"]')
+            ...document.querySelectorAll('[role="button"]'),
+            ...document.querySelectorAll('.ms-Button')
         ];
         return candidates.filter(el => {
             const text = el.innerText ? el.innerText.toLowerCase() : "";
-            return (text.includes('show') || text.includes('see')) && 
-                   (text.includes('messages') || text.includes('items') || text.includes('history'));
+            return (text.includes('show') || text.includes('see') || text.includes('load')) && 
+                   (text.includes('messages') || text.includes('items') || text.includes('history') || text.includes('more'));
         });
     };
 
     let loadMoreBtns = findLoadMoreButtons();
     let safety = 0;
-    while (loadMoreBtns.length > 0 && safety < 10) {
+    while (loadMoreBtns.length > 0 && safety < 15) {
         safety++;
         console.log(`Found ${loadMoreBtns.length} 'Load More' buttons.`);
         for (const btn of loadMoreBtns) {
             if (btn.offsetParent !== null) { 
                 try {
-                    btn.click();
-                    await delay(2500); // Increased wait time for network
+                    console.log("Clicking 'Load More' button...");
+                    btn.scrollIntoView({block: "center"});
+                    await delay(500);
+                    simulateClick(btn);
+                    btn.click(); 
+                    await delay(3000); 
                 } catch (e) {
                     console.log("Error clicking button", e);
                 }
@@ -66,48 +82,46 @@ javascript:(async function () {
     }
 
     // 2. Expand individual collapsed messages
+    // Target specific structure provided by user: <div aria-expanded="false"> containing timestamp
     let expanded = true;
     let loops = 0;
-    const MAX_LOOPS = 50; // Increased limit for long threads
+    const MAX_LOOPS = 50; 
 
     while (expanded && loops < MAX_LOOPS) {
         expanded = false;
         loops++;
         
-        const messages = document.querySelectorAll('[aria-label="Email message"]');
-        console.log(`Checking ${messages.length} messages for collapsed state (Loop ${loops})...`);
+        // Find all collapsed containers that look like emails
+        const collapsedItems = [...document.querySelectorAll('[aria-expanded="false"]')]
+            .filter(el => el.querySelector('[data-testid="SentReceivedSavedTime"]'));
 
-        for (const msg of messages) {
-            // Check if body is present
-            const body = msg.querySelector('[role="document"]');
-            
-            if (!body) {
-                console.log("Expanding a collapsed message...");
+        console.log(`Found ${collapsedItems.length} collapsed emails (Loop ${loops})...`);
+
+        for (const item of collapsedItems) {
+            console.log("Expanding collapsed email...");
+            try {
+                item.scrollIntoView({block: "center"});
+                await delay(200);
                 
-                // Strategy: Find the specific expander element if possible
-                const expander = msg.querySelector('[aria-expanded="false"]');
+                // Click the container itself as it has the aria-expanded attribute
+                simulateClick(item);
+                item.click();
                 
-                try {
-                    if (expander) {
-                        expander.click();
-                    } else {
-                        // Fallback: Click the header (usually the first child div)
-                        // Clicking the whole container 'msg' sometimes doesn't work in new Outlook
-                        const header = msg.querySelector('[role="heading"]') || msg.firstElementChild;
-                        if (header) header.click();
-                        else msg.click();
-                    }
-                    
-                    expanded = true;
-                    await delay(800); // Wait for UI expansion
-                } catch (e) {
-                    console.log("Error clicking message", e);
+                // Also try clicking the first child div which is often the click target
+                if (item.firstElementChild) {
+                    simulateClick(item.firstElementChild);
+                    item.firstElementChild.click();
                 }
+
+                expanded = true;
+                await delay(1000); // Wait for UI expansion
+            } catch (e) {
+                console.log("Error clicking item", e);
             }
         }
         
         if (expanded) {
-            await delay(1000); 
+            await delay(2000); // Wait for DOM to settle
         }
     }
     console.log("Expansion complete.");
@@ -122,7 +136,31 @@ javascript:(async function () {
       alert("Auto-expansion failed. Running extraction on visible emails only.");
   }
 
-  const messages = [...document.querySelectorAll('[aria-label="Email message"]')];
+  // Find messages using multiple strategies
+  const getMessages = () => {
+      // Strategy 1: Standard ARIA label
+      let msgs = [...document.querySelectorAll('[aria-label="Email message"]')];
+      
+      // Strategy 2: Fallback to timestamp containers if Strategy 1 fails
+      if (msgs.length === 0) {
+          console.log("Standard selector failed. Trying fallback...");
+          const timestamps = [...document.querySelectorAll('[data-testid="SentReceivedSavedTime"]')];
+          // Find the closest container that looks like a message row
+          msgs = timestamps.map(ts => {
+              // Go up 4-5 levels to find the container. 
+              // Based on snippet: timestamp -> div -> div -> div -> div(BS0OK) -> div(aVla3)
+              return ts.closest('[role="listitem"]') || ts.closest('.aVla3') || ts.parentElement.parentElement.parentElement.parentElement;
+          }).filter(x => x); // remove nulls
+          
+          // Deduplicate
+          msgs = [...new Set(msgs)];
+      }
+      return msgs;
+  };
+
+  const messages = getMessages();
+  console.log(`Found ${messages.length} messages to extract.`);
+  
   let output = "";
   let count = 1;
 
@@ -133,11 +171,13 @@ javascript:(async function () {
     const dateTime = timeEl ? timeEl.innerText.trim() : "DATE NOT FOUND";
 
     // body container
-    const body = msg.querySelector('[role="document"]');
+    // Try standard role="document" first, then fallback to the message container itself
+    let body = msg.querySelector('[role="document"]');
+    
+    // If no specific body container found, use the message element itself but exclude the header info if possible
+    // For now, if we can't find role="document", we just take the whole text and rely on isNoise to clean it up
     if (!body) {
-        // If still no body after expansion, we skip or mark it
-        output += `\n[SKIPPED EMAIL ${count++} - CONTENT NOT LOADED]\n`;
-        return;
+        body = msg;
     }
 
     const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
