@@ -121,10 +121,48 @@ javascript:(async function () {
       let output = "";
       let count = 1;
 
+      // Helper to clean recipient names (remove emails)
+      const cleanRecipients = (text) => {
+          if (!text) return "";
+          // Remove <email>
+          text = text.replace(/<[^>]+>/g, " ");
+          // Remove email addresses
+          text = text.replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, "");
+          // Remove "To:" or "Cc:" prefix if present in the text
+          text = text.replace(/^(To|Cc):\s*/i, "");
+          // Clean up whitespace
+          return text.replace(/\s+/g, " ").trim();
+      };
+
       messages.forEach(msg => {
         // date & time (reliable)
         const timeEl = msg.querySelector('[data-testid="SentReceivedSavedTime"]');
         const dateTime = timeEl ? timeEl.innerText.trim() : "DATE NOT FOUND";
+
+        // To and Cc extraction
+        let toText = "";
+        let ccText = "";
+
+        // Strategy 1: Look for aria-label="To" or "Cc" container
+        const toEl = msg.querySelector('[aria-label="To"], [aria-label="To:"]');
+        if (toEl) toText = toEl.innerText;
+
+        const ccEl = msg.querySelector('[aria-label="Cc"], [aria-label="Cc:"]');
+        if (ccEl) ccText = ccEl.innerText;
+
+        // Strategy 2: Look for elements with aria-label starting with "To: " or "Cc: "
+        // This often captures the full string like "To: Name1; Name2"
+        if (!toText) {
+             const el = msg.querySelector('[aria-label^="To: "]');
+             if (el) toText = el.getAttribute('aria-label');
+        }
+        if (!ccText) {
+             const el = msg.querySelector('[aria-label^="Cc: "]');
+             if (el) ccText = el.getAttribute('aria-label');
+        }
+
+        toText = cleanRecipients(toText);
+        ccText = cleanRecipients(ccText);
 
         // body container
         let body = msg.querySelector('[role="document"]');
@@ -155,6 +193,8 @@ javascript:(async function () {
         output += "\n--------------------------------------------------\n";
         output += `EMAIL ${count++}\n`;
         output += `DATE: ${dateTime}\n`;
+        if (toText) output += `TO: ${toText}\n`;
+        if (ccText) output += `CC: ${ccText}\n`;
         output += "--------------------------------------------------\n";
         output += lines.join("\n") + "\n";
       });
