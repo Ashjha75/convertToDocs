@@ -1,16 +1,6 @@
-javascript:(async function () {
+javascript:(function () {
 
   /* ---------- helpers ---------- */
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-  // Simpler click, less overhead
-  const clickElement = (el) => {
-      el.click();
-      // specific for some react apps
-      el.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
-      el.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
-  };
-
   const save = (data, file) => {
     const blob = new Blob([data], { type: "text/plain" });
     const a = document.createElement("a");
@@ -34,142 +24,48 @@ javascript:(async function () {
   );
 
   const stripEmails = (t) =>
-    t.replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, "[EMAIL]");
-
-  /* ---------- expansion logic ---------- */
-  
-  async function expandAll() {
-    console.log("Starting expansion...");
-    
-    // 1. Click "Show more messages" buttons (ONCE per batch)
-    // We won't loop infinitely here to avoid freezing
-    const loadMoreBtns = [...document.querySelectorAll('button')].filter(el => {
-        const text = el.innerText ? el.innerText.toLowerCase() : "";
-        return (text.includes('show') || text.includes('see')) && 
-               (text.includes('messages') || text.includes('items'));
-    });
-
-    if (loadMoreBtns.length > 0) {
-        console.log(`Found ${loadMoreBtns.length} 'Load More' buttons.`);
-        for (const btn of loadMoreBtns) {
-            try {
-                btn.click();
-                await delay(2000); 
-            } catch (e) {}
-        }
-    }
-
-    // 2. Expand individual collapsed messages
-    // We will do exactly 2 passes to be safe against freezing
-    for (let pass = 1; pass <= 2; pass++) {
-        // Find all collapsed containers that look like emails
-        // Based on user snippet: <div aria-expanded="false"> ... <div data-testid="SentReceivedSavedTime">
-        const collapsedItems = [...document.querySelectorAll('[aria-expanded="false"]')]
-            .filter(el => el.querySelector('[data-testid="SentReceivedSavedTime"]'));
-
-        if (collapsedItems.length === 0) break;
-
-        console.log(`Pass ${pass}: Found ${collapsedItems.length} collapsed emails.`);
-
-        for (const item of collapsedItems) {
-            try {
-                // Scroll just enough
-                item.scrollIntoView({block: "center", behavior: "instant"}); 
-                
-                // Click the container
-                clickElement(item);
-                
-                // Also try the first child (header) if it exists
-                if (item.firstElementChild) {
-                    clickElement(item.firstElementChild);
-                }
-
-                // Small delay to let UI react, but not too long
-                await delay(300); 
-            } catch (e) {
-                console.log("Error clicking item", e);
-            }
-        }
-        // Wait for batch expansion
-        await delay(2000);
-    }
-    console.log("Expansion complete.");
-  }
+    t.replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, "");
 
   /* ---------- main ---------- */
-  
-  try {
-      await expandAll();
-  } catch (e) {
-      console.error("Expansion failed:", e);
-  }
 
-  // Extraction Logic
-  // We look for the timestamp, then go up to find the container
-  const timestamps = [...document.querySelectorAll('[data-testid="SentReceivedSavedTime"]')];
-  console.log(`Found ${timestamps.length} emails to extract.`);
-  
+  const messages = [...document.querySelectorAll('[aria-label="Email message"]')];
   let output = "";
   let count = 1;
 
-  // Sort timestamps by position in DOM to ensure chronological order (usually)
-  // They should already be in order if querySelectorAll is used
-  
-  for (const timeEl of timestamps) {
-      const dateTime = timeEl.innerText.trim();
-      
-      // Find the message container. 
-      // In the snippet: timestamp -> div -> div -> div -> div(BS0OK/Expanded) -> div(aVla3)
-      // We want the content. 
-      // If expanded, the structure changes. We need to find the common parent that holds the body.
-      // Usually, we can just look for the closest "list item" or just grab the parent container text.
-      
-      // Let's try to find the specific body container `role="document"` or `aria-label="Email message body"`
-      // But since we are iterating by timestamp, we need to find the body associated with THIS timestamp.
-      
-      // Go up to the message container
-      const msgContainer = timeEl.closest('[aria-label="Email message"]') || 
-                           timeEl.closest('[role="listitem"]') || 
-                           timeEl.closest('.aVla3') || // from snippet
-                           timeEl.parentElement.parentElement.parentElement.parentElement;
+  messages.forEach(msg => {
 
-      if (!msgContainer) continue;
+    // date & time (reliable)
+    const timeEl = msg.querySelector('[data-testid="SentReceivedSavedTime"]');
+    const dateTime = timeEl ? timeEl.innerText.trim() : "DATE NOT FOUND";
 
-      // Try to find the body text
-      // In expanded view, there is usually a div with role="document" or similar
-      let body = msgContainer.querySelector('[role="document"]') || 
-                 msgContainer.querySelector('.allowTextSelection') || // from snippet (header part, but body might be sibling)
-                 msgContainer;
+    // body container
+    const body = msg.querySelector('[role="document"]');
+    if (!body) return;
 
-      // If we only found the header part, we might need to look for siblings
-      // But let's just extract text from the whole container and filter noise
-      
-      const walker = document.createTreeWalker(msgContainer, NodeFilter.SHOW_TEXT);
-      let lines = [];
-      let node;
+    const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
+    let lines = [];
+    let node;
 
-      while (node = walker.nextNode()) {
-        let text = node.nodeValue.replace(/\s+/g, " ").trim();
-        if (!text) continue;
-        if (isNoise(text)) continue;
-        // Skip the timestamp itself to avoid duplication
-        if (text === dateTime) continue;
+    while (node = walker.nextNode()) {
+      let text = node.nodeValue.replace(/\s+/g, " ").trim();
+      if (!text) continue;
+      if (isNoise(text)) continue;
 
-        text = stripEmails(text);
-        if (text) lines.push(text);
-      }
+      text = stripEmails(text);
+      if (text) lines.push(text);
+    }
 
-      if (lines.length) {
-        output += "\n--------------------------------------------------\n";
-        output += `EMAIL ${count++}\n`;
-        output += `DATE: ${dateTime}\n`;
-        output += "--------------------------------------------------\n";
-        output += lines.join("\n") + "\n";
-      }
-  }
+    if (!lines.length) return;
+
+    output += "\n--------------------------------------------------\n";
+    output += `EMAIL ${count++}\n`;
+    output += `DATE: ${dateTime}\n`;
+    output += "--------------------------------------------------\n";
+    output += lines.join("\n") + "\n";
+  });
 
   if (!output.trim()) {
-    alert("No emails extracted.");
+    alert("No emails extracted. Ensure conversation is fully expanded.");
     return;
   }
 
