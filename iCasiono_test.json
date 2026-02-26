@@ -1,0 +1,557 @@
+[
+    {
+        "Test Case ID": "SV-001",
+        "Test Case": "Verify that the 'Supreme Ventures Gaming' link is visible in the header.",
+        "Test Procedures/Steps": [
+            "1. Open the web browser and navigate to the application's home page.",
+            "2. Observe the header menu at the top of the screen."
+        ],
+        "Expected Outcome": "The text 'Supreme Ventures Gaming' should be clearly visible in the header navigation menu."
+    },
+    {
+        "Test Case ID": "SV-002",
+        "Test Case": "Verify that clicking 'Supreme Ventures Gaming' displays the four main category cards.",
+        "Test Procedures/Steps": [
+            "1. Click on the 'Supreme Ventures Gaming' link in the header.",
+            "2. Observe the main content area of the page."
+        ],
+        "Expected Outcome": "User should redirect to the 'Supreme Ventures Gaming' page. Four distinct cards should be displayed with the following names: 'SV Games' , 'JUSTBET', 'MBet' , and 'ACROPOLIS GAMING' ."
+    },
+    {
+        "Test Case ID": "SV-003",
+        "Test Case": "Verify that the user can navigate to the 'ACROPOLIS GAMING' screen.",
+        "Test Procedures/Steps": [
+            "1. On the main landing page, locate the 'ACROPOLIS GAMING' card.",
+            "2. Click on the 'ACROPOLIS GAMING' button."
+        ],
+        "Expected Outcome": "The user should  redirected to the 'ACROPOLIS GAMING' page. The screen should display a list of available  games."
+    },
+    {
+        "Test Case ID": "SV-004",
+        "Test Case": "Verify the visual elements of the Acropolis Gaming page.",
+        "Test Procedures/Steps": [
+            "1. Navigate to the 'ACROPOLIS GAMING' page.",
+            "2. Observe the top section of the page."
+        ],
+        "Expected Outcome": "The page should display the title 'ACROPOLIS GAMING - EXPERIENCE THE PEAK OF GAMING EXCELLENCE' and a search bar with the placeholder text 'Search your favourite game...'."
+    },
+    {
+        "Test Case ID": "SV-005",
+        "Test Case": "Verify that additional games are loaded when the user scrolls down the game list.",
+        "Test Procedures/Steps": [
+            "1. On the 'ACROPOLIS GAMING' page, scroll down the list of games until you reach the bottom of the visible list.",
+            "2. Continue scrolling and observe whether new game cards are added to the list."
+        ],
+        "Expected Outcome": "New games should be loaded and appended to the existing game list as the user scrolls down (infinite scroll / lazy loading). Existing games should remain visible and the list should grow."
+    },
+    {
+        "Test Case ID": "SV-006",
+        "Test Case": "Verify that the user can search for a specific game (e.g., '5 Lions').",
+        "Test Procedures/Steps": [
+            "1. Click into the search bar on the Acropolis Gaming page.",
+            "2. Type '5 Lions' into the search field.",
+            "3. Click the 'SEARCH' button."
+        ],
+        "Expected Outcome": "The game list should update to show only the games matching the search term (e.g., '5 Lions', '5 Lions Gold', '5 Lions Megaways')."
+    },
+    {
+        "Test Case ID": "SV-007",
+        "Test Case": "Verify that game cards display 'Play Now' and 'Try Demo' options.",
+        "Test Procedures/Steps": [
+            "1. Locate the '5 Lions' game card in the list.",
+            "2. Hover the mouse cursor over the game card (or observe the card details)."
+        ],
+        "Expected Outcome": "The card should display two distinct options: 'Play Now' and 'Try Demo'."
+    },
+    {
+        "Test Case ID": "SV-008",
+        "Test Case": "Verify that 'Try Demo' launches the game in demo mode.",
+        "Test Procedures/Steps": [
+            "1. Locate the '5 Lions' game card.",
+            "2. Click on the 'Try Demo' button."
+        ],
+        "Expected Outcome": "The '5 Lions' game should load successfully. The user should be able to play for fun without any real money being deducted."
+    },
+    {
+        "Test Case ID": "SV-009",
+        "Test Case": "Verify that clicking 'Play Now' without logging in redirects to the login page.",
+        "Test Procedures/Steps": [
+            "1. Click on the 'Play Now' button.",
+            "2. Ensure the user is currently logged out."
+        ],
+        "Expected Outcome": "The user is redirected to the 'Sign In' page containing fields for 'Country code', 'Mobile Number', and 'Account PIN'."
+    },
+    {
+        "Test Case ID": "SV-010",
+        "Test Case": "Verify that the user can log in successfully to proceed to the game.",
+        "Test Procedures/Steps": [
+            "1. On the 'Sign In' page, select the correct 'Country code'.",
+            "2. Enter a valid 'Mobile Number'.",
+            "3. Enter the valid 'Account PIN'.",
+            "4. Click the 'Sign Up' (or Sign In) button."
+        ],
+        "Expected Outcome": "The user is successfully authenticated and redirected back to the 'ACROPOLIS GAMING' page or directly into the '5 Lions' game."
+    },
+    {
+        "Test Case ID": "5L-001",
+        "Test Case": "Verify that clicking 'Play Now' after login transitions the user to the game loading screen.",
+        "Test Procedures/Steps": [
+            "1. Locate the '5 Lions' game card in the lobby.",
+            "2. Click the 'Play Now' button.",
+            "3. Complete the login process if prompted by the system."
+        ],
+        "Expected Outcome": "The user is successfully redirected from the lobby to a dedicated loading screen for the '5 Lions' game."
+    },
+    {
+        "Test Case ID": "5L-002",
+        "Test Case": "Verify that the game loading screen displays the correct branding and progress bar.",
+        "Test Procedures/Steps": [
+            "1. Observe the screen while the '5 Lions' game is in the process of loading."
+        ],
+        "Expected Outcome": "The dark loading screen should clearly display the 'Pragmatic Play' logo in the center, with an orange loading progress bar filling up underneath it."
+    },
+    {
+        "Test Case ID": "5L-003",
+        "Test Case": "Verify that the '5 Lions' main game screen loads successfully.",
+        "Test Procedures/Steps": [
+            "1. Wait for the orange loading progress bar to complete.",
+            "2. Observe the main screen that appears next."
+        ],
+        "Expected Outcome": "The main game interface should appear, showing the '5 Lions' title, the slot reels populated with symbols, and the blue patterned background."
+    },
+    {
+        "Test Case ID": "5L-004",
+        "Test Case": "Verify that the top header displays the lobby navigation and play status.",
+        "Test Procedures/Steps": [
+            "1. On the main game screen, look at the dark navigation bar at the very top."
+        ],
+        "Expected Outcome": "The top header should display a 'BACK TO LOBBY' button with an arrow on the left, and the text 'REAL PLAY' next to a full-screen expand icon on the right."
+    },
+    {
+        "Test Case ID": "5L-005",
+        "Test Case": "Verify that the bottom information bar displays the current credit and bet amounts.",
+        "Test Procedures/Steps": [
+            "1. Look at the bottom left section of the main game screen, just below the slot reels."
+        ],
+        "Expected Outcome": "The screen should accurately display the user's available balance next to the word 'CREDIT', and the current active wager amount next to the word 'BET'."
+    },
+    {
+        "Test Case ID": "5L-006",
+        "Test Case": "Verify that the 'WIN' amount section is clearly visible.",
+        "Test Procedures/Steps": [
+            "1. Look at the bottom center of the main game screen, directly below the slot reels."
+        ],
+        "Expected Outcome": "A 'WIN' section should be visible, displaying the amount won in large text, with the word 'PAYS' and its corresponding amount displayed just beneath it."
+    },
+    {
+        "Test Case ID": "5L-007",
+        "Test Case": "Verify that the system settings and volume icons are visible.",
+        "Test Procedures/Steps": [
+            "1. Look at the far bottom left corner of the game screen, below the credit information."
+        ],
+        "Expected Outcome": "A hamburger menu icon (three horizontal lines) for system settings and a speaker icon for volume control should be clearly visible to the user."
+    },
+    {
+        "Test Case ID": "5L-008",
+        "Test Case": "Verify that clicking the 'i' icon opens the Game Rules screen.",
+        "Test Procedures/Steps": [
+            "1. Locate the 'i' (Information) icon near the bottom left of the screen.",
+            "2. Click the 'i' icon."
+        ],
+        "Expected Outcome": "A 'GAME RULES' window should pop up and overlay the reels, showing the first page of instructions and symbol values."
+    },
+    {
+        "Test Case ID": "5L-009",
+        "Test Case": "Verify that clicking the '+' or '-' button opens the Bet Settings menu.",
+        "Test Procedures/Steps": [
+            "1. Locate the large circular spin button at the bottom right of the screen.",
+            "2. Click either the '+' (plus) or '-' (minus) button located on either side of the spin button."
+        ],
+        "Expected Outcome": "A 'BET MULTIPLIER' menu box should open, displaying controls to adjust the bet, coin value, and total bet."
+    },
+    {
+        "Test Case ID": "5L-010",
+        "Test Case": "Verify that the user can adjust the 'Bet' level in the Bet Settings menu.",
+        "Test Procedures/Steps": [
+            "1. Open the Bet Settings menu.",
+            "2. In the 'BET' row, click the '-' button to decrease or the '+' button to increase the value."
+        ],
+        "Expected Outcome": "The numeric value displayed inside the 'BET' box should increase or decrease accordingly based on the button clicked."
+    },
+    {
+        "Test Case ID": "5L-011",
+        "Test Case": "Verify that the user can adjust the 'Coin Value' in the Bet Settings menu.",
+        "Test Procedures/Steps": [
+            "1. Open the Bet Settings menu.",
+            "2. In the 'COIN VALUE' row, click the '-' button to decrease or the '+' button to increase the value."
+        ],
+        "Expected Outcome": "The numeric value displayed inside the 'COIN VALUE' box should increase or decrease accordingly based on the button clicked."
+    },
+    {
+        "Test Case ID": "5L-012",
+        "Test Case": "Verify that the 'Total Bet' updates automatically when bet settings are changed.",
+        "Test Procedures/Steps": [
+            "1. Open the Bet Settings menu.",
+            "2. Change either the 'BET' amount or the 'COIN VALUE' amount.",
+            "3. Observe the numeric value in the 'TOTAL BET' row."
+        ],
+        "Expected Outcome": "The 'TOTAL BET' box should automatically recalculate and display the new total amount based on the adjusted settings above it."
+    },
+    {
+        "Test Case ID": "5L-013",
+        "Test Case": "Verify that the 'BET MAX' button is visible in the Bet Settings menu.",
+        "Test Procedures/Steps": [
+            "1. Open the Bet Settings menu.",
+            "2. Locate the 'BET MAX' button at the bottom of the menu box."
+        ],
+        "Expected Outcome": "A green 'BET MAX' button should be clearly visible, providing an option to instantly set the wager to the highest allowed value."
+    },
+    {
+        "Test Case ID": "5L-014",
+        "Test Case": "Verify that clicking the 'AUTOPLAY' text opens the Autoplay Settings menu.",
+        "Test Procedures/Steps": [
+            "1. Locate the 'AUTOPLAY' text positioned just below the main circular spin button.",
+            "2. Click on the 'AUTOPLAY' text."
+        ],
+        "Expected Outcome": "An 'AUTOPLAY SETTINGS' menu box should open over the reels, displaying options for automatic spinning."
+    },
+    {
+        "Test Case ID": "5L-015",
+        "Test Case": "Verify that the Autoplay Settings menu contains selectable speed and screen options.",
+        "Test Procedures/Steps": [
+            "1. Open the Autoplay Settings menu.",
+            "2. Observe the checkbox options available in the top half of the menu."
+        ],
+        "Expected Outcome": "The menu should display three clearly labeled, selectable checkboxes: 'TURBO SPIN', 'QUICK SPIN', and 'SKIP SCREENS'."
+    },
+    {
+        "Test Case ID": "5L-016",
+        "Test Case": "Verify that the user can select the number of autospins using the slider.",
+        "Test Procedures/Steps": [
+            "1. Open the Autoplay Settings menu.",
+            "2. Locate the slider bar under the 'NUMBER OF AUTOSPINS' heading.",
+            "3. Drag the green slider handle left or right."
+        ],
+        "Expected Outcome": "The numeric value displayed next to the slider should update to reflect the chosen number of spins (e.g., 10, 20, 30, up to 100)."
+    },
+    {
+        "Test Case ID": "5L-017",
+        "Test Case": "Verify that the 'START AUTOPLAY' button reflects the selected number of spins.",
+        "Test Procedures/Steps": [
+            "1. Open the Autoplay Settings menu.",
+            "2. Adjust the number of autospins using the slider.",
+            "3. Look at the large green button at the bottom of the menu box."
+        ],
+        "Expected Outcome": "The text on the green button should read 'START AUTOPLAY' followed by the exact number selected on the slider displayed in parentheses (e.g., 'START AUTOPLAY (100)')."
+    },
+    {
+        "Test Case ID": "5L-018",
+        "Test Case": "Verify that Page 1 of the Game Rules displays the correct payout symbols.",
+        "Test Procedures/Steps": [
+            "1. Click the 'i' icon to open the Game Rules.",
+            "2. Ensure the screen displays 'Page 1/8' in the bottom right corner.",
+            "3. Observe the top section of the rules page."
+        ],
+        "Expected Outcome": "The page should display the payout values and artwork for various game symbols, including the Dragon, Phoenix, Frog, Fish, Turtle, A, K, Q, J, 10, and 9."
+    },
+    {
+        "Test Case ID": "5L-019",
+        "Test Case": "Verify that Page 1 of the Game Rules displays the visual diagrams for winning ways.",
+        "Test Procedures/Steps": [
+            "1. Open the Game Rules to Page 1/8.",
+            "2. Look at the lower half of the rules page."
+        ],
+        "Expected Outcome": "Visual grid diagrams demonstrating '243 ways to win' and '576 ways to win' should be visible, using green checkmarks to show valid combinations and red 'X's for invalid ones."
+    },
+    {
+        "Test Case ID": "5L-020",
+        "Test Case": "Verify that the user can navigate to the next page of the Game Rules.",
+        "Test Procedures/Steps": [
+            "1. Open the Game Rules to Page 1/8.",
+            "2. Locate the bright green navigation arrows at the bottom left of the rules box.",
+            "3. Click the right-pointing arrow."
+        ],
+        "Expected Outcome": "The screen should transition to display 'Page 2/8' of the Game Rules in the bottom right corner."
+    },
+    {
+        "Test Case ID": "5L-021",
+        "Test Case": "Verify that Page 2 of the Game Rules explains the WILD symbol.",
+        "Test Procedures/Steps": [
+            "1. Navigate to Page 2/8 of the Game Rules.",
+            "2. Observe the top section of the page."
+        ],
+        "Expected Outcome": "The page should display the golden lion face symbol and explain that it is WILD, appears only on reels 2, 3, and 4, and offers random multiplier values."
+    },
+    {
+        "Test Case ID": "5L-022",
+        "Test Case": "Verify that Page 2 of the Game Rules explains the SCATTER symbol.",
+        "Test Procedures/Steps": [
+            "1. Navigate to Page 2/8 of the Game Rules.",
+            "2. Observe the bottom section of the page."
+        ],
+        "Expected Outcome": "The page should display the Yin Yang symbol, identify it as the SCATTER, and explain how landing 3, 4, or 5 symbols triggers the FREE SPINS FEATURE."
+    },
+    {
+        "Test Case ID": "5L-023",
+        "Test Case": "Verify that the user can navigate through and view all remaining Game Rules pages.",
+        "Test Procedures/Steps": [
+            "1. Open the Game Rules screen by clicking the 'i' icon.",
+            "2. Click the right-pointing navigation arrow to move past page 2.",
+            "3. Continue clicking the right arrow to view pages 3 through 8."
+        ],
+        "Expected Outcome": "The user is successfully able to navigate through all 8 pages, and each subsequent page displays the corresponding game rules, features, and technical requirements clearly."
+    },
+    {
+        "Test Case ID": "5L-024",
+        "Test Case": "Verify that clicking the hamburger menu icon opens a left sidebar.",
+        "Test Procedures/Steps": [
+            "1. On the main game screen, locate the hamburger menu icon (three horizontal lines) at the bottom left.",
+            "2. Click the hamburger menu icon."
+        ],
+        "Expected Outcome": "A sidebar menu opens on the left side of the screen displaying three icons with text: 'LOBBY', 'REPLAY', and 'SETTINGS'."
+    },
+    {
+        "Test Case ID": "5L-025",
+        "Test Case": "Verify that clicking the 'SETTINGS' icon opens the 'SYSTEM SETTINGS' modal.",
+        "Test Procedures/Steps": [
+            "1. Open the left sidebar menu.",
+            "2. Click the 'SETTINGS' (gear) icon."
+        ],
+        "Expected Outcome": "A 'SYSTEM SETTINGS' modal window pops up and overlays the main game screen."
+    },
+    {
+        "Test Case ID": "5L-026",
+        "Test Case": "Verify that the 'SYSTEM SETTINGS' modal displays a 'GAME HISTORY' link and 'TOTAL BET' adjustment controls.",
+        "Test Procedures/Steps": [
+            "1. Open the 'SYSTEM SETTINGS' modal.",
+            "2. Observe the left side of the modal box."
+        ],
+        "Expected Outcome": "The modal should display a clickable 'GAME HISTORY' link with an external window icon, and a 'TOTAL BET' section with '-' and '+' buttons to adjust the bet amount."
+    },
+    {
+        "Test Case ID": "5L-027",
+        "Test Case": "Verify that the 'SYSTEM SETTINGS' modal contains toggle switches for system preferences.",
+        "Test Procedures/Steps": [
+            "1. Open the 'SYSTEM SETTINGS' modal.",
+            "2. Observe the right side of the modal box."
+        ],
+        "Expected Outcome": "The modal should display toggle switches for 'BATTERY SAVER', 'AMBIENT MUSIC', 'SOUND FX', 'INTRO SCREEN', and 'ENABLE ALERTS', allowing the user to turn these features on or off."
+    },
+    {
+        "Test Case ID": "5L-028",
+        "Test Case": "Verify that clicking the 'REPLAY' icon opens the 'Pragmatic Replay' modal.",
+        "Test Procedures/Steps": [
+            "1. Open the left sidebar menu.",
+            "2. Click the 'REPLAY' (play button with an arrow) icon."
+        ],
+        "Expected Outcome": "A 'Pragmatic Replay' modal window pops up on the screen, containing two tabs at the top: 'LATEST WINS' and 'MY TOP WINS'."
+    },
+    {
+        "Test Case ID": "5L-029",
+        "Test Case": "Verify that the 'LATEST WINS' tab displays a table of recent wins.",
+        "Test Procedures/Steps": [
+            "1. Open the 'Pragmatic Replay' modal.",
+            "2. Click on the 'LATEST WINS' tab."
+        ],
+        "Expected Outcome": "A table is displayed showing the user's recent wins with column headers for 'Time', 'Bet ID', 'WinX', 'Bet', 'Win', 'Link', and 'Watch'."
+    },
+    {
+        "Test Case ID": "5L-030",
+        "Test Case": "Verify that the 'MY TOP WINS' tab displays a table of the user's highest wins.",
+        "Test Procedures/Steps": [
+            "1. Open the 'Pragmatic Replay' modal.",
+            "2. Click on the 'MY TOP WINS' tab."
+        ],
+        "Expected Outcome": "A table is displayed showing the user's highest wins, using the same column format (Time, Bet ID, WinX, Bet, Win, Link, Watch) to review top performance."
+    },
+    {
+        "Test Case ID": "5L-031",
+        "Test Case": "Verify that clicking the 'LOBBY' icon redirects the user to the Pragmatic Play games lobby screen.",
+        "Test Procedures/Steps": [
+            "1. Open the left sidebar menu.",
+            "2. Click the 'LOBBY' (four squares) icon."
+        ],
+        "Expected Outcome": "The current game closes, and the user is successfully redirected to the main Pragmatic Play lobby screen."
+    },
+    {
+        "Test Case ID": "5L-032",
+        "Test Case": "Verify that the Pragmatic Play lobby screen displays the correct navigation menu and game grid.",
+        "Test Procedures/Steps": [
+            "1. Navigate to the Pragmatic Play lobby screen.",
+            "2. Observe the left sidebar and the main content area on the right."
+        ],
+        "Expected Outcome": "The left sidebar should display the Pragmatic Play logo and a menu containing options for 'For You', 'Search', 'New', 'Slots', and 'More' (which contains exit options). The right side should display a grid of game cards under 'Recommended Games'."
+    },
+    {
+        "Test Case ID": "5L-033",
+        "Test Case": "Verify that the balance amount displayed in the Pragmatic Play lobby matches the main website wallet balance.",
+        "Test Procedures/Steps": [
+            "1. Navigate to the Pragmatic Play lobby screen.",
+            "2. Check the numeric balance amount shown at the bottom of the left navigation menu.",
+            "3. Look at the top right header of the main website to view the primary wallet balance.",
+            "4. Compare the two amounts."
+        ],
+        "Expected Outcome": "The balance amount displayed at the bottom left of the lobby must exactly match the total wallet balance shown in the top right header."
+    },
+    {
+        "Test Case ID": "5L-034",
+        "Test Case": "Verify that for playing the game, the user can spin the reels manually by clicking the main circular spin button.",
+        "Test Procedures/Steps": [
+            "1. Ensure a valid bet amount is set.",
+            "2. Locate the large circular spin button with two arrows at the bottom right of the screen.",
+            "3. Click the spin button once."
+        ],
+        "Expected Outcome": "The reels spin and then stop to reveal the outcome, confirming the user can play the game manually."
+    },
+    {
+        "Test Case ID": "5L-035",
+        "Test Case": "Verify that for playing the game, the user can spin the reels automatically using the configured Autoplay feature.",
+        "Test Procedures/Steps": [
+            "1. Click the 'AUTOPLAY' text to open the settings.",
+            "2. Select a number of autospins using the slider.",
+            "3. Click the green 'START AUTOPLAY' button.",
+            "4. Do not click anything else and observe the game."
+        ],
+        "Expected Outcome": "The reels spin automatically for the specified number of rounds without requiring the user to click the manual spin button."
+    },
+    {
+        "Test Case ID": "5L-036",
+        "Test Case": "Verify that for playing the game, the user can initiate a Turbo Spin by holding down the Spacebar on their keyboard.",
+        "Test Procedures/Steps": [
+            "1. Observe the text instruction 'HOLD SPACE FOR TURBO SPIN' at the bottom center of the game screen.",
+            "2. Press and hold the Spacebar on your physical keyboard."
+        ],
+        "Expected Outcome": "The reels spin at a much faster (turbo) speed to play the game quickly, and continue to do so as long as the spacebar is held down."
+    },
+    {
+        "Test Case ID": "5L-037",
+        "Test Case": "Verify that placing a bet instantly deducts the wager amount simultaneously from the in-game 'CREDIT' and the main top-right header wallet.",
+        "Test Procedures/Steps": [
+            "1. Note the current balance shown in the in-game 'CREDIT' area and the top-right header wallet.",
+            "2. Note the current 'BET' amount.",
+            "3. Click the spin button to place the bet.",
+            "4. Immediately check both balance areas."
+        ],
+        "Expected Outcome": "The exact bet amount is deducted from the in-game 'CREDIT' and the top-right header wallet in perfect synchronization, ensuring both amounts match."
+    },
+    {
+        "Test Case ID": "5L-038",
+        "Test Case": "Verify that winning a spin instantly adds the won amount simultaneously to the in-game 'CREDIT' and the main top-right header wallet.",
+        "Test Procedures/Steps": [
+            "1. Play the game until a winning combination lands.",
+            "2. Note the amount shown in the 'WIN' section.",
+            "3. Check the updated balances in the in-game 'CREDIT' area and the top-right header wallet."
+        ],
+        "Expected Outcome": "The exact won amount is added to both the in-game 'CREDIT' and the main top-right header wallet simultaneously, ensuring perfect synchronization across the UI."
+    },
+    {
+        "Test Case ID": "5L-039",
+        "Test Case": "Verify that an 'Info' warning modal appears with a countdown timer after a period of user inactivity.",
+        "Test Procedures/Steps": [
+            "1. Leave the game open.",
+            "2. Do not interact with the screen, keyboard, or mouse for a set period of time (e.g., a few minutes).",
+            "3. Observe the center of the screen."
+        ],
+        "Expected Outcome": "A white 'Info' modal pops up stating 'You've been inactive for a while' and displays a live countdown timer showing minutes and seconds remaining."
+    },
+    {
+        "Test Case ID": "5L-040",
+        "Test Case": "Verify that clicking the 'Keep Playing' button on the inactivity modal resumes the active session.",
+        "Test Procedures/Steps": [
+            "1. Wait for the white 'Info' inactivity modal to appear on the screen.",
+            "2. Click the green 'Keep Playing' button inside the modal."
+        ],
+        "Expected Outcome": "The inactivity modal closes, the timer stops, and the user can continue playing the game normally without losing their session."
+    },
+    {
+        "Test Case ID": "5L-041",
+        "Test Case": "Verify that clicking the 'Log Out' button on the inactivity modal ends the session immediately.",
+        "Test Procedures/Steps": [
+            "1. Wait for the white 'Info' inactivity modal to appear on the screen.",
+            "2. Click the red 'Log Out' button inside the modal."
+        ],
+        "Expected Outcome": "The game session ends immediately, and the user is logged out of their current session."
+    },
+    {
+        "Test Case ID": "5L-042",
+        "Test Case": "Verify that allowing the inactivity countdown timer to reach zero triggers the 'Please Log In' session expiration modal.",
+        "Test Procedures/Steps": [
+            "1. Wait for the white 'Info' inactivity modal to appear on the screen.",
+            "2. Do not click any buttons.",
+            "3. Let the countdown timer run out to 0:00."
+        ],
+        "Expected Outcome": "The screen darkens, and a dark 'Please Log In' modal appears stating 'Your session has expired or you need to log in to continue playing.'"
+    },
+    {
+        "Test Case ID": "5L-043",
+        "Test Case": "Verify that clicking the 'OKAY' button on the 'Please Log In' modal redirects the user to the application's login page.",
+        "Test Procedures/Steps": [
+            "1. Wait for the dark 'Please Log In' session expiration modal to appear.",
+            "2. Click the golden 'OKAY' button inside the modal."
+        ],
+        "Expected Outcome": "The user is redirected entirely out of the gaming interface and lands on the main application login page."
+    },
+    {
+        "Test Case ID": "5L-044",
+        "Test Case": "Verify that the user can see the 'iCasino' option under the 'Bet History' menu in the header.",
+        "Test Procedures/Steps": [
+            "1. Look at the top navigation header.",
+            "2. Click or hover over the 'Bet History' dropdown menu."
+        ],
+        "Expected Outcome": "The dropdown menu opens and the 'iCasino' bet history option is clearly visible to the user."
+    },
+    {
+        "Test Case ID": "5L-045",
+        "Test Case": "Verify that the iCasino Bet History page contains date and status filters with a search button.",
+        "Test Procedures/Steps": [
+            "1. Click on 'iCasino' under the 'Bet History' menu to open the page.",
+            "2. Observe the top section of the 'iCasino Bet History' page."
+        ],
+        "Expected Outcome": "The page displays filter fields for 'Date From', 'Date To', and a 'Status' dropdown, along with a green 'Search' button."
+    },
+    {
+        "Test Case ID": "5L-046",
+        "Test Case": "Verify that the iCasino Bet History cards display all correct details for both played and won bets.",
+        "Test Procedures/Steps": [
+            "1. Navigate to the 'iCasino Bet History' page.",
+            "2. Look at the list of bet cards displayed below the filters."
+        ],
+        "Expected Outcome": "Each card displays the 'Ref Number', 'Game' (e.g., 5 Lions), 'Round ID', 'Date', and 'Bet Amount'. Winning cards also display a 'Winning Amount' and a green 'WON' trophy badge, while non-winning cards show a blue 'PLAYED' slot machine badge."
+    },
+    {
+        "Test Case ID": "5L-047",
+        "Test Case": "Verify that the 'Transaction' menu is present in the top header.",
+        "Test Procedures/Steps": [
+            "1. Look at the main top navigation header from any screen in the application."
+        ],
+        "Expected Outcome": "The 'Transaction' menu item is clearly visible in the header next to 'Bet History'."
+    },
+    {
+        "Test Case ID": "5L-048",
+        "Test Case": "Verify that clicking the 'Transaction' menu redirects the user to the Transaction Summary page.",
+        "Test Procedures/Steps": [
+            "1. Click on the 'Transaction' menu item in the top header."
+        ],
+        "Expected Outcome": "The user is successfully redirected to the 'Transaction Summary' page."
+    },
+    {
+        "Test Case ID": "5L-049",
+        "Test Case": "Verify that the user can filter the Transaction Summary by selecting 'iCasino' in the Platform Type.",
+        "Test Procedures/Steps": [
+            "1. Navigate to the 'Transaction Summary' page.",
+            "2. Observe the filter options at the top (Date From, Date To, Platform Type, Transaction Type, Status).",
+            "3. Click the 'Platform Type' dropdown and select 'iCasino'.",
+            "4. Click the green 'Search' button."
+        ],
+        "Expected Outcome": "The system applies the filters and the transaction list updates to show only the records associated with the 'iCasino' platform."
+    },
+    {
+        "Test Case ID": "5L-050",
+        "Test Case": "Verify that the Transaction Summary cards display all correct transaction data fields.",
+        "Test Procedures/Steps": [
+            "1. Navigate to the 'Transaction Summary' page.",
+            "2. Look at the individual transaction cards listed below the search filters."
+        ],
+        "Expected Outcome": "Each card clearly displays the transaction 'ID', 'Time', 'Platform Type', 'Status' (e.g., COMPLETED), 'Amount', 'Date', and 'Transaction Type' (e.g., Debit or Winnings), along with a green checkmark icon on the right."
+    }
+]
